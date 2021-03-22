@@ -1,6 +1,8 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Header from './components/header'
+import Header from './components/Header';
+import LogIn from './components/LogIn';
+import Register from './components/Register';
 
 function App() {
   return (
@@ -8,16 +10,12 @@ function App() {
     <Router>
       <Header />
       <Switch>
-        <Route path="/playLists/:playList/:song" component='' />
-        <Route path="/playLists/:playList" component='' />
-        <Route path="/playLists" component='' />
-        <Route path="/otherUsers/:user" component='' />
-        <Route path="/otherUsers" component='' />
-        <Route path="/:userId" component='' />
-        <Route path="/upload" component='' />
-        <Route path="/search" component='' />
-        <Route path="/login" component='' />
-        <Route path="/register" component='' />
+        <Route path="/Users/:user" component='' />
+        <Route path="/Users" component='' />
+        <Route path="/Upload" component='' />
+        <Route path="/AllTracks" component='' />
+        <Route path="/LogIn" component={LogIn} />
+        <Route path="/Register" component={Register} />
         <Route path="/" exact component='' />
         <Route component='' />
       </Switch>

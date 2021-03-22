@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles(() => ({
@@ -40,22 +40,21 @@ export default function Header() {
     return (
         <div className={classes.root}>
             <div className={classes.navBar}>
-                <h3>Soundcloud</h3>
-                <Link className={classes.links}>Home</Link>
-                <Link className={classes.links}>Stream</Link>
-                <Link className={classes.links}>Library</Link>
+                <h3>Sound Cloud</h3>
+                <Link className={classes.links} href="/">Home</Link>
+                <Link className={classes.links} href="/AllTracks">All Tracks</Link>
+                <Link className={classes.links} href="/Users">Users</Link>
             </div>
             <div className={classes.search}>
                 <div>
                     <SearchIcon />
                 </div>
-                <input type='text' />
+                <input id="search"/>
             </div>
             <div className={classes.buttons}>
-                <button>Login</button>
-                <button>Register</button>
+            <Link className={classes.links} href="/LogIn">Log In</Link>
+            <Link className={classes.links} href="/Register">Register</Link>
             </div>
-
         </div >
     );
 }
