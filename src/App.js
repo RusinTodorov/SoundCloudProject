@@ -1,27 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router,  Route, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Header from './components/header'
 
 function App() {
   return (
 
-    <Router history={hashHistory}>
+    <Router>
+      <Header />
       <Switch>
-          <Route path="/playLists/:playList/:song" component={PlaySong} />
-          <Route path="/playLists/:playList" component={PlayList} />
-          <Route path="/playLists" component={PlayLists} />
-          <Route path="/otherUsers/:user" component={OtherUser} />
-          <Route path="/otherUsers" component={OtherUsers} />
-          <Route path="/:userId" component={User} />
-          <Route path="/upload" component={Upload} />
-          <Route path="/search" component={Search} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/" exact component={Home} />
-          <Route component={NotFoundRoute} />
+        <Route path="/playLists/:playList/:song" component='' />
+        <Route path="/playLists/:playList" component='' />
+        <Route path="/playLists" component='' />
+        <Route path="/otherUsers/:user" component='' />
+        <Route path="/otherUsers" component='' />
+        <Route path="/:userId" component='' />
+        <Route path="/upload" component='' />
+        <Route path="/search" component='' />
+        <Route path="/login" component='' />
+        <Route path="/register" component='' />
+        <Route path="/" exact component='' />
+        <Route component='' />
       </Switch>
 
-    </Router>
+    </Router >
 
   );
 }
