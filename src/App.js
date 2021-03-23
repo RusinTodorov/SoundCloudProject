@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import LogIn from './components/LogIn';
 import Register from './components/Register';
 
@@ -19,7 +20,7 @@ function App() {
         <Route path="/" exact component='' />
         <Route component='' />
       </Switch>
-
+      <Footer />
     </Router >
 
   );
