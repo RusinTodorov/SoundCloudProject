@@ -6,7 +6,6 @@ import transperantLogo from '../data/logos/transperantLogo.png'
 
 const useStyles = makeStyles(() => ({
     root: {
-        width: 1250,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
@@ -56,14 +55,13 @@ export default function Header() {
                 <img className={classes.logo} src={transperantLogo} alt='logo'></img>
                 <h3 className={classes.title}>SoundCloud</h3>
                 <Link className={classes.links} href="/">Home</Link>
-                <Link className={classes.links} href="/AllTracks">All Tracks</Link>
                 <Link className={classes.links} href="/Users">Users</Link>
             </div>
             <div className={classes.search}>
                 <div>
                     <SearchIcon />
                 </div>
-                <input placeholder='Search for artists, bands, track, podcasts' className={classes.input} id="search" />
+                <input placeholder='Search for Artists, Bands and tracks...' className={classes.input} id="search" />
             </div>
             <div className={classes.buttons}>
                 <Link className={classes.links} href="/Upload">Upload</Link>

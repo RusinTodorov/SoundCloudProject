@@ -4,7 +4,11 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import LogIn from './components/LogIn';
 import Register from './components/Register';
-import Home from './components/Home Page/Home'
+import Home from './components/Home Page/Home';
+import Users from './components/Users';
+import Search from './components/Search';
+import Upload from './components/Upload';
+import PageNotFound from './components/PageNotFound';
 
 function App() {
   return (
@@ -12,14 +16,14 @@ function App() {
     <Router>
       <Header />
       <Switch>
-        <Route path="/Users/:user" component='' />
-        <Route path="/Users" component='' />
-        <Route path="/Upload" component='' />
-        <Route path="/AllTracks" component='' />
+        <Route path="/Search" component={Search} />
+        <Route path="/Users" component={Users} />
+        <Route path="/Upload" component={Upload} />
+        <Route path="/Home" component={Home} />
         <Route path="/LogIn" component={LogIn} />
         <Route path="/Register" component={Register} />
         <Route path="/" exact component={Home} />
-        <Route component='' />
+        <Route component={PageNotFound} />
       </Switch>
       {/* <Footer /> */}
     </Router >
