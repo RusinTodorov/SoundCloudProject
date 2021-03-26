@@ -9,6 +9,7 @@ import Users from './components/Users';
 import Search from './components/Search';
 import Upload from './components/Upload';
 import PageNotFound from './components/PageNotFound';
+import Track from './components/Track'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Switch>
         <Route path="/Search" component={Search} />
         <Route path="/Users" component={Users} />
+        <Route path="/Track" component={Track} />
         <Route path="/Upload" component={Upload} />
         <Route path="/Home" component={Home} />
         <Route path="/LogIn" component={LogIn} />

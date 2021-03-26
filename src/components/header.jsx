@@ -56,6 +56,7 @@ export default function Header() {
                 <h3 className={classes.title}>SoundCloud</h3>
                 <Link className={classes.links} href="/">Home</Link>
                 <Link className={classes.links} href="/Users">Users</Link>
+                <Link className={classes.links} href="/Track">Track</Link>
             </div>
             <div className={classes.search}>
                 <div>
