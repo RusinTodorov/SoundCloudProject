@@ -7,32 +7,37 @@ import sixnineImage from './sixnine.jpg'
 import song from './Jeremih - Birthday Sex.mp3'
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { logDOM } from '@testing-library/dom';
 
 const Track = () => {
     let [isPlay, setIsPlay] = useState(true);
-    let [track, setTrack] = useState(null);
+    let [track, setTrack] = useState();
     let [currTime, setCurrTime] = useState('00:00')
     let [duration, setDuration] = useState('00:00')
     let [sliderMaxValue, setSliderMaxValue] = useState(100);
+    let [sliderValue, setSliderValue] = useState(0);
+    let [volume, setVolume] = useState(100)
 
     useEffect(() => {
         // track.audioEl.current.currentTime;
-        console.log(track)
     }, [track])
 
     const togglePlay = () => {
 
         if (isPlay) {
-            new Audio(track.props.src).play();
-            console.log(track)
+            track.audioEl.current.play();
+
+            console.log(track);
+
+            // audio.play();
             setIsPlay(false);
         } else {
+            track.audioEl.current.pause();
             setIsPlay(true);
         }
     };
 
     const calculateTime = (secs) => {
-        console.log('secs', secs);
         const minutes = Math.floor(secs / 60);
         const seconds = Math.floor(secs % 60);
         const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
@@ -71,24 +76,23 @@ const Track = () => {
                         </div>
                     </div>
                     <div className={styles.audioPlayer}>
-
                         <ReactAudioPlayer
                             ref={(element) => setTrack(element)}
                             src={song}
                             preload='metadata'
-                            autoPlay
                             controls
                             onLoadedMetadata={() => {
                                 setDuration(calculateTime(track.audioEl.current.duration))
                                 setSliderMaxValue(Math.floor(track.audioEl.current.duration))
                             }}
-
                             listenInterval={900}
                             onListen={() => {
+                                setSliderValue(track.audioEl.current.currentTime)
+
                                 let time = calculateTime(track.audioEl.current.currentTime);
                                 setCurrTime(time)
-                                // console.log()
                             }}
+                            volume={volume / 100}
                         />
 
                         <div className={styles.timeSpansContainer}>
@@ -97,14 +101,20 @@ const Track = () => {
                             <span id="duration" className={styles.timeSpan}>{duration}</span>
                         </div>
 
-                        <input type="range" id="seek-slider" max={sliderMaxValue} defaultValue="0" onChange={(ev) => {
+                        <input type="range" id="seek-slider" max={sliderMaxValue} value={sliderValue} onChange={(ev) => {
                             let time = calculateTime(ev.target.value);
-                            setCurrTime(time);
+                            setCurrTime(time)
+
+                            setSliderValue(ev.target.value);
+                            track.audioEl.current.currentTime = ev.target.value;
                         }} />
 
-                        <input type="range" id="volume-slider" max="100" defaultValue="100" />
+                        <input type="range" id="volume-slider" max="100" value={volume} onChange={(ev) => {
+                            track.audioEl.current.volume = ev.target.value / 100;
+                            setVolume(ev.target.value)
+                        }} />
 
-                        <output id="volume-output">Volume: 100</output>
+                        <output id="volume-output">Volume: {volume}</output>
 
                     </div>
                 </div>
