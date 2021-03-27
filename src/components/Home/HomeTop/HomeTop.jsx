@@ -11,7 +11,12 @@ export default function HomeTop() {
                 <div className={style.topRightDiv}>
                     <Link to="/SignIn" className={style.singInLink}>Sign in</Link>
                     <Link to="/CreateAccount" className={style.createAccountLink}>Create account</Link>
-                    <Link to="https://creators.soundcloud.com" target="_blank" className={style.creatorsLink}>For Creators</Link>
+                    <a href="https://creators.soundcloud.com" 
+                    target="_blank" 
+                    className={style.creatorsLink}
+                    rel="noreferrer">
+                        For Creators
+                    </a>
                 </div>
                 <div className={style.topDivCenter}>
                     <h2 className={style.topDivCenterTitle}>Connect on SoundCloud</h2>

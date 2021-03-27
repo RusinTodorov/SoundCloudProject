@@ -1,0 +1,82 @@
+.signupModule {
+    text-align: center;
+    height: 375px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    background-color: white;
+}
+
+.title {
+    font-size: 36px;
+}
+
+.datails {
+    font-size: 24px;
+    margin-top: 7px;
+    margin: 0 0 10px;
+}
+
+.signUpP {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.signUpLink {
+    font-size: 18px;
+    height: 46px;
+    padding: 13px 23px;
+    min-width: 200px;
+    transition: opacity .2s linear;
+    background-color: #f50;
+    border-color: #f50;
+    color: #fff;
+    line-height: 18px;
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    font-weight: 100;
+    text-align: center;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+.signUpLink:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.signInP {
+    margin: 5px 10px 10px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.signInLink {
+    margin-left: 10px;
+    vertical-align: middle;
+    transition: opacity .2s linear;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 10px 15px;
+    height: 40px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    color: #333;
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.signInLink:hover {
+    text-decoration: none;
+    color: #333;
+}
