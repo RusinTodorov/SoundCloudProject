@@ -4,6 +4,14 @@ import { useEffect } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import Waveform from './Wavefrom'
 
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+import VolumeOffIcon from '@material-ui/icons/VolumeOff';
+import Tooltip from '@material-ui/core/Tooltip';
+
 import styles from './track.module.scss'
 
 import song from './Rod Wave - Street Runner.mp3'
@@ -20,7 +28,7 @@ let trackObj = {
 
 
 const SingleTrack = () => {
-    let [isPlay, setIsPlay] = useState(true);
+    let [isPlaying, setIsPlaying] = useState(true);
     let [track, setTrack] = useState();
     let [currTime, setCurrTime] = useState('00:00')
     let [duration, setDuration] = useState('00:00')
@@ -37,16 +45,16 @@ const SingleTrack = () => {
 
     const togglePlay = () => {
 
-        if (isPlay) {
+        if (isPlaying) {
             track.audioEl.current.play();
 
             console.log(track);
 
             // audio.play();
-            setIsPlay(false);
+            setIsPlaying(false);
         } else {
             track.audioEl.current.pause();
-            setIsPlay(true);
+            setIsPlaying(true);
         }
     };
 
@@ -88,6 +96,9 @@ const SingleTrack = () => {
                 Helloooo
                 <button onClick={togglePlay}>Play</button>
                 <button onClick={muteSong}>Mute</button>
+                <button onClick={() => {
+                    console.log(!!track.audioEl.current.volume);
+                }}>Check</button>
                 <div className={styles.audioPlayer}>
                     <ReactAudioPlayer
                         ref={(element) => setTrack(element)}
@@ -111,25 +122,9 @@ const SingleTrack = () => {
                         volume={volume / 100}
                     />
 
-                    <div className={styles.timeSpansContainer}>
-                        <span id="current-time" className={styles.timeSpan}>{currTime}</span>
-                        <span>/</span>
-                        <span id="duration" className={styles.timeSpan}>{duration}</span>
-                    </div>
+
                     <div className={styles.timeRange}>
-                        <input
-                            type="range"
-                            style={{ "--webkitProgressPercent": `${progressPercent}%` }}
-                            max={sliderMaxValue} value={sliderValue}
-                            onChange={(ev) => {
-                                let time = calculateTime(ev.target.value);
-                                setCurrTime(time)
 
-                                setSliderValue(ev.target.value);
-                                track.audioEl.current.currentTime = ev.target.value;
-
-                                changeProgressPercent();
-                            }} />
                     </div>
                     <div>
                         <input
@@ -151,7 +146,73 @@ const SingleTrack = () => {
             </div>
 
             <div className={styles.trackBar}>
+                <div className={styles.audioBtns}>
+                    <SkipPreviousIcon />
 
+                    {isPlaying ?
+                        <PlayArrowIcon
+                            style={{ cursor: 'pointer' }}
+                            onClick={togglePlay}
+
+                        /> :
+                        <PauseIcon
+                            style={{ cursor: 'pointer' }}
+                            onClick={togglePlay}
+
+                        />}
+
+                    <SkipNextIcon />
+                </div>
+                <div className={styles.time}>
+
+                    <span className={styles.currTime}>{currTime}</span>
+                    <div className={styles.timeRange}>
+                        <input
+                            type="range"
+                            style={{ "--webkitProgressPercent": `${progressPercent}%` }}
+                            max={sliderMaxValue} value={sliderValue}
+                            onChange={(ev) => {
+                                let time = calculateTime(ev.target.value);
+                                setCurrTime(time)
+
+                                setSliderValue(ev.target.value);
+                                track.audioEl.current.currentTime = ev.target.value;
+
+                                changeProgressPercent();
+                            }} />
+                    </div>
+                    <span className={styles.duration}>{duration}</span>
+                </div>
+                <div className={styles.volume} onMouseOver={() => console.log('yes')}>
+
+                    <div className={styles.mute}>
+                        {isMuted || !Number(volume) ?
+                            <VolumeOffIcon
+                                onClick={muteSong}
+                                style={{ cursor: 'pointer' }}
+                            /> :
+                            <VolumeUpIcon
+                                onClick={muteSong}
+                                style={{ cursor: 'pointer' }}
+                            />
+                        }
+                    </div>
+
+
+                    <div className={styles.volumeRange}>
+                        <input
+                            type="range"
+                            className={styles.volumeRange}
+                            style={{ "--webkitProgressPercent": `${volumePercent}%` }}
+                            max="100" value={volume}
+                            onChange={(ev) => {
+                                track.audioEl.current.volume = ev.target.value / 100;
+                                setVolume(ev.target.value)
+
+                                changeVolumePercent();
+                            }} />
+                    </div>
+                </div>
             </div>
 
         </div>

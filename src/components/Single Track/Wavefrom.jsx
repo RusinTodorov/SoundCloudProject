@@ -38,8 +38,6 @@ class Waveform extends React.PureComponent {
             cursorColor: 'transparent',
         });
 
-        console.log('ww', this.waveform);
-
         this.waveform.load(this.state.song);
 
     };

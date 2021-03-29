@@ -125,17 +125,12 @@
     flex-direction: column;
     color: white;
 
-    .timeSpansContainer {
-        display: flex;
-        font-weight: bold;
-        color: #fe5e0d;
-    }
+    
     
 }
 
 .test {
-    background-color: #f2f2f2;
-    border: 2px solid red;
+    background-color: lightblue;
     height: 200px;
     margin-top: 20px;
 
@@ -175,12 +170,93 @@
           input[type=range]:focus::-webkit-slider-runnable-track {
             // background: #dbdbdb;
           }
-          
-          .volumeRange {
-           
-          }
-          
-          
+}
 
-    
+.trackBar {
+    background-color: #f2f2f2;
+    border: 2px solid springgreen;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+
+    .audioBtns {
+        width: 90px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .time {
+        margin-left: 20px;
+        width: 576px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .currTime, 
+        .duration {
+            font-size: 12px;
+        }
+
+        .timeRange {
+            width: 512px;
+            display: flex;
+            align-items: flex-start;
+
+           
+        }
+    }
+
+    .volume {
+        margin-left: 20px;
+        display: flex;
+         align-items: center;
+
+
+        .volumeRange {
+          margin-left: 5px;
+          width: 100px;
+          display: flex;
+          align-items: center;
+        }
+    }
+
+    input[type=range] {
+        width: 100%;
+        margin: 3.9px 0;
+        background-color: transparent;
+        -webkit-appearance: none;
+        --webkitProgressPercent: 0%;
+      }
+      input[type=range]:focus {
+        outline: none;
+      }
+      input[type=range]::-webkit-slider-runnable-track {
+        // background: #dbdbdb;
+        background-image: linear-gradient(
+            90deg,
+            #fe5e0d var(--webkitProgressPercent),
+            #dbdbdb var(--webkitProgressPercent)
+          );
+        border: 0.2px solid rgba(1, 1, 1, 0);
+        border-radius: 10.8px;
+        width: 100%;
+        height: 3.2px;
+        cursor: pointer;
+      }
+      input[type=range]::-webkit-slider-thumb {
+        margin-top: -4.1px;
+        width: 11px;
+        height: 11px;
+        background: #fe5e0d;
+        border: 1px solid rgba(0, 0, 0, 0);
+        border-radius: 40px;
+        cursor: pointer;
+        -webkit-appearance: none;
+      }
+      input[type=range]:focus::-webkit-slider-runnable-track {
+        // background: #dbdbdb;
+      }
+
 }
