@@ -27,6 +27,9 @@ const SingleTrack = () => {
     let [sliderMaxValue, setSliderMaxValue] = useState(100);
     let [sliderValue, setSliderValue] = useState(0);
     let [volume, setVolume] = useState(100)
+    let [isMuted, setIsMuted] = useState(false)
+    let [progressPercent, setProgressPercent] = useState(0)
+    let [volumePercent, setVolumePercent] = useState(100);
 
     useEffect(() => {
         // track.audioEl.current.currentTime;
@@ -54,11 +57,37 @@ const SingleTrack = () => {
         return `${minutes}:${returnedSeconds}`;
     }
 
+    const muteSong = () => {
+        if (isMuted) {
+            track.audioEl.current.muted = false
+        } else {
+            track.audioEl.current.muted = true
+        }
+
+        setIsMuted(!isMuted);
+    }
+
+    const changeProgressPercent = () => {
+        const percent =
+            ((sliderValue) / (sliderMaxValue)) *
+            100;
+        setProgressPercent(percent);
+    }
+
+    const changeVolumePercent = () => {
+        const percent =
+            ((volume) / 100) *
+            100;
+        setVolumePercent(percent);
+    }
+
     return (
         <div>
             <Waveform track={trackObj} />
-            <div className={styles.wave}>
+            <div className={styles.test}>
                 Helloooo
+                <button onClick={togglePlay}>Play</button>
+                <button onClick={muteSong}>Mute</button>
                 <div className={styles.audioPlayer}>
                     <ReactAudioPlayer
                         ref={(element) => setTrack(element)}
@@ -75,6 +104,9 @@ const SingleTrack = () => {
 
                             let time = calculateTime(track.audioEl.current.currentTime);
                             setCurrTime(time)
+
+                            changeProgressPercent();
+
                         }}
                         volume={volume / 100}
                     />
@@ -84,23 +116,42 @@ const SingleTrack = () => {
                         <span>/</span>
                         <span id="duration" className={styles.timeSpan}>{duration}</span>
                     </div>
+                    <div className={styles.timeRange}>
+                        <input
+                            type="range"
+                            style={{ "--webkitProgressPercent": `${progressPercent}%` }}
+                            max={sliderMaxValue} value={sliderValue}
+                            onChange={(ev) => {
+                                let time = calculateTime(ev.target.value);
+                                setCurrTime(time)
 
-                    <input type="range" id="seek-slider" max={sliderMaxValue} value={sliderValue} onChange={(ev) => {
-                        let time = calculateTime(ev.target.value);
-                        setCurrTime(time)
+                                setSliderValue(ev.target.value);
+                                track.audioEl.current.currentTime = ev.target.value;
 
-                        setSliderValue(ev.target.value);
-                        track.audioEl.current.currentTime = ev.target.value;
-                    }} />
+                                changeProgressPercent();
+                            }} />
+                    </div>
+                    <div>
+                        <input
+                            type="range"
+                            className={styles.volumeRange}
+                            style={{ "--webkitProgressPercent": `${volumePercent}%` }}
+                            max="100" value={volume}
+                            onChange={(ev) => {
+                                track.audioEl.current.volume = ev.target.value / 100;
+                                setVolume(ev.target.value)
 
-                    <input type="range" id="volume-slider" max="100" value={volume} onChange={(ev) => {
-                        track.audioEl.current.volume = ev.target.value / 100;
-                        setVolume(ev.target.value)
-                    }} />
+                                changeVolumePercent();
+                            }} />
+                    </div>
 
-                    <output id="volume-output">Volume: {volume}</output>
+                    <output>Volume: {volume}</output>
 
                 </div>
+            </div>
+
+            <div className={styles.trackBar}>
+
             </div>
 
         </div>
@@ -109,3 +160,56 @@ const SingleTrack = () => {
 }
 
 export default SingleTrack;
+
+// const RangeInput = ({
+//     min = 0,
+//     max = 100,
+//     step = 1,
+//     defaultValue = 0,
+//     onChange = () => { }
+// }) => {
+//     const inputRef = useRef();
+//     const [isChanging, setIsChanging] = useState(false);
+
+//     useEffect(() => {
+//         const inputElement = inputRef.current;
+
+//         const handleMove = () => {
+//             if (!isChanging) return;
+//             const percent =
+//                 ((inputElement.value - inputElement.min) /
+//                     (inputElement.max - inputElement.min)) *
+//                 100;
+//             inputElement.style.setProperty("--webkitProgressPercent", `${percent}%`);
+//         };
+//         const handleUpAndLeave = () => setIsChanging(false);
+//         const handleDown = () => setIsChanging(true);
+
+//         inputElement.addEventListener("mousemove", handleMove);
+//         inputElement.addEventListener("mousedown", handleDown);
+//         inputElement.addEventListener("mouseup", handleUpAndLeave);
+//         inputElement.addEventListener("mouseleave", handleUpAndLeave);
+//         return () => {
+//             inputElement.removeEventListener("mousemove", handleMove);
+//             inputElement.removeEventListener("mousedown", handleDown);
+//             inputElement.removeEventListener("mouseup", handleUpAndLeave);
+//             inputElement.removeEventListener("mouseleave", handleUpAndLeave);
+//         };
+//     }, [isChanging]);
+
+//     return (
+//         <div>
+//             <input
+//                 className="range"
+//                 type="range"
+//                 ref={inputRef}
+//                 min={min}
+//                 max={max}
+//                 step={step}
+//                 value={defaultValue}
+//                 onChange={e => onChange(e.currentTarget.value)}
+//             />
+//         </div>
+//     );
+// };
+
