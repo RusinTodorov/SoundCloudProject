@@ -1,6 +1,5 @@
 import React from 'react';
 import WaveSurfer from 'wavesurfer';
-import ReactAudioPlayer from 'react-audio-player';
 
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
@@ -13,15 +12,11 @@ import jer from './Jeremih - Birthday Sex.mp3'
 class Waveform extends React.PureComponent {
 
     state = {
-        audioEl: '',
-        duration: '0:00',
-        currTime: '0:00',
-        song: this.props.track.song,
         image: this.props.track.image,
         title: this.props.track.title,
         author: this.props.track.author,
         date: this.props.track.date,
-        playing: false,
+
     }
 
     componentDidMount() {
@@ -38,41 +33,31 @@ class Waveform extends React.PureComponent {
             cursorColor: 'transparent',
         });
 
-        this.waveform.load(this.state.song);
+        this.waveform.load(this.props.song.current.src);
 
+        this.waveform.setMute(true)
+
+        this.waveform.on('seek', (ev) => {
+            this.props.onSeek(this.waveform.getCurrentTime())
+        });
+
+        this.waveform.backend.startPosition = this.props.timeInSecs;
     };
 
-    handlePlay = () => {
-        if (this.state.playing) {
-            this.state.audioEl.audioEl.current.pause();
-        } else {
-            this.state.audioEl.audioEl.current.play();
+    componentDidUpdate() {
+        if (this.props.isPlaying) {
+            this.waveform.pause();
+        } else if (!this.props.isPlaying) {
+            this.waveform.play();
         }
 
-        this.setState({ playing: !this.state.playing });
-        this.waveform.playPause();
+        this.waveform.backend.startPosition = this.props.timeInSecs;
+
+    }
+
+    handlePlay = () => {
+        this.props.onPlay();
     };
-
-
-    calculateTime = (secs) => {
-        const minutes = Math.floor(secs / 60);
-        const seconds = Math.floor(secs % 60);
-        const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
-        return `${minutes}:${returnedSeconds}`;
-    }
-
-    renderPlayBtn = () => {
-
-        return this.state.playing ? <PauseCircleFilledIcon
-            className={styles.playBtn}
-            fontSize='large'
-            onClick={this.handlePlay}
-        /> : <PlayCircleFilledIcon
-            className={styles.playBtn}
-            fontSize='large'
-            onClick={this.handlePlay}
-        />
-    }
 
     render() {
 
@@ -83,7 +68,15 @@ class Waveform extends React.PureComponent {
                         <div className={styles.playContainer}>
                             <span className={styles.playBtnSpan}></span>
 
-                            {this.renderPlayBtn()}
+                            {this.props.isPlaying ? <PlayCircleFilledIcon
+                                className={styles.playBtn}
+                                fontSize='large'
+                                onClick={this.handlePlay}
+                            /> : <PauseCircleFilledIcon
+                                className={styles.playBtn}
+                                fontSize='large'
+                                onClick={this.handlePlay}
+                            />}
 
                         </div>
                         <div className={styles.nameContainer}>
@@ -98,48 +91,30 @@ class Waveform extends React.PureComponent {
                             <p>{calculateDate(this.state.date)}</p>
                         </div>
                     </div>
-                    <button onClick={() => console.log(this.state.audioEl.currentTime)}>Click</button>
+
+                    <button onClick={() => {
+                        console.log('time in secs', this.props.timeInSecs)
+                        console.log(this.waveform.backend.startPosition)
+                    }}>Click</button>
 
                     <div className={styles.audioWavePlayer}>
                         <div className={styles.timeSpansContainer}>
                             <span style={{ marginTop: 3 }}>
-                                {this.state.currTime !== '0:00' && <span className={styles.currTime}>{this.state.currTime}</span>}
+                                {this.props.currTime !== '0:00' && <span className={styles.currTime}>{this.props.currTime}</span>}
                             </span>
-                            <span className={styles.duration}>{this.state.duration}</span>
+                            <span className={styles.duration}>{this.props.duration}</span>
                         </div>
                         <div className={styles.waveformContianer}>
+                            <div className={styles.wave} id="waveform">
 
-                            {/* 
-                            
-                            
-                            
-                            */}
-
-                            <div className={styles.wave} id="waveform"> </div>
-                            <ReactAudioPlayer
-                                style={{ display: 'none' }}
-                                ref={(element) => this.setState({ audioEl: element })}
-                                src={this.state.song}
-                                preload='metadata'
-                                controls
-                                onLoadedMetadata={() => {
-                                    this.setState({ duration: this.calculateTime(this.state.audioEl.audioEl.current.duration) })
-                                }}
-                                listenInterval={900}
-                                onListen={() => {
-                                    let time = this.calculateTime(this.state.audioEl.audioEl.current.currentTime);
-                                    this.setState({ currTime: time });
-                                }}
-                                muted={true}
-                            />
-                            {/* <audio src={this.state.song} ref={el => this.setState({ audioEl: el })} onTimeUpdate={(ev) => { console.log('asd') }} /> */}
+                            </div>
                         </div >
                     </div>
                 </div>
                 <div className={styles.imageContainer}>
                     <img src={this.state.image} alt='track' />
                 </div>
-            </div>
+            </div >
             //
 
         );
