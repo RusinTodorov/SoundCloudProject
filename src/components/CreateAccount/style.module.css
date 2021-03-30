@@ -1,0 +1,173 @@
+.divWraper {
+    margin: 0px auto;
+    margin-top: 100px;
+    margin-bottom: 36px;
+    display: flex;
+    flex-direction: column;
+    width: 460px;
+}
+
+.providerButtons {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.facebookBtn::before {
+    width: 15px;
+    height: 15px;
+    background-size: 15px;
+    margin-bottom: -2px;
+    content: "";
+    display: inline-block;
+    margin-right: .5em;
+    background-image: url('./Facebook.png');
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.facebookBtn {
+    margin-bottom: 10px;
+    color: #fff;
+    border-color: #3578e5;
+    background-color: #3578e5;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 10px 15px;
+    height: 40px;
+    display: inline-block;
+    position: relative;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    font-weight: 100;
+    text-align: center;
+    vertical-align: baseline;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.googleBtn::before {
+    width: 14px;
+    height: 14px;
+    background-size: 14px;
+    margin-bottom: -1px;
+    content: "";
+    display: inline-block;
+    margin-right: .5em;
+    background-image: url('./Google.svg');
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.googleBtn {
+    margin-bottom: 10px;
+    color: #222;
+    border-color: #ccc;
+    background-color: #fff;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 10px 15px;
+    height: 40px;
+    display: inline-block;
+    position: relative;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 100;
+    text-align: center;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+.appleBtn::before {
+    width: 12px;
+    height: 16px;
+    background-size: 22px;
+    margin-bottom: -2px;
+    content: "";
+    display: inline-block;
+    margin-right: .5em;
+    background-image: url('./Apple.svg');
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.appleBtn {
+    margin-bottom: 10px;
+    color: #fff;
+    border-color: #000;
+    background-color: #000;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 10px 15px;
+    height: 40px;
+    display: inline-block;
+    position: relative;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 100;
+    text-align: center;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+.or {
+    margin-bottom: 10px;
+    width: 400px;
+    color: black;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.form {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: 0;
+    padding: 0;
+    line-height: 1.462;
+    font-size: 12px;
+    color: #333;
+}
+
+.input {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    line-height: 1.462;
+    font-size: 16px;
+    color: #333;
+}
+
+.formSubmit {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #f50;
+    border-color: #f50;
+    color: #fff;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 10px 15px;
+    height: 40px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 100;
+    text-align: center;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+.bottomInfoP {
+    width: 400px;
+    margin-bottom: 6px;
+    font-weight: 100;
+    color: #999;
+    margin: 0 0 1em;
+    padding: 0;
+    font-style: normal;
+    font-size: 12px;
+}

@@ -1,0 +1,41 @@
+.mainDiv {
+    background-color: white;
+    margin-left: 30px;
+}
+
+.topDiv {
+    background-color: white;
+    padding-top: 50px;
+    margin-bottom: 24px;
+    width: 1213px;
+}
+
+.topDivTitle {
+    margin-top: 30px;
+    margin-left: 30px;
+    font-size: 24px;
+    font-weight: 400;
+    color: black;
+}
+
+.topDivDetails {
+    margin-left: 30px;
+    font-weight: 100;
+    color: #999;
+    margin-top: 5px;
+}
+
+.gridDiv {
+    display: block;
+    padding-left: 6px;
+}
+
+.ul {
+    list-style: none;
+    margin-left: 8px;
+    padding: 0;
+    content: "";
+    display: flex;
+    flex-direction: row;
+    clear: both;
+}

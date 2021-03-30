@@ -7,7 +7,7 @@ import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
 import styles from './waveform.module.scss';
 import { calculateDate } from '../Utils/getDate';
 
-import jer from './Jeremih - Birthday Sex.mp3'
+// import jer from './Jeremih - Birthday Sex.mp3'
 
 class Waveform extends React.PureComponent {
 

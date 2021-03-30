@@ -124,28 +124,7 @@ const SingleTrack = () => {
 
                 }}>Check</button>
                 <div className={styles.audioPlayer}>
-                    <ReactAudioPlayer
-                        ref={(element) => setTrack(element)}
-                        src={song}
-                        preload='metadata'
-                        controls
-                        onLoadedMetadata={() => {
-                            setDuration(calculateTime(track.audioEl.current.duration))
-                            setSliderMaxValue(Math.floor(track.audioEl.current.duration))
-                        }}
-                        listenInterval={900}
-                        onListen={() => {
 
-                            setSliderValue(track.audioEl.current.currentTime)
-
-                            let time = calculateTime(track.audioEl.current.currentTime);
-                            setCurrTime(time)
-
-                            changeProgressPercent(track.audioEl.current.currentTime);
-
-                        }}
-                        volume={volume / 100}
-                    />
 
 
                     <div className={styles.timeRange}>
@@ -158,6 +137,30 @@ const SingleTrack = () => {
             </div>
 
             <div className={styles.trackBar}>
+                <ReactAudioPlayer
+                    style={{ display: 'none' }}
+                    className={styles.audioPlayer}
+                    ref={(element) => setTrack(element)}
+                    src={song}
+                    preload='metadata'
+                    controls
+                    onLoadedMetadata={() => {
+                        setDuration(calculateTime(track.audioEl.current.duration))
+                        setSliderMaxValue(Math.floor(track.audioEl.current.duration))
+                    }}
+                    listenInterval={900}
+                    onListen={() => {
+
+                        setSliderValue(track.audioEl.current.currentTime)
+
+                        let time = calculateTime(track.audioEl.current.currentTime);
+                        setCurrTime(time)
+
+                        changeProgressPercent(track.audioEl.current.currentTime);
+
+                    }}
+                    volume={volume / 100}
+                />
                 <div className={styles.audioBtns}>
                     <SkipPreviousIcon />
 
@@ -219,6 +222,12 @@ const SingleTrack = () => {
                                 const value = ev.target.value;
                                 track.audioEl.current.volume = value / 100;
                                 setVolume(value)
+
+                                if (value > 0 && track.audioEl.current.muted) {
+                                    track.audioEl.current.muted = false;
+                                    setIsMuted(false)
+                                }
+
 
                                 changeVolumePercent(value);
                             }} />
