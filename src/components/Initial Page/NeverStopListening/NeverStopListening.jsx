@@ -1,5 +1,4 @@
 import style from './style.module.css';
-import { Link } from 'react-router-dom';
 import img from './Never Stop Listening.jpg';
 import AppStoreBtn from './AppStoreBtn.png';
 import GooglePlayBtn from './GooglePlayBtn.png';
