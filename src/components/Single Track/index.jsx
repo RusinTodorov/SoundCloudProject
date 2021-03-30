@@ -10,7 +10,6 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
-import Tooltip from '@material-ui/core/Tooltip';
 
 import styles from './track.module.scss'
 
@@ -38,6 +37,8 @@ const SingleTrack = () => {
     let [isMuted, setIsMuted] = useState(false)
     let [progressPercent, setProgressPercent] = useState(0)
     let [volumePercent, setVolumePercent] = useState(100);
+    let [volumeRange, setVolumeRange] = useState(null);
+    let [previousVolume, setPreviousVolume] = useState(100);
 
     useEffect(() => {
         // track.audioEl.current.currentTime;
@@ -68,23 +69,39 @@ const SingleTrack = () => {
     const muteSong = () => {
         if (isMuted) {
             track.audioEl.current.muted = false
+
+            setVolume(previousVolume)
+            changeVolumePercent(previousVolume);
         } else {
             track.audioEl.current.muted = true
+            setPreviousVolume(volume)
+            setVolumePercent(0);
+            setVolume(0);
         }
 
         setIsMuted(!isMuted);
     }
 
-    const changeProgressPercent = () => {
+    const changeProgressPercent = (value) => {
         const percent =
-            ((sliderValue) / (sliderMaxValue)) *
+            ((value) / (sliderMaxValue)) *
             100;
         setProgressPercent(percent);
     }
 
-    const changeVolumePercent = () => {
+    const changeProgress = (value) => {
+        track.audioEl.current.currentTime = value;
+
+        let timeInString = calculateTime(value);
+        setCurrTime(timeInString)
+
+        setSliderValue(value);
+    }
+
+
+    const changeVolumePercent = (value) => {
         const percent =
-            ((volume) / 100) *
+            (value / 100) *
             100;
         setVolumePercent(percent);
     }
@@ -116,7 +133,7 @@ const SingleTrack = () => {
                             let time = calculateTime(track.audioEl.current.currentTime);
                             setCurrTime(time)
 
-                            changeProgressPercent();
+                            changeProgressPercent(track.audioEl.current.currentTime);
 
                         }}
                         volume={volume / 100}
@@ -125,19 +142,6 @@ const SingleTrack = () => {
 
                     <div className={styles.timeRange}>
 
-                    </div>
-                    <div>
-                        <input
-                            type="range"
-                            className={styles.volumeRange}
-                            style={{ "--webkitProgressPercent": `${volumePercent}%` }}
-                            max="100" value={volume}
-                            onChange={(ev) => {
-                                track.audioEl.current.volume = ev.target.value / 100;
-                                setVolume(ev.target.value)
-
-                                changeVolumePercent();
-                            }} />
                     </div>
 
                     <output>Volume: {volume}</output>
@@ -172,20 +176,18 @@ const SingleTrack = () => {
                             style={{ "--webkitProgressPercent": `${progressPercent}%` }}
                             max={sliderMaxValue} value={sliderValue}
                             onChange={(ev) => {
-                                let time = calculateTime(ev.target.value);
-                                setCurrTime(time)
-
-                                setSliderValue(ev.target.value);
-                                track.audioEl.current.currentTime = ev.target.value;
-
-                                changeProgressPercent();
+                                const value = ev.target.value;
+                                changeProgress(value);
+                                changeProgressPercent(value)
                             }} />
                     </div>
                     <span className={styles.duration}>{duration}</span>
                 </div>
-                <div className={styles.volume} onMouseOver={() => console.log('yes')}>
+                <div className={styles.volume}
+                    onMouseLeave={() => volumeRange.style.display = 'none'}>
 
-                    <div className={styles.mute}>
+                    <div className={styles.mute}
+                        onMouseEnter={() => volumeRange.style.display = 'block'}>
                         {isMuted || !Number(volume) ?
                             <VolumeOffIcon
                                 onClick={muteSong}
@@ -199,19 +201,32 @@ const SingleTrack = () => {
                     </div>
 
 
-                    <div className={styles.volumeRange}>
+                    <div className={styles.volumeRange} ref={el => setVolumeRange(el)}>
                         <input
                             type="range"
                             className={styles.volumeRange}
                             style={{ "--webkitProgressPercent": `${volumePercent}%` }}
                             max="100" value={volume}
                             onChange={(ev) => {
-                                track.audioEl.current.volume = ev.target.value / 100;
-                                setVolume(ev.target.value)
+                                const value = ev.target.value;
+                                track.audioEl.current.volume = value / 100;
+                                setVolume(value)
 
-                                changeVolumePercent();
+                                changeVolumePercent(value);
                             }} />
                     </div>
+
+                </div>
+
+                <div className={styles.imgAndTitle}>
+                    <div className={styles.imageContainer}>
+                        <img src={trackObj.image} alt='track' />
+                    </div>
+                    <div className={styles.titleAndAuthor}>
+                        <span className={styles.author}>{trackObj.author}</span>
+                        <span className={styles.title}>{trackObj.title}</span>
+                    </div>
+
                 </div>
             </div>
 
