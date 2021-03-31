@@ -1,7 +1,7 @@
 import style from './style.module.css';
 import { Link } from 'react-router-dom';
 
-export default function Track({ img, title, audio, uploadedBy, trackId }) {
+export default function Track({ img, title, audio, uploadedBy, userId, trackId }) {
     function like(e) {
         e.target.innerHTML = 'Liked';
         let btn = e.target;
@@ -18,7 +18,7 @@ export default function Track({ img, title, audio, uploadedBy, trackId }) {
             <div className={style.cardDiv}>
                 <img className={style.img} src={img} alt="Song Cover" />
                 <Link className={style.title} to={`/Tracks/${trackId}`}>{title}</Link>
-                <Link className={style.uploader} to={`/Users/${uploadedBy}`}>{uploadedBy}</Link>
+                <Link className={style.uploader} to={`/Users/${userId}`}>{uploadedBy}</Link>
                 <audio controls className={style.audio}>
                     <source src={audio} type="audio/mpeg" />
                     Your browser does not support the audio tag.

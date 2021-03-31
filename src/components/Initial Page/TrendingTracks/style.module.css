@@ -26,25 +26,3 @@
     display: table;
     clear: both;
 }
-
-.explore {
-    margin-left: 506px;
-    margin-bottom: 40px;
-    text-decoration: none;
-    color: white;
-    cursor: pointer;
-    background-color: #f50;
-    border-color: #f50;
-    font-size: 18px;
-    height: 46px;
-    padding: 10px 23px;
-    display: inline-block;
-    position: relative;
-    border-radius: 3px;
-    text-align: center;
-}
-
-.explore:hover {
-    text-decoration: none;
-    color: white;
-}

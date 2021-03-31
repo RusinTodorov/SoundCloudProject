@@ -51,3 +51,8 @@
     font-size: 12px;
     color:#333;
 }
+
+.title:hover, .uploader:hover {
+    text-decoration: none;
+    color: #f50;
+}

@@ -1,15 +1,16 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SignIn from './components/SignIn/SignIn';
-import CreateAccount from './components/CreateAccount/CreateAccount';
+import CreateAccount from './components/Create Account/CreateAccount';
 import Home from './components/Home/Home';
 import InitialPage from './components/Initial Page/InitialPage';
-import Users from './components/Users';
-import Search from './components/Search';
-import Upload from './components/Upload';
-import PageNotFound from './components/PageNotFound';
+import Users from './components/Users/Users';
+import Search from './components/Search/Search';
+import Upload from './components/Upload/Upload';
+import PageNotFound from './components/Page Not Found/PageNotFound';
 import SingleTrack from './components/Single Track';
-import MyProfile from './components/MyProfile/MyProfile';
+import MyProfile from './components/My Profile/MyProfile';
+import UserProfile from './components/User Profile/UserProfile';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/Search" component={Search} />
+        <Route path="/Users/:userId" component={UserProfile} />
         <Route path="/Users" component={Users} />
         <Route path="/Tracks/:trackId" component={SingleTrack} />
         <Route path="/MyProfile" component={MyProfile} />
