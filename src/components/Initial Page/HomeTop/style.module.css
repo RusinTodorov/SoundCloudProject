@@ -158,8 +158,6 @@
     min-width: 210px;
     height: 46px;
     line-height: 46px;
-    padding-top: 0;
-    padding-bottom: 0;
     text-shadow: none;
     transition: opacity .2s linear;
     background-color: #f50;
@@ -168,7 +166,7 @@
     display: inline-block;
     position: relative;
     margin: 0;
-    padding: 2px 11px 4px 10px;
+    padding: 0 10px;
     border-radius: 3px;
     cursor: pointer;
     white-space: nowrap;
