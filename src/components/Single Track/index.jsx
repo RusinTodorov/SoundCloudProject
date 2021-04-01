@@ -13,8 +13,18 @@ import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import styles from './track.module.scss'
 
 import song from './Jeremih - Birthday Sex.mp3'
+import songTwo from './Rod Wave - Street Runner.mp3'
 import sixnineImage from './sixnine.jpg'
 
+import { useDispatch, useSelector } from 'react-redux'
+import store from '../../redux/store';
+import {
+    addSrc,
+    playTrack,
+    pauseTrack,
+    setCurrTime
+
+} from '../../redux/Track/track.actions'
 
 let trackObj = {
     title: 'Street Runner',
@@ -28,7 +38,7 @@ let trackObj = {
 const SingleTrack = () => {
     let [isPlaying, setIsPlaying] = useState(true);
     let [track, setTrack] = useState(null);
-    let [currTime, setCurrTime] = useState('0:00')
+    // let [currTime, setCurrTime] = useState('0:00')
     let [duration, setDuration] = useState('0:00')
     let [sliderMaxValue, setSliderMaxValue] = useState(100);
     let [sliderValue, setSliderValue] = useState(0);
@@ -38,6 +48,21 @@ const SingleTrack = () => {
     let [volumePercent, setVolumePercent] = useState(100);
     let [volumeRange, setVolumeRange] = useState(null);
     let [previousVolume, setPreviousVolume] = useState(100);
+
+    const dispatch = useDispatch();
+    const isPlay = useSelector(state => state.track.isPlaying)
+    const songSrc = useSelector(state => state.track.src)
+    const currTime = useSelector(state => state.track.currTime)
+    const strTime = useSelector(state => state.track.strTime);
+
+    if (track) {
+
+        if (isPlay) {
+            track.audioEl.current.play();
+        } else {
+            track.audioEl.current.pause();
+        }
+    }
 
     const togglePlay = () => {
         if (isPlaying) {
@@ -75,8 +100,8 @@ const SingleTrack = () => {
     const changeProgress = (value) => {
         track.audioEl.current.currentTime = value;
 
-        let timeInString = calculateTime(value);
-        setCurrTime(timeInString)
+        // let timeInString = calculateTime(value);
+        dispatch(setCurrTime(value));
 
         setSliderValue(value);
     }
@@ -97,35 +122,27 @@ const SingleTrack = () => {
 
     const handleSeek = (secs) => {
         track.audioEl.current.currentTime = secs;
-        changeProgressPercent(secs)
         setSliderValue(secs)
+        changeProgressPercent(secs)
     }
 
     return (
         <div>
+
             {track && <Waveform
                 track={trackObj}
-                song={track.audioEl}
                 duration={duration}
-                currTime={currTime}
-                isPlaying={isPlaying}
-                isMuted={isMuted}
                 timeInSecs={track.audioEl.current.currentTime}
                 onSeek={handleSeek}
-                onPlay={togglePlay}
             />}
 
             <div className={styles.test}>
                 Helloooo
-                <button onClick={togglePlay}>Play</button>
-                <button onClick={muteSong}>Mute</button>
-                <button onClick={() => {
-                    console.log(sliderValue);
-
-                }}>Check</button>
+                <button onClick={() => dispatch(playTrack())}>Play</button>
+                <button onClick={() => dispatch(pauseTrack())} > Pause </button>
+                <button onClick={() => dispatch(addSrc(songTwo))}>Add source</button>
+                <button onClick={() => { console.log(store.getState()) }}>Check</button>
                 <div className={styles.audioPlayer}>
-
-
 
                     <div className={styles.timeRange}>
 
@@ -141,7 +158,7 @@ const SingleTrack = () => {
                     style={{ display: 'none' }}
                     className={styles.audioPlayer}
                     ref={(element) => setTrack(element)}
-                    src={song}
+                    src={songSrc}
                     preload='metadata'
                     controls
                     onLoadedMetadata={() => {
@@ -150,11 +167,10 @@ const SingleTrack = () => {
                     }}
                     listenInterval={900}
                     onListen={() => {
-
+                        let audioCurrTime = track.audioEl.current.currentTime;
                         setSliderValue(track.audioEl.current.currentTime)
 
-                        let time = calculateTime(track.audioEl.current.currentTime);
-                        setCurrTime(time)
+                        dispatch(setCurrTime(audioCurrTime));
 
                         changeProgressPercent(track.audioEl.current.currentTime);
 
@@ -164,15 +180,17 @@ const SingleTrack = () => {
                 <div className={styles.audioBtns}>
                     <SkipPreviousIcon />
 
-                    {isPlaying ?
-                        <PlayArrowIcon
-                            style={{ cursor: 'pointer' }}
-                            onClick={togglePlay}
+                    {isPlay ?
 
-                        /> :
                         <PauseIcon
                             style={{ cursor: 'pointer' }}
-                            onClick={togglePlay}
+                            onClick={() => dispatch(pauseTrack())}
+
+                        /> :
+                        <PlayArrowIcon
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => dispatch(playTrack())}
+
 
                         />}
 
@@ -180,7 +198,7 @@ const SingleTrack = () => {
                 </div>
                 <div className={styles.time}>
 
-                    <span className={styles.currTime}>{currTime}</span>
+                    <span className={styles.currTime}>{strTime}</span>
                     <div className={styles.timeRange}>
                         <input
                             type="range"

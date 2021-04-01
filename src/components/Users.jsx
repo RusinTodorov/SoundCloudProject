@@ -1,10 +1,10 @@
 import generateKey from './Utils/generateKey';
-import audio from '../Rod Wave - Street Runner.mp3';
-import img from '../Cover.jpg';
+import audio from '../data/Rod Wave - Street Runner.mp3';
+import img from '../data/Cover.jpg';
 import ListItem from './ListItem';
 
 export default function Users() {
-    
+
     let data = [
         {
             tracks: [
@@ -36,12 +36,12 @@ export default function Users() {
         <>
             <h3>Users:</h3>
             <hr />
-            <ol style={{position: 'relative'}}>
-                {data.map(({tracks, uploadedBy}) => {
-                
+            <ol style={{ position: 'relative' }}>
+                {data.map(({ tracks, uploadedBy }) => {
+
                     return (
-                        <li key={generateKey()} style={{margin: '10px'}}>
-                            <ListItem tracks={tracks} uploadedBy={uploadedBy}/>
+                        <li key={generateKey()} style={{ margin: '10px' }}>
+                            <ListItem tracks={tracks} uploadedBy={uploadedBy} />
                         </li>
                     );
                 })}

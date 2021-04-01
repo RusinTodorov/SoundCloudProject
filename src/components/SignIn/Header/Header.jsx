@@ -5,7 +5,7 @@ export default function Header() {
     const search = (e) => {
         e.preventDefault();
         const INPUT = e.target.querySelector('input');
-        const VALUE = INPUT.value;
+        // const VALUE = INPUT.value;
         // to do show results in search page!!!
         INPUT.value = '';
     }
@@ -13,23 +13,23 @@ export default function Header() {
     return (
         <header className={style.header}>
             <div className={style.divWraper}>
-                    <div className={style.headerLogo}>
-                        <Link to="/" className={style.logo}></Link>
-                        <Link to="/" className={style.afterLogo}>SOUNDCLOUD</Link>
-                    </div>
-                    <nav>
-                        <ul className={style.navUl}>
-                            <li className={style.li}>
-                                <Link className={style.navLinks} to="/Home">Home</Link>
-                            </li>
-                            <li className={style.li}>
-                                <Link className={style.navLinks} to="/Users">Users</Link>
-                            </li>
-                            <li className={style.li}>
-                                <Link className={style.navLinks} to="/MyProfile">My Profile</Link>
-                            </li>
-                        </ul>
-                    </nav>
+                <div className={style.headerLogo}>
+                    <Link to="/" className={style.logo}></Link>
+                    <Link to="/" className={style.afterLogo}>SOUNDCLOUD</Link>
+                </div>
+                <nav>
+                    <ul className={style.navUl}>
+                        <li className={style.li}>
+                            <Link className={style.navLinks} to="/Home">Home</Link>
+                        </li>
+                        <li className={style.li}>
+                            <Link className={style.navLinks} to="/Users">Users</Link>
+                        </li>
+                        <li className={style.li}>
+                            <Link className={style.navLinks} to="/MyProfile">My Profile</Link>
+                        </li>
+                    </ul>
+                </nav>
                 <div>
                     <form className={style.form} onSubmit={search}>
                         <input className={style.input}

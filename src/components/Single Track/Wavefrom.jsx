@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import WaveSurfer from 'wavesurfer';
 
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
@@ -7,21 +7,33 @@ import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
 import styles from './waveform.module.scss';
 import { calculateDate } from '../Utils/getDate';
 
-// import jer from './Jeremih - Birthday Sex.mp3'
+import jer from './Jeremih - Birthday Sex.mp3'
 
-class Waveform extends React.PureComponent {
+import { useDispatch, useSelector } from 'react-redux'
+import store from '../../redux/store';
+import {
+    playTrack,
+    pauseTrack,
+    setCurrTime
 
-    state = {
-        image: this.props.track.image,
-        title: this.props.track.title,
-        author: this.props.track.author,
-        date: this.props.track.date,
+} from '../../redux/Track/track.actions'
 
-    }
+let waveform = null;
 
-    componentDidMount() {
+const Waveform = ({ track, duration, timeInSecs, onSeek, onPlay }) => {
+    const image = track.image;
+    const title = track.title;
+    const author = track.author;
+    const date = track.date;
 
-        this.waveform = WaveSurfer.create({
+    const dispatch = useDispatch();
+    const isPlaying = useSelector(state => state.track.isPlaying)
+    const songSrc = useSelector(state => state.track.src)
+    const strTime = useSelector(state => state.track.strTime);
+
+
+    useEffect(() => {
+        waveform = WaveSurfer.create({
             barWidth: 3,
             cursorWidth: 1,
             container: '#waveform',
@@ -33,92 +45,89 @@ class Waveform extends React.PureComponent {
             cursorColor: 'transparent',
         });
 
-        this.waveform.load(this.props.song.current.src);
+        waveform.load(songSrc);
 
-        this.waveform.setMute(true)
+        console.log('song', songSrc);
+        console.log(waveform);
 
-        this.waveform.on('seek', (ev) => {
-            this.props.onSeek(this.waveform.getCurrentTime())
+        waveform.setMute(true)
+
+        waveform.on('seek', () => {
+            dispatch(setCurrTime(waveform.getCurrentTime()))
         });
+    }, [songSrc])
 
-        this.waveform.backend.startPosition = this.props.timeInSecs;
-    };
+    if (waveform) {
 
-    componentDidUpdate() {
-        if (this.props.isPlaying) {
-            this.waveform.pause();
-        } else if (!this.props.isPlaying) {
-            this.waveform.play();
+        if (isPlaying) {
+            waveform.play();
+        } else if (!isPlaying) {
+            waveform.pause();
         }
 
-        this.waveform.backend.startPosition = this.props.timeInSecs;
-
+        waveform.backend.startPosition = timeInSecs;
     }
 
-    handlePlay = () => {
-        this.props.onPlay();
+    const handlePlay = () => {
+        onPlay();
     };
 
-    render() {
+    return (
+        <div className={styles.trackContainer}>
+            <div className={styles.leftSideContainer}>
+                <div className={styles.playNameDateContainer}>
+                    <div className={styles.playContainer}>
+                        <span className={styles.playBtnSpan}></span>
 
-        return (
-            <div className={styles.trackContainer}>
-                <div className={styles.leftSideContainer}>
-                    <div className={styles.playNameDateContainer}>
-                        <div className={styles.playContainer}>
-                            <span className={styles.playBtnSpan}></span>
+                        {isPlaying ? <PauseCircleFilledIcon
+                            className={styles.playBtn}
+                            fontSize='large'
+                            onClick={() => dispatch(playTrack())}
+                        /> : <PlayCircleFilledIcon
+                            className={styles.playBtn}
+                            fontSize='large'
+                            onClick={() => dispatch(pauseTrack())}
+                        />}
 
-                            {this.props.isPlaying ? <PlayCircleFilledIcon
-                                className={styles.playBtn}
-                                fontSize='large'
-                                onClick={this.handlePlay}
-                            /> : <PauseCircleFilledIcon
-                                className={styles.playBtn}
-                                fontSize='large'
-                                onClick={this.handlePlay}
-                            />}
-
+                    </div>
+                    <div className={styles.nameContainer}>
+                        <div className={styles.authorContainer}>
+                            <span className={styles.author}>{author}</span>
                         </div>
-                        <div className={styles.nameContainer}>
-                            <div className={styles.authorContainer}>
-                                <span className={styles.author}>{this.state.author}</span>
-                            </div>
-                            <div>
-                                <span className={styles.title}>{this.state.title}</span>
-                            </div>
-                        </div>
-                        <div className={styles.dateContainer}>
-                            <p>{calculateDate(this.state.date)}</p>
+                        <div>
+                            <span className={styles.title}>{title}</span>
                         </div>
                     </div>
-
-                    <button onClick={() => {
-                        console.log('time in secs', this.props.timeInSecs)
-                        console.log(this.waveform.backend.startPosition)
-                    }}>Click</button>
-
-                    <div className={styles.audioWavePlayer}>
-                        <div className={styles.timeSpansContainer}>
-                            <span style={{ marginTop: 3 }}>
-                                {this.props.currTime !== '0:00' && <span className={styles.currTime}>{this.props.currTime}</span>}
-                            </span>
-                            <span className={styles.duration}>{this.props.duration}</span>
-                        </div>
-                        <div className={styles.waveformContianer}>
-                            <div className={styles.wave} id="waveform">
-
-                            </div>
-                        </div >
+                    <div className={styles.dateContainer}>
+                        <p>{calculateDate(date)}</p>
                     </div>
                 </div>
-                <div className={styles.imageContainer}>
-                    <img src={this.state.image} alt='track' />
-                </div>
-            </div >
-            //
 
-        );
-    }
-};
+                <button onClick={() => {
+                    console.log('time in secs', timeInSecs)
+                }}>Click</button>
+
+                <div className={styles.audioWavePlayer}>
+                    <div className={styles.timeSpansContainer}>
+                        <span style={{ marginTop: 3 }}>
+                            {strTime !== '0:00' && <span className={styles.currTime}>{strTime}</span>}
+                        </span>
+                        <span className={styles.duration}>{duration}</span>
+                    </div>
+                    <div className={styles.waveformContianer}>
+                        <div className={styles.wave} id="waveform">
+
+                        </div>
+                    </div >
+                </div>
+            </div>
+            <div className={styles.imageContainer}>
+                <img src={image} alt='track' />
+            </div>
+        </div >
+        //
+
+    );
+}
 
 export default Waveform;
