@@ -32,6 +32,20 @@ export const pauseTrack = () => {
 
 };
 
+export const setDuration = (secs) => {
+
+    return {
+
+        type: types.DURATION,
+        payload: {
+            duration: calculateTime(secs),
+        }
+
+    };
+
+};
+
+
 export const setCurrTime = (secs) => {
 
     return {
@@ -44,6 +58,44 @@ export const setCurrTime = (secs) => {
 
     };
 
+};
+
+export const onSeek = (secs) => {
+
+    return {
+
+        type: types.SEEK_TIME,
+        payload: {
+            seekTime: secs,
+        }
+
+    };
+};
+
+
+export const addContent = ({ title, author, date, description }) => {
+
+    return {
+
+        type: types.ADD_CONTENT,
+        payload: {
+            title,
+            author,
+            date,
+            description,
+        }
+    };
+};
+
+export const addImage = (img) => {
+
+    return {
+
+        type: types.ADD_IMG,
+        payload: {
+            image: img,
+        }
+    };
 };
 
 const calculateTime = (secs) => {

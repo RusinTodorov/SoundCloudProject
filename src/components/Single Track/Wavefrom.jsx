@@ -10,27 +10,29 @@ import { calculateDate } from '../Utils/getDate';
 import jer from './Jeremih - Birthday Sex.mp3'
 
 import { useDispatch, useSelector } from 'react-redux'
-import store from '../../redux/store';
 import {
     playTrack,
     pauseTrack,
-    setCurrTime
+    onSeek,
 
 } from '../../redux/Track/track.actions'
 
 let waveform = null;
 
-const Waveform = ({ track, duration, timeInSecs, onSeek, onPlay }) => {
-    const image = track.image;
-    const title = track.title;
-    const author = track.author;
-    const date = track.date;
-
+const Waveform = ({ track }) => {
     const dispatch = useDispatch();
     const isPlaying = useSelector(state => state.track.isPlaying)
     const songSrc = useSelector(state => state.track.src)
     const strTime = useSelector(state => state.track.strTime);
+    const currTime = useSelector(state => state.track.currTime);
+    const duration = useSelector(state => state.track.duration);
 
+
+    const image = useSelector(state => state.track.image);
+    const title = useSelector(state => state.track.content.title);
+    const author = useSelector(state => state.track.content.author);
+    const date = useSelector(state => state.track.content.date);
+    const description = useSelector(state => state.track.content.description);
 
     useEffect(() => {
         waveform = WaveSurfer.create({
@@ -47,30 +49,24 @@ const Waveform = ({ track, duration, timeInSecs, onSeek, onPlay }) => {
 
         waveform.load(songSrc);
 
-        console.log('song', songSrc);
-        console.log(waveform);
-
         waveform.setMute(true)
 
         waveform.on('seek', () => {
-            dispatch(setCurrTime(waveform.getCurrentTime()))
+            dispatch(onSeek(waveform.getCurrentTime()))
         });
     }, [songSrc])
 
-    if (waveform) {
 
+    useEffect(() => {
         if (isPlaying) {
             waveform.play();
         } else if (!isPlaying) {
             waveform.pause();
         }
 
-        waveform.backend.startPosition = timeInSecs;
-    }
+        waveform.backend.startPosition = Number(currTime);
 
-    const handlePlay = () => {
-        onPlay();
-    };
+    }, [isPlaying, currTime])
 
     return (
         <div className={styles.trackContainer}>
@@ -82,11 +78,11 @@ const Waveform = ({ track, duration, timeInSecs, onSeek, onPlay }) => {
                         {isPlaying ? <PauseCircleFilledIcon
                             className={styles.playBtn}
                             fontSize='large'
-                            onClick={() => dispatch(playTrack())}
+                            onClick={() => dispatch(pauseTrack())}
                         /> : <PlayCircleFilledIcon
                             className={styles.playBtn}
                             fontSize='large'
-                            onClick={() => dispatch(pauseTrack())}
+                            onClick={() => dispatch(playTrack())}
                         />}
 
                     </div>
@@ -102,10 +98,6 @@ const Waveform = ({ track, duration, timeInSecs, onSeek, onPlay }) => {
                         <p>{calculateDate(date)}</p>
                     </div>
                 </div>
-
-                <button onClick={() => {
-                    console.log('time in secs', timeInSecs)
-                }}>Click</button>
 
                 <div className={styles.audioWavePlayer}>
                     <div className={styles.timeSpansContainer}>
@@ -125,8 +117,6 @@ const Waveform = ({ track, duration, timeInSecs, onSeek, onPlay }) => {
                 <img src={image} alt='track' />
             </div>
         </div >
-        //
-
     );
 }
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import ReactAudioPlayer from 'react-audio-player';
 import Waveform from './Wavefrom'
@@ -22,7 +22,10 @@ import {
     addSrc,
     playTrack,
     pauseTrack,
-    setCurrTime
+    setCurrTime,
+    setDuration,
+    addContent,
+    addImage,
 
 } from '../../redux/Track/track.actions'
 
@@ -32,14 +35,12 @@ let trackObj = {
     song: song,
     image: sixnineImage,
     date: "March, 28, 2021 16:25:00",
+    description: 'this is my new song',
 }
 
 
-const SingleTrack = () => {
-    let [isPlaying, setIsPlaying] = useState(true);
+const TrackBar = () => {
     let [track, setTrack] = useState(null);
-    // let [currTime, setCurrTime] = useState('0:00')
-    let [duration, setDuration] = useState('0:00')
     let [sliderMaxValue, setSliderMaxValue] = useState(100);
     let [sliderValue, setSliderValue] = useState(0);
     let [volume, setVolume] = useState(100)
@@ -52,8 +53,13 @@ const SingleTrack = () => {
     const dispatch = useDispatch();
     const isPlay = useSelector(state => state.track.isPlaying)
     const songSrc = useSelector(state => state.track.src)
-    const currTime = useSelector(state => state.track.currTime)
+    const seekTime = useSelector(state => state.track.seekTime)
     const strTime = useSelector(state => state.track.strTime);
+    const duration = useSelector(state => state.track.duration);
+
+    const image = useSelector(state => state.track.image);
+    const title = useSelector(state => state.track.content.title);
+    const author = useSelector(state => state.track.content.author);
 
     if (track) {
 
@@ -64,22 +70,12 @@ const SingleTrack = () => {
         }
     }
 
-    const togglePlay = () => {
-        if (isPlaying) {
-            track.audioEl.current.play();
-        } else {
-            track.audioEl.current.pause();
+    useEffect(() => {
+        if (track) {
+            track.audioEl.current.currentTime = seekTime;
         }
+    }, [seekTime, track])
 
-        setIsPlaying(!isPlaying)
-    };
-
-    const calculateTime = (secs) => {
-        const minutes = Math.floor(secs / 60);
-        const seconds = Math.floor(secs % 60);
-        const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
-        return `${minutes}:${returnedSeconds}`;
-    }
 
     const muteSong = () => {
         if (isMuted) {
@@ -100,7 +96,6 @@ const SingleTrack = () => {
     const changeProgress = (value) => {
         track.audioEl.current.currentTime = value;
 
-        // let timeInString = calculateTime(value);
         dispatch(setCurrTime(value));
 
         setSliderValue(value);
@@ -120,40 +115,27 @@ const SingleTrack = () => {
         setVolumePercent(percent);
     }
 
-    const handleSeek = (secs) => {
-        track.audioEl.current.currentTime = secs;
-        setSliderValue(secs)
-        changeProgressPercent(secs)
-    }
-
     return (
         <div>
 
             {track && <Waveform
                 track={trackObj}
-                duration={duration}
-                timeInSecs={track.audioEl.current.currentTime}
-                onSeek={handleSeek}
             />}
 
             <div className={styles.test}>
                 Helloooo
                 <button onClick={() => dispatch(playTrack())}>Play</button>
                 <button onClick={() => dispatch(pauseTrack())} > Pause </button>
-                <button onClick={() => dispatch(addSrc(songTwo))}>Add source</button>
+                <button onClick={() => {
+                    dispatch(addSrc(songTwo))
+                    dispatch(addImage(sixnineImage))
+                    dispatch(addContent(trackObj))
+
+                }}>Add source</button>
                 <button onClick={() => { console.log(store.getState()) }}>Check</button>
-                <div className={styles.audioPlayer}>
-
-                    <div className={styles.timeRange}>
-
-                    </div>
-
-                    <output>Volume: {volume}</output>
-
-                </div>
             </div>
 
-            <div className={styles.trackBar}>
+            <div className={styles.trackBar} >
                 <ReactAudioPlayer
                     style={{ display: 'none' }}
                     className={styles.audioPlayer}
@@ -162,7 +144,7 @@ const SingleTrack = () => {
                     preload='metadata'
                     controls
                     onLoadedMetadata={() => {
-                        setDuration(calculateTime(track.audioEl.current.duration))
+                        dispatch(setDuration(track.audioEl.current.duration))
                         setSliderMaxValue(Math.floor(track.audioEl.current.duration))
                     }}
                     listenInterval={900}
@@ -206,6 +188,7 @@ const SingleTrack = () => {
                             max={sliderMaxValue} value={sliderValue}
                             onChange={(ev) => {
                                 const value = ev.target.value;
+                                console.log(value);
                                 changeProgress(value);
                                 changeProgressPercent(value)
                             }} />
@@ -255,11 +238,11 @@ const SingleTrack = () => {
 
                 <div className={styles.imgAndTitle}>
                     <div className={styles.imageContainer}>
-                        <img src={trackObj.image} alt='track' />
+                        <img src={image} alt='track' />
                     </div>
                     <div className={styles.titleAndAuthor}>
-                        <span className={styles.author}>{trackObj.author}</span>
-                        <span className={styles.title}>{trackObj.title}</span>
+                        <span className={styles.author}>{author}</span>
+                        <span className={styles.title}>{title}</span>
                     </div>
 
                 </div>
@@ -270,4 +253,4 @@ const SingleTrack = () => {
     );
 }
 
-export default SingleTrack;
+export default TrackBar;
