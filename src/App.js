@@ -5,7 +5,7 @@ import CreateAccount from './components/Create Account/CreateAccount';
 import Home from './components/Home/Home';
 import InitialPage from './components/Initial Page/InitialPage';
 import Users from './components/Users/Users';
-import Search from './components/Search/Search';
+import Search from './components/Search Results/Search';
 import Upload from './components/Upload/Upload';
 import PageNotFound from './components/Page Not Found/PageNotFound';
 import SingleTrack from './components/Single Track';

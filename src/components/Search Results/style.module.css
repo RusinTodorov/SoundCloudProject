@@ -1,0 +1,72 @@
+.main {
+    background-color: white;
+    margin: 40px 53px 0;
+    padding: 30px 30px 0;
+}
+
+.trackIcon {
+    cursor: pointer;
+    background-image: url('./Tracks\ Icon.png');
+    background-position: 5px -2px;
+    background-repeat: no-repeat;
+    color: transparent;
+}
+
+.sideDivTracks {
+    cursor: pointer;
+    background: #f50;
+    margin-left: -10px;
+    padding-left: 10px;
+    font-size: 14px;
+    line-height: 30px;
+    width: 205px;
+    height: 30px;
+    list-style: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.usersIcon {
+    cursor: pointer;
+    display: inline-block;
+    width: 40px;
+    background-image: url('./Users\ Icon.png');
+    padding-left: 33px;
+    background-position: 5px 3px;
+    background-repeat: no-repeat;
+    color: transparent;
+}
+
+.sideDivUsers {
+    cursor: pointer;
+    margin-left: -10px;
+    padding-left: 10px;
+    font-size: 14px;
+    line-height: 30px;
+    width: 205px;
+    height: 30px;
+    list-style: none;
+    border-radius: 5px;
+}
+
+.results {
+    position: relative;
+    top: -105px;
+    margin-left: 250px;
+}
+
+.avatar {
+    border-radius: 50%;
+    margin: 15px;
+}
+
+.userLink {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.userLink:hover {
+    text-decoration: none;
+    color: #f50;
+}

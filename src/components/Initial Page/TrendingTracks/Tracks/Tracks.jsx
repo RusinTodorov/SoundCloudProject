@@ -25,110 +25,122 @@ import audio11 from './Polo G - Martin & Gina.mp3';
 import img12 from './Giveon - Heartbreak Anniversary Cover.jpg';
 import audio12 from './Giveon - Heartbreak Anniversary.mp3';
 
+const DATA = [
+  {
+    title: 'Lil Tjay - Calling My Phone (feat. 6LACK)',
+    trackId: 1,
+    userId: 2,
+    img: img1,
+    audio: audio1,
+    uploadedBy: 'Lil Tjay',
+    likes: 377000,
+  },
+  {
+    title: 'Pooh Shiesty - Back In Blood',
+    trackId: 2,
+    userId: 4,
+    img: img2,
+    audio: audio2,
+    uploadedBy: 'Pooh Shiesty',
+    likes: 377000,
+  },
+  {
+    title: 'Moustafa Hagag - Naseby & Qesmety',
+    trackId: 3,
+    userId: 5,
+    img: img3,
+    audio: audio3,
+    uploadedBy: 'Moustafa Hagag',
+    likes: 747000,
+  },
+  {
+    title: 'Rod Wave - Street Runner',
+    trackId: 4,
+    userId: 1,
+    img: img4,
+    audio: audio4,
+    uploadedBy: 'Rod Wave',
+    likes: 123000,
+  },
+  {
+    title: 'Mooski - Track Star',
+    trackId: 5,
+    userId: 6,
+    img: img5,
+    audio: audio5,
+    uploadedBy: 'Mooski',
+    likes: 126000,
+  },
+  {
+    title: 'Tamer Ashour - Ba2ol 3adi',
+    trackId: 6,
+    userId: 7,
+    img: img6,
+    audio: audio6,
+    uploadedBy: 'Ahmed Kamel',
+    likes: 203000,
+  },
+  {
+    title: 'Lil Tjay - Headshot',
+    trackId: 7,
+    userId: 2,
+    img: img7,
+    audio: audio7,
+    uploadedBy: 'Lil Tjay',
+    likes: 74200,
+  },
+  {
+    title: 'Kevin Gates - Big Gangsta',
+    trackId: 8,
+    userId: 8,
+    img: img8,
+    audio: audio8,
+    uploadedBy: 'Kevin Gates',
+    likes: 258000,
+  },
+  {
+    title: 'ZAZA - 6IX9INE',
+    trackId: 9,
+    userId: 9,
+    img: img9,
+    audio: audio9,
+    uploadedBy: '6IX9INE',
+    likes: 160000,
+  },
+  {
+    title: 'Lil Baby - On Me',
+    trackId: 10,
+    userId: 10,
+    img: img10,
+    audio: audio10,
+    uploadedBy: 'Lil Baby',
+    likes: 296000,
+  },
+  {
+    title: 'Polo G - Martin & Gina',
+    trackId: 11,
+    userId: 11,
+    img: img11,
+    audio: audio11,
+    uploadedBy: 'Polo G',
+    likes: 504000,
+  },
+  {
+    title: 'Giveon - Heartbreak Anniversary',
+    trackId: 12,
+    userId: 3,
+    img: img12,
+    audio: audio12,
+    uploadedBy: 'Giveon',
+    likes: 2231,
+  },
+];
 
 export default function Tracks() {
-  let data = [
-    {
-      title: 'Lil Tjay - Calling My Phone (feat. 6LACK)',
-      trackId: 1,
-      userId: 2,
-      img: img1,
-      audio: audio1,
-      uploadedBy: 'Lil Tjay',
-    },
-    {
-      title: 'Pooh Shiesty - Back In Blood',
-      trackId: 2,
-      userId: 4,
-      img: img2,
-      audio: audio2,
-      uploadedBy: 'Pooh Shiesty',
-    },
-    {
-      title: 'Moustafa Hagag - Naseby & Qesmety',
-      trackId: 3,
-      userId: 5,
-      img: img3,
-      audio: audio3,
-      uploadedBy: 'Moustafa Hagag',
-    },
-    {
-      title: 'Rod Wave - Street Runner',
-      trackId: 4,
-      userId: 1,
-      img: img4,
-      audio: audio4,
-      uploadedBy: 'Rod Wave',
-    },
-    {
-      title: 'Mooski - Track Star',
-      trackId: 5,
-      userId: 6,
-      img: img5,
-      audio: audio5,
-      uploadedBy: 'Mooski',
-    },
-    {
-      title: 'Tamer Ashour - Ba2ol 3adi',
-      trackId: 6,
-      userId: 7,
-      img: img6,
-      audio: audio6,
-      uploadedBy: 'Ahmed Kamel',
-    },
-    {
-      title: 'Lil Tjay - Headshot',
-      trackId: 7,
-      userId: 2,
-      img: img7,
-      audio: audio7,
-      uploadedBy: 'Lil Tjay',
-    },
-    {
-      title: 'Kevin Gates - Big Gangsta',
-      trackId: 8,
-      userId: 8,
-      img: img8,
-      audio: audio8,
-      uploadedBy: 'Kevin Gates',
-    },
-    {
-      title: 'ZAZA - 6IX9INE',
-      trackId: 9,
-      userId: 9,
-      img: img9,
-      audio: audio9,
-      uploadedBy: '6IX9INE',
-    },
-    {
-      title: 'Lil Baby - On Me',
-      trackId: 10,
-      userId: 10,
-      img: img10,
-      audio: audio10,
-      uploadedBy: 'Lil Baby',
-    },
-    {
-      title: 'Polo G - Martin & Gina',
-      trackId: 11,
-      userId: 11,
-      img: img11,
-      audio: audio11,
-      uploadedBy: 'Polo G',
-    },
-    {
-      title: 'Giveon - Heartbreak Anniversary',
-      trackId: 12,
-      userId: 3,
-      img: img12,
-      audio: audio12,
-      uploadedBy: 'Giveon',
-    },
-  ];
 
   return (
     <>
-      {data.map(trackInfo => {
+      {DATA.map(trackInfo => {
         return (
           <li className={style.li} key={trackInfo.trackId}>
             <Track {...trackInfo} />
@@ -138,3 +150,5 @@ export default function Tracks() {
     </>
   );
 }
+
+export { DATA };

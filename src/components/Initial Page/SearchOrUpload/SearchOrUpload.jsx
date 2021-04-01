@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 
 export default function SearchOrUpload() {
     
-    function search(e) {
-        // to do show results in Search Page
+    const search = (e) => {
+        e.preventDefault();
+        const INPUT = e.target.querySelector('input').value;
+        window.location = `http://localhost:3000/Search/${INPUT}`;
     }
 
     return (

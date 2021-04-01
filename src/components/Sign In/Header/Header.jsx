@@ -4,10 +4,8 @@ import { Link } from 'react-router-dom';
 export default function Header() {
     const search = (e) => {
         e.preventDefault();
-        const INPUT = e.target.querySelector('input');
-        const VALUE = INPUT.value;
-        // to do show results in search page!!!
-        INPUT.value = '';
+        const INPUT = e.target.querySelector('input').value;
+        window.location = `http://localhost:3000/Search/${INPUT}`;
     }
 
     return (
@@ -33,7 +31,7 @@ export default function Header() {
                 <div>
                     <form className={style.form} onSubmit={search}>
                         <input className={style.input}
-                            placeholder="Search for artists, bands, tracks, podcasts" autocomplete="off" />
+                            placeholder="Search for artists, bands, tracks, podcasts" autoComplete="off" />
                         <button className={style.submit} type="submit">Search</button>
                     </form>
                 </div>
