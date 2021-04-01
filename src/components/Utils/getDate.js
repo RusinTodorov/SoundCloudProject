@@ -75,7 +75,9 @@ export function calculateDate(dateString) {
         return inWeeks + (inWeeks === 1 ? ' week ago' : ' weeks ago')
     } else if (inMonths < 13) {
         return inMonths + (inMonths === 1 ? ' month ago' : ' months ago')
-    } else {
+    } else if (inMonths > 12) {
         return inYears + (inYears === 1 ? ' year ago' : ' years ago')
+    } else {
+        return ''
     }
 }

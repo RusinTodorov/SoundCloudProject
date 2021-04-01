@@ -8,11 +8,11 @@ export default function Track({ img, title, audio, uploadedBy, trackId }) {
         btn.style.backgroundColor = 'LightGray';
         btn.style.borderColor = 'LightGray';
         btn.setAttribute('disabled', 'true');
-    
+
         // to do set in local storage that song has been liked,
         // and send a like to firebase
     }
-    
+
     return (
         <>
             <div className={style.cardDiv}>

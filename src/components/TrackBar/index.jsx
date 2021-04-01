@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import ReactAudioPlayer from 'react-audio-player';
 
@@ -9,10 +9,24 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 
-import styles from './track.module.scss'
+import styles from './trackBar.module.scss'
 
 import song from './Jeremih - Birthday Sex.mp3'
+import songTwo from './Rod Wave - Street Runner.mp3'
 import sixnineImage from './sixnine.jpg'
+
+import { useDispatch, useSelector } from 'react-redux'
+import store from '../../redux/store';
+import {
+    addSrc,
+    playTrack,
+    pauseTrack,
+    setCurrTime,
+    setDuration,
+    addContent,
+    addImage,
+
+} from '../../redux/Track/track.actions'
 
 let trackObj = {
     title: 'Street Runner',
@@ -20,13 +34,12 @@ let trackObj = {
     song: song,
     image: sixnineImage,
     date: "March, 28, 2021 16:25:00",
+    description: 'this is my new song',
 }
 
+
 const TrackBar = () => {
-    let [isPlaying, setIsPlaying] = useState(true);
     let [track, setTrack] = useState(null);
-    let [currTime, setCurrTime] = useState('0:00')
-    let [duration, setDuration] = useState('0:00')
     let [sliderMaxValue, setSliderMaxValue] = useState(100);
     let [sliderValue, setSliderValue] = useState(0);
     let [volume, setVolume] = useState(100)
@@ -36,22 +49,32 @@ const TrackBar = () => {
     let [volumeRange, setVolumeRange] = useState(null);
     let [previousVolume, setPreviousVolume] = useState(100);
 
-    const togglePlay = () => {
-        if (isPlaying) {
+    const dispatch = useDispatch();
+    const isPlay = useSelector(state => state.track.isPlaying)
+    const songSrc = useSelector(state => state.track.src)
+    const seekTime = useSelector(state => state.track.seekTime)
+    const strTime = useSelector(state => state.track.strTime);
+    const duration = useSelector(state => state.track.duration);
+
+    const image = useSelector(state => state.track.image);
+    const title = useSelector(state => state.track.content.title);
+    const author = useSelector(state => state.track.content.author);
+
+    if (track) {
+
+        if (isPlay) {
             track.audioEl.current.play();
         } else {
             track.audioEl.current.pause();
         }
-
-        setIsPlaying(!isPlaying)
-    };
-
-    const calculateTime = (secs) => {
-        const minutes = Math.floor(secs / 60);
-        const seconds = Math.floor(secs % 60);
-        const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
-        return `${minutes}:${returnedSeconds}`;
     }
+
+    useEffect(() => {
+        if (track) {
+            track.audioEl.current.currentTime = seekTime;
+        }
+    }, [seekTime, track])
+
 
     const muteSong = () => {
         if (isMuted) {
@@ -72,8 +95,7 @@ const TrackBar = () => {
     const changeProgress = (value) => {
         track.audioEl.current.currentTime = value;
 
-        let timeInString = calculateTime(value);
-        setCurrTime(timeInString)
+        dispatch(setCurrTime(value));
 
         setSliderValue(value);
     }
@@ -92,32 +114,38 @@ const TrackBar = () => {
         setVolumePercent(percent);
     }
 
-    const handleSeek = (secs) => {
-        track.audioEl.current.currentTime = secs;
-        changeProgressPercent(secs)
-        setSliderValue(secs)
-    }
-
     return (
-        <div className={styles.trackBar}>
+        <div className={styles.trackBar} >
+            <div className={styles.test}>
+                <button onClick={() => dispatch(playTrack())}>Play</button>
+                <button onClick={() => dispatch(pauseTrack())} > Pause </button>
+                <button onClick={() => {
+                    dispatch(addSrc(songTwo))
+                    dispatch(addImage(sixnineImage))
+                    dispatch(addContent(trackObj))
+
+                }}>Add source</button>
+                <button onClick={() => { console.log(store.getState()) }}>Check</button>
+            </div>
+
+
             <ReactAudioPlayer
                 style={{ display: 'none' }}
                 className={styles.audioPlayer}
                 ref={(element) => setTrack(element)}
-                src={song}
+                src={songSrc}
                 preload='metadata'
                 controls
                 onLoadedMetadata={() => {
-                    setDuration(calculateTime(track.audioEl.current.duration))
+                    dispatch(setDuration(track.audioEl.current.duration))
                     setSliderMaxValue(Math.floor(track.audioEl.current.duration))
                 }}
                 listenInterval={900}
                 onListen={() => {
-
+                    let audioCurrTime = track.audioEl.current.currentTime;
                     setSliderValue(track.audioEl.current.currentTime)
 
-                    let time = calculateTime(track.audioEl.current.currentTime);
-                    setCurrTime(time)
+                    dispatch(setCurrTime(audioCurrTime));
 
                     changeProgressPercent(track.audioEl.current.currentTime);
 
@@ -127,15 +155,17 @@ const TrackBar = () => {
             <div className={styles.audioBtns}>
                 <SkipPreviousIcon />
 
-                {isPlaying ?
-                    <PlayArrowIcon
-                        style={{ cursor: 'pointer' }}
-                        onClick={togglePlay}
+                {isPlay ?
 
-                    /> :
                     <PauseIcon
                         style={{ cursor: 'pointer' }}
-                        onClick={togglePlay}
+                        onClick={() => dispatch(pauseTrack())}
+
+                    /> :
+                    <PlayArrowIcon
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => dispatch(playTrack())}
+
 
                     />}
 
@@ -143,7 +173,7 @@ const TrackBar = () => {
             </div>
             <div className={styles.time}>
 
-                <span className={styles.currTime}>{currTime}</span>
+                <span className={styles.currTime}>{strTime}</span>
                 <div className={styles.timeRange}>
                     <input
                         type="range"
@@ -200,16 +230,15 @@ const TrackBar = () => {
 
             <div className={styles.imgAndTitle}>
                 <div className={styles.imageContainer}>
-                    <img src={trackObj.image} alt='track' />
+                    <img src={image} alt='track' />
                 </div>
                 <div className={styles.titleAndAuthor}>
-                    <span className={styles.author}>{trackObj.author}</span>
-                    <span className={styles.title}>{trackObj.title}</span>
+                    <span className={styles.author}>{author}</span>
+                    <span className={styles.title}>{title}</span>
                 </div>
 
             </div>
         </div>
-
     );
 }
 

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, } from 'react';
 import WaveSurfer from 'wavesurfer';
 
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
 
 import styles from './waveform.module.scss';
+
 import { calculateDate } from '../Utils/getDate';
 
 import jer from './Jeremih - Birthday Sex.mp3'
@@ -17,7 +18,10 @@ import {
 
 } from '../../redux/Track/track.actions'
 
-let waveform = null;
+import store from '../../redux/store'
+
+let waveform = '';
+
 
 const Waveform = ({ track }) => {
     const dispatch = useDispatch();
@@ -27,14 +31,17 @@ const Waveform = ({ track }) => {
     const currTime = useSelector(state => state.track.currTime);
     const duration = useSelector(state => state.track.duration);
 
-
     const image = useSelector(state => state.track.image);
     const title = useSelector(state => state.track.content.title);
     const author = useSelector(state => state.track.content.author);
     const date = useSelector(state => state.track.content.date);
     const description = useSelector(state => state.track.content.description);
 
+
     useEffect(() => {
+        console.log('wf', waveform);
+        document.getElementById('waveform').innerHTML = '';
+
         waveform = WaveSurfer.create({
             barWidth: 3,
             cursorWidth: 1,
@@ -51,11 +58,7 @@ const Waveform = ({ track }) => {
 
         waveform.setMute(true)
 
-        waveform.on('seek', () => {
-            dispatch(onSeek(waveform.getCurrentTime()))
-        });
-    }, [songSrc])
-
+    }, [songSrc]);
 
     useEffect(() => {
         if (isPlaying) {
@@ -66,7 +69,10 @@ const Waveform = ({ track }) => {
 
         waveform.backend.startPosition = Number(currTime);
 
-    }, [isPlaying, currTime])
+        waveform.on('seek', () => {
+            dispatch(onSeek(waveform.getCurrentTime()))
+        });
+    }, [currTime, isPlaying, dispatch])
 
     return (
         <div className={styles.trackContainer}>
