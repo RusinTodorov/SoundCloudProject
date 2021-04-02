@@ -9,7 +9,7 @@ import { DATA } from '../../data/Users Page/data';
 export default function MyProfile() {
     let currenUserId = localStorage.getItem('userId');
     let userInfo = DATA.filter(({userId}) => userId === currenUserId);
-    let uploadsArr;
+    let uploadsArr = [];
 
     if (userInfo.length) {
         uploadsArr = userInfo[0].uploads;

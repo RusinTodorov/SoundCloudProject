@@ -121,7 +121,7 @@ const TrackBar = () => {
         <div className={styles.trackBar} >
             <div className={styles.test}>
                 <button onClick={() => dispatch(playTrack())}>Play</button>
-                <button onClick={() => dispatch(pauseTrack())} > Pause </button>
+                <button onClick={() => dispatch(pauseTrack())}>Pause</button>
                 <button onClick={() => {
                     dispatch(addSrc(songTwo))
                     dispatch(addImage(sixnineImage))
@@ -223,11 +223,9 @@ const TrackBar = () => {
                                 setIsMuted(false)
                             }
 
-
                             changeVolumePercent(value);
                         }} />
                 </div>
-
             </div>
 
             <div className={styles.imgAndTitle}>
@@ -238,7 +236,6 @@ const TrackBar = () => {
                     <span className={styles.author}>{author}</span>
                     <span className={styles.title}>{title}</span>
                 </div>
-
             </div>
         </div>
     );

@@ -1,10 +1,10 @@
 import style from './style.module.css';
-import HomeTop from './HomeTop/HomeTop';
-import SearchOrUpload from './SearchOrUpload/SearchOrUpload';
-import TrendingTrakcs from './TrendingTracks/TrendingTracks';
-import NeverStopListening from './NeverStopListening/NeverStopListening';
-import CreatorsTeaser from './CreatorsTeaser/Teaser';
-import SignUpTeaser from './SignUpTeaser/Teaser';
+import HomeTop from './Home Top/HomeTop';
+import SearchOrUpload from './Search Or Upload/SearchOrUpload';
+import TrendingTrakcs from './Trending Tracks/TrendingTracks';
+import NeverStopListening from './Never Stop Listening/NeverStopListening';
+import CreatorsTeaser from './Creators Teaser/Teaser';
+import SignUpTeaser from './Sign Up Teaser/Teaser';
 import Footer from './Footer/Footer';
 
 export default function Home() {
