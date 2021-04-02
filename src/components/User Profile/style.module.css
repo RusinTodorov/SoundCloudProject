@@ -94,12 +94,16 @@
     padding: 20px;
 }
 
-.noUploads {
+.uploadsDiv {
     display: flex;
     flex-direction: column;
     margin-top: 100px;
     margin-left: 200px;
     margin-bottom: 50px;
+}
+
+.hidden {
+    display: none;
 }
 
 .links {

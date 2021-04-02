@@ -62,213 +62,273 @@ import audio30 from './Audio/Natty Reeves - Canoe.mp3';
 const DATA = [
     {
         title: 'Best of Deep House (Vol. 02)',
-        trackId: 1,
+        trackId: '13',
         img: img1,
         audio: audio1,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Best Progresive House (All-Time)',
-        trackId: 2,
+        trackId: '14',
         img: img2,
         audio: audio2,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Best of Progressive Tech House',
-        trackId: 3,
+        trackId: '15',
         img: img3,
         audio: audio3,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Best Of Chill City',
-        trackId: 4,
+        trackId: '16',
         img: img4,
         audio: audio4,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Best Of MrRevillz',
-        trackId: 5,
+        trackId: '17',
         img: img5,
         audio: audio5,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Best of Saxxy House',
-        trackId: 6,
+        trackId: '18',
         img: img6,
         audio: audio6,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'All music genres',
-        trackId: 7,
+        trackId: '19',
         img: img7,
         audio: audio7,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Hip-Hop & Rap',
-        trackId: 8,
+        trackId: '20',
         img: img8,
         audio: audio8,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Global Beats',
-        trackId: 9,
+        trackId: '21',
         img: img9,
         audio: audio9,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Electronic',
-        trackId: 10,
+        trackId: '22',
         img: img10,
         audio: audio10,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Pop',
-        trackId: 11,
+        trackId: '23',
         img: img11,
         audio: audio11,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'House',
-        trackId: 12,
+        trackId: '24',
         img: img12,
         audio: audio12,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Best Progresive House (All-Time)',
-        trackId: 13,
+        trackId: '25',
         img: img13,
         audio: audio13,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Best of Deep House (Vol. 02)',
-        trackId: 14,
+        trackId: '26',
         img: img14,
         audio: audio14,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Run',
-        trackId: 15,
+        trackId: '27',
         img: img15,
         audio: audio15,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Workout Playlist - PURE ADRENALINE',
-        trackId: 16,
+        trackId: '28',
         img: img16,
         audio: audio16,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'work out or get out.',
-        trackId: 17,
+        trackId: '29',
         img: img17,
         audio: audio17,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Motivated Music - May 2016',
-        trackId: 18,
+        trackId: '30',
         img: img18,
         audio: audio18,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'All music genres',
-        trackId: 19,
+        trackId: '31',
         img: img19,
         audio: audio19,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Hip-Hop & Rap',
-        trackId: 20,
+        trackId: '32',
         img: img20,
         audio: audio20,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Global Beats',
-        trackId: 21,
+        trackId: '33',
         img: img21,
         audio: audio21,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Electronic',
-        trackId: 22,
+        trackId: '34',
         img: img22,
         audio: audio22,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Pop',
-        trackId: 23,
+        trackId: '35',
         img: img23,
         audio: audio23,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Rock',
-        trackId: 24,
+        trackId: '36',
         img: img24,
         audio: audio24,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Morning Chillout',
-        trackId: 25,
+        trackId: '37',
         img: img25,
         audio: audio25,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'musicas relaxantes',
-        trackId: 26,
+        trackId: '38',
         img: img26,
         audio: audio26,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'CHill, Lofi, Hip Hop',
-        trackId: 27,
+        trackId: '39',
         img: img27,
         audio: audio27,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Study, Chill, Relax, Gaming',
-        trackId: 28,
+        trackId: '40',
         img: img28,
         audio: audio28,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Chillax Mood',
-        trackId: 29,
+        trackId: '41',
         img: img29,
         audio: audio29,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     },
     {
         title: 'Breeze',
-        trackId: 30,
+        trackId: '42',
         img: img30,
         audio: audio30,
         uploadedBy: 'Rusin',
+        userId: '12',
+        likes: 0
     }
 ];
 

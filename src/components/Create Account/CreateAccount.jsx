@@ -3,6 +3,7 @@ import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
 export default function CreateAccount() {
+    // TO DO set in LocalStorage userId
     // TO DO Register with FireBase
     return (
         <>

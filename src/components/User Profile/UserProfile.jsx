@@ -5,6 +5,7 @@ import EmptyImg from './EmptyImg.png';
 import { useLocation } from 'react-router-dom';
 import { DATA } from '../../data/Users Page/data';
 import PageNotFound from '../Page Not Found/PageNotFound';
+import Track from '../Track Horizontal Card/Track';
 
 export default function UserProfile() {
     let location = useLocation();
@@ -15,7 +16,7 @@ export default function UserProfile() {
         return <PageNotFound />;
     }
 
-    let { name, profileBackground, profileImg } = profileInfo[0];
+    let { name, profileBackground, profileImg, uploads } = profileInfo[0];
 
     return (
         <>
@@ -45,11 +46,23 @@ export default function UserProfile() {
                 <div className={style.mainDiv}>
                     <h5 style={{ color: '#f50' }}>Uploads:</h5>
                     <hr />
-                    <div className={style.noUploads}>
+                    <div className={uploads.length === 0 ? style.uploadsDiv : style.hidden}>
                         <img src={EmptyImg} alt="Empty" width={240} height={178} />
                         <div className={style.links}>
                             <p style={{ margin: '10px' }}>Seems a little quite over here</p>
                         </div>
+                    </div>
+                    <div className={uploads.length !== 0 ? style.uploadsDiv : style.hidden}>
+                        <ul style={{ listStyle: 'none' }}>
+                            {uploads.map(trackInfo => {
+
+                                return (
+                                    <li key={trackInfo.trackId}>
+                                        <Track {...trackInfo} />
+                                    </li>
+                                );
+                            })}
+                        </ul>
                     </div>
                 </div>
             </main>
