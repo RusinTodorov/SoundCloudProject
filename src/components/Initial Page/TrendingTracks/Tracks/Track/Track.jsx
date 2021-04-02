@@ -17,8 +17,8 @@ export default function Track({ img, title, audio, uploadedBy, userId, trackId }
         <>
             <div className={style.cardDiv}>
                 <img className={style.img} src={img} alt="Song Cover" />
-                <Link className={style.title} to={`/Tracks/${trackId}`}>{title}</Link>
-                <Link className={style.uploader} to={`/Users/${userId}`}>{uploadedBy}</Link>
+                <Link className={style.title} to={`/tracks/${trackId}`}>{title}</Link>
+                <Link className={style.uploader} to={`/users/${userId}`}>{uploadedBy}</Link>
                 <audio controls className={style.audio}>
                     <source src={audio} type="audio/mpeg" />
                     Your browser does not support the audio tag.

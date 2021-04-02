@@ -8,6 +8,7 @@ import Track from './Track/Track';
 
 export default function Search() {
     let location = useLocation();
+    const [selectedTab, setSelectedTab] = useState('tracks')
     const INPUT = location.pathname.slice(8);
     let filteredTracks = trackData.filter(track => track.title.includes(INPUT));
     let filteredUsers = userData.filter(track => track.name.includes(INPUT));
@@ -54,11 +55,11 @@ export default function Search() {
                 <hr />
                 <h6>Filter:</h6>
                 <ul>
-                    <li className={style.sideDivTracks} onClick={showTracks} id="tracksFilter">
+                    <li className={selectedTab === 'tracks' ? style.active : style.sideDivTracks} onClick={() => setSelectedTab('tracks')} id="tracksFilter">
                         <i className={style.trackIcon}>Tracks</i>
                     Tracks
                 </li>
-                    <li className={style.sideDivUsers} onClick={showUsers} id="usersFilter">
+                    <li className={style.sideDivUsers} onClick={() => setSelectedTab('users')} id="usersFilter">
                         <i className={style.usersIcon}>Users</i>
                     Users
                 </li>
@@ -82,7 +83,7 @@ export default function Search() {
                     <p>
                         Found {filteredUsers.length === 1 ? '1 user' : filteredUsers.length + ' users'}
                     </p>
-                    <ul style={{ listStyle: 'none' }}>
+                    <ul style={selectedTab ==='tracks' ?  { listStyle: 'none' }: {}}>
                         {filteredUsers.map(({ userId, name, profileImg }) => {
 
                             return (

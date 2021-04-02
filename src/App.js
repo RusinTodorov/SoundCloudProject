@@ -17,15 +17,15 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/Search" component={Search} />
-        <Route path="/Users/:userId" component={UserProfile} />
-        <Route path="/Users" component={Users} />
-        <Route path="/Tracks/:trackId" component={SingleTrack} />
-        <Route path="/MyProfile" component={MyProfile} />
-        <Route path="/Upload" component={Upload} />
-        <Route path="/Home" component={Home} />
-        <Route path="/SignIn" component={SignIn} />
-        <Route path="/CreateAccount" component={CreateAccount} />
+        <Route path="/search" component={Search} />
+        <Route path="/users/:userId" component={UserProfile} />
+        <Route path="/users" component={Users} />
+        <Route path="/tracks/:trackId" component={SingleTrack} />
+        <Route path="/myProfile" component={MyProfile} />
+        <Route path="/upload" component={Upload} />
+        <Route path="/home" component={Home} />
+        <Route path="/signIn" component={SignIn} />
+        <Route path="/createAccount" component={CreateAccount} />
         <Route path="/" exact component={InitialPage} />
         <Route component={PageNotFound} />
       </Switch>

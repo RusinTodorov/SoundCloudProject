@@ -9,8 +9,8 @@ export default function HomeTop() {
             <div className={style.homeTopDiv}>
                 <h1 className={style.logo}>SoundCloud</h1>
                 <div className={style.topRightDiv}>
-                    <Link to="/SignIn" className={style.singInLink}>Sign in</Link>
-                    <Link to="/CreateAccount" className={style.createAccountLink}>Create account</Link>
+                    <Link to="/signIn" className={style.singInLink}>Sign in</Link>
+                    <Link to="/createAccount" className={style.createAccountLink}>Create account</Link>
                     <a href="https://creators.soundcloud.com" 
                     target="_blank" 
                     className={style.creatorsLink}
@@ -26,7 +26,7 @@ export default function HomeTop() {
                         major artists around the world.
                     </p>
                     <div className={style.topDivCenterBottomDiv}>
-                        <Link to="/CreateAccount" className={style.topDivCenterBottomLink}>Sign up for free</Link>
+                        <Link to="/createAccount" className={style.topDivCenterBottomLink}>Sign up for free</Link>
                     </div>
                 </div>
             </div>
