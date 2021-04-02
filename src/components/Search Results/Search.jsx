@@ -5,7 +5,7 @@ import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import { DATA as trackData } from '../../data/Initial Page/data';
 import { DATA as userData } from '../../data/Users Page/data';
-import Track from './Track/Track';
+import Track from '../Track Horizontal Card/Track';
 
 export default function Search() {
     let location = useLocation();
