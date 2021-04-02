@@ -1,6 +1,5 @@
 import style from './style.module.css';
 import Tracks from './Tracks/Tracks';
-import {Link} from 'react-router-dom';
 
 export default function TrendingTracks() {
 
@@ -14,7 +13,6 @@ export default function TrendingTracks() {
                     <Tracks />
                 </ul>
             </div>
-            <Link to="/Home" className={style.explore}>Explore trending tracks</Link>
         </div>
     );
 }

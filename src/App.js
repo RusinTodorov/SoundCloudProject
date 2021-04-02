@@ -1,37 +1,34 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Header from './components/Home/Header/Header';
-// import Footer from './components/Initial Page/Footer/Footer';
-import SignIn from './components/SignIn/SignIn';
-import CreateAccount from './components/CreateAccount/CreateAccount';
+import SignIn from './components/Sign In/SignIn';
+import CreateAccount from './components/Create Account/CreateAccount';
 import Home from './components/Home/Home';
 import InitialPage from './components/Initial Page/InitialPage';
-import Users from './components/Users';
-import Search from './components/Search';
-import Upload from './components/Upload';
-import PageNotFound from './components/PageNotFound';
-import SingleTrack from './components/Single Track'
-import TrackBar from './components/TrackBar';
+import Users from './components/Users/Users';
+import Search from './components/Search Results/Search';
+import Upload from './components/Upload/Upload';
+import PageNotFound from './components/Page Not Found/PageNotFound';
+import SingleTrack from './components/Single Track';
+import MyProfile from './components/My Profile/MyProfile';
+import UserProfile from './components/User Profile/UserProfile';
 
 function App() {
 
   return (
     <Router>
-      <Header />
       <Switch>
-        <Route path="/Search" component={Search} />
-        <Route path="/Users" component={SingleTrack} />
-        <Route path="/Track" component={SingleTrack} />
-        <Route path="/Upload" component={Upload} />
-        <Route path="/Home" component={Home} />
-        <Route path="/SignIn" component={SignIn} />
-        <Route path="/CreateAccount" component={CreateAccount} />
-        <Route path="/bar" component={TrackBar} />
+        <Route path="/search" component={Search} />
+        <Route path="/users/:userId" component={UserProfile} />
+        <Route path="/users" component={Users} />
+        <Route path="/tracks/:trackId" component={SingleTrack} />
+        <Route path="/myProfile" component={MyProfile} />
+        <Route path="/upload" component={Upload} />
+        <Route path="/home" component={Home} />
+        <Route path="/signIn" component={SignIn} />
+        <Route path="/createAccount" component={CreateAccount} />
         <Route path="/" exact component={InitialPage} />
         <Route component={PageNotFound} />
       </Switch>
-      <TrackBar />
-      {/* <Footer /> */}
     </Router >
   );
 }

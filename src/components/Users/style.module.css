@@ -1,0 +1,62 @@
+.topDiv {
+    margin: 40px 52px;
+    margin-bottom: 0;
+    height: 450px;
+}
+
+.topDivMiddleInfo {
+    color: white;
+    position: relative;
+    bottom: 300px;
+    text-align: center;
+}
+
+.topDivMiddleInfoP {
+    width: 550px;
+    font-size: 18px;
+    margin: 10px auto;
+}
+
+.uploadBtn {
+    margin-top: 17px;
+    font-size: 18px;
+    height: 46px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #f50;
+    border-color: #f50;
+    display: inline-block;
+    position: relative;
+    padding: 8px 13px;
+    border-radius: 5px;
+}
+
+.uploadBtn:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.middleDiv {
+    margin: 0 52px;
+    width: 1240px;
+    padding: 40px;
+    background-color: white;
+}
+
+.avatar {
+    border-radius: 50%;
+    margin: 15px;
+}
+
+.userLink {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.userLink:hover {
+    text-decoration: none;
+    color: #f50;
+}

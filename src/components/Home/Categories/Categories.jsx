@@ -1,5 +1,5 @@
 import style from './style.module.css';
-import Track from './Track/Track';
+import Track from '../../Track Vertical Card/Track';
 
 export default function Categories({ title, details, data }) {
 

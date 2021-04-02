@@ -11,11 +11,11 @@ export default function Teaser() {
                 Save tracks, follow artists and build playlists. All for free.
                 </p>
             <p className={style.signUpP}>
-                <Link to="/CreateAccount" className={style.signUpLink}>Create account</Link>
+                <Link to="/createAccount" className={style.signUpLink}>Create account</Link>
             </p>
             <p className={style.signInP}>
                 Already have an account?
-                    <Link to="/SignIn" className={style.signInLink}>Sign in</Link>
+                    <Link to="/signIn" className={style.signInLink}>Sign in</Link>
             </p>
         </div>
     );
