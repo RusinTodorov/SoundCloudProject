@@ -12,7 +12,7 @@
     color: transparent;
 }
 
-.sideDivTracks {
+.activeTab {
     cursor: pointer;
     background: #f50;
     margin-left: -10px;
@@ -37,7 +37,7 @@
     color: transparent;
 }
 
-.sideDivUsers {
+.inactiveTab {
     cursor: pointer;
     margin-left: -10px;
     padding-left: 10px;
@@ -55,6 +55,10 @@
     margin-left: 250px;
 }
 
+.hidden {
+    display: none;
+}
+
 .avatar {
     border-radius: 50%;
     margin: 15px;
@@ -69,4 +73,8 @@
 .userLink:hover {
     text-decoration: none;
     color: #f50;
+}
+
+.list {
+    list-style: none;
 }
