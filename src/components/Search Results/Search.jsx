@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
-import { DATA as trackData } from '../Initial Page/TrendingTracks/Tracks/Tracks';
-import userData from '../Users/data';
+import { DATA as trackData } from '../../data/Initial Page/data';
+import { DATA as userData } from '../../data/Users Page/data';
 import Track from './Track/Track';
 
 export default function Search() {

@@ -3,7 +3,7 @@ import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import EmptyImg from './EmptyImg.png';
 import { useLocation } from 'react-router-dom';
-import DATA from '../Users/data';
+import { DATA } from '../../data/Users Page/data';
 import PageNotFound from '../Page Not Found/PageNotFound';
 
 export default function UserProfile() {
