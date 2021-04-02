@@ -72,6 +72,9 @@ const TrackBar = () => {
     useEffect(() => {
         if (track) {
             track.audioEl.current.currentTime = seekTime;
+            setSliderValue(seekTime)
+            changeProgressPercent(seekTime)
+            dispatch(setCurrTime(seekTime));
         }
     }, [seekTime, track])
 
@@ -165,7 +168,6 @@ const TrackBar = () => {
                     <PlayArrowIcon
                         style={{ cursor: 'pointer' }}
                         onClick={() => dispatch(playTrack())}
-
 
                     />}
 

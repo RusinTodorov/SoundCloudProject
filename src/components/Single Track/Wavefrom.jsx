@@ -19,11 +19,13 @@ import {
 } from '../../redux/Track/track.actions'
 
 import store from '../../redux/store'
+import { logDOM } from '@testing-library/dom';
+import { useState } from 'react';
 
 let waveform = '';
 
 
-const Waveform = ({ track }) => {
+const Waveform = () => {
     const dispatch = useDispatch();
     const isPlaying = useSelector(state => state.track.isPlaying)
     const songSrc = useSelector(state => state.track.src)
@@ -37,9 +39,9 @@ const Waveform = ({ track }) => {
     const date = useSelector(state => state.track.content.date);
     const description = useSelector(state => state.track.content.description);
 
+    let [seekend, setSeekend] = useState(false);
 
     useEffect(() => {
-        console.log('wf', waveform);
         document.getElementById('waveform').innerHTML = '';
 
         waveform = WaveSurfer.create({
@@ -52,27 +54,58 @@ const Waveform = ({ track }) => {
             responsive: true,
             waveColor: '#EFEFEF',
             cursorColor: 'transparent',
+            // skipLength: currTime,
         });
+
 
         waveform.load(songSrc);
 
         waveform.setMute(true)
 
-    }, [songSrc]);
+        waveform.on("ready", () => {
+            waveform.skip(currTime)
+        });
 
-    useEffect(() => {
-        if (isPlaying) {
-            waveform.play();
-        } else if (!isPlaying) {
-            waveform.pause();
-        }
-
-        waveform.backend.startPosition = Number(currTime);
+        // waveform.on("pause", () => {
+        //     waveform.skip(currTime)
+        // });
 
         waveform.on('seek', () => {
             dispatch(onSeek(waveform.getCurrentTime()))
+            setSeekend(true)
         });
-    }, [currTime, isPlaying, dispatch])
+    }, [songSrc]);
+
+    useEffect(() => {
+
+        let timeToSkip = waveform.getCurrentTime() - currTime;
+
+        if (isPlaying && !seekend) {
+
+            if (timeToSkip < -1 || timeToSkip > 1) {
+                waveform.play(Number(currTime));
+            } else {
+                waveform.play();
+            }
+
+
+        } else if (!isPlaying) {
+            waveform.pause();
+
+            //1 and -1 are minimal time to skip
+            if (timeToSkip < -1) {
+                waveform.skip(Math.abs(timeToSkip));
+            } else if (timeToSkip > 1) {
+                waveform.skip(-Math.abs(timeToSkip));
+            }
+        }
+
+        if (seekend) {
+            setSeekend(false)
+        }
+
+    }, [currTime, isPlaying])
+
 
     return (
         <div className={styles.trackContainer}>
@@ -91,6 +124,7 @@ const Waveform = ({ track }) => {
                             onClick={() => dispatch(playTrack())}
                         />}
 
+
                     </div>
                     <div className={styles.nameContainer}>
                         <div className={styles.authorContainer}>
@@ -99,6 +133,8 @@ const Waveform = ({ track }) => {
                         <div>
                             <span className={styles.title}>{title}</span>
                         </div>
+                        <button onClick={() => { waveform.skipForward() }}>click</button>
+
                     </div>
                     <div className={styles.dateContainer}>
                         <p>{calculateDate(date)}</p>
