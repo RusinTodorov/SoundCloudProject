@@ -1,13 +1,16 @@
+import Header from '../Home/Header/Header'
 import Waveform from './Wavefrom'
 
 const SingleTrack = () => {
 
     return (
-        <div style={{ paddingTop: 46 }}>
+        <>
+            <Header />
+            <div style={{ paddingTop: 46 }}>
+                <Waveform />
 
-            <Waveform />
-
-        </div>
+            </div>
+        </>
     );
 }
 

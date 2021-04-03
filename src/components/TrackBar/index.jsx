@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 
 import ReactAudioPlayer from 'react-audio-player';
 
@@ -11,34 +12,28 @@ import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 
 import styles from './trackBar.module.scss'
 
-import song from './Jeremih - Birthday Sex.mp3'
-import songTwo from './Rod Wave - Street Runner.mp3'
-import sixnineImage from './sixnine.jpg'
-
 import { useDispatch, useSelector } from 'react-redux'
-import store from '../../redux/store';
 import {
-    addSrc,
     playTrack,
     pauseTrack,
     setCurrTime,
     setDuration,
-    addContent,
-    addImage,
-
 } from '../../redux/Track/track.actions'
 
-let trackObj = {
-    title: 'Street Runner',
-    author: 'Rod Wave',
-    song: song,
-    image: sixnineImage,
-    date: "March, 28, 2021 16:25:00",
-    description: 'this is my new song',
-}
+// let trackObj = {
+//     title: 'Street Runner',
+//     author: 'Rod Wave',
+//     song: song,
+//     image: sixnineImage,
+//     date: "March, 28, 2021 16:25:00",
+//     description: 'this is my new song',
+// }
 
 
 const TrackBar = () => {
+    const dispatch = useDispatch();
+    let history = useHistory()
+
     let [track, setTrack] = useState(null);
     let [sliderMaxValue, setSliderMaxValue] = useState(100);
     let [sliderValue, setSliderValue] = useState(0);
@@ -49,8 +44,8 @@ const TrackBar = () => {
     let [volumeRange, setVolumeRange] = useState(null);
     let [previousVolume, setPreviousVolume] = useState(100);
 
-    const dispatch = useDispatch();
     const isPlay = useSelector(state => state.track.isPlaying)
+    const id = useSelector(state => state.track.id)
     const songSrc = useSelector(state => state.track.src)
     const seekTime = useSelector(state => state.track.seekTime)
     const strTime = useSelector(state => state.track.strTime);
@@ -117,9 +112,13 @@ const TrackBar = () => {
         setVolumePercent(percent);
     }
 
+    const openTrackPage = () => {
+        history.push(`/tracks/${id}`)
+    }
+
     return (
         <div className={styles.trackBar} >
-            <div className={styles.test}>
+            {/* <div className={styles.test}>
                 <button onClick={() => dispatch(playTrack())}>Play</button>
                 <button onClick={() => dispatch(pauseTrack())}>Pause</button>
                 <button onClick={() => {
@@ -129,7 +128,7 @@ const TrackBar = () => {
 
                 }}>Add source</button>
                 <button onClick={() => { console.log(store.getState()) }}>Check</button>
-            </div>
+            </div> */}
 
 
             <ReactAudioPlayer
@@ -230,11 +229,11 @@ const TrackBar = () => {
 
             <div className={styles.imgAndTitle}>
                 <div className={styles.imageContainer}>
-                    <img src={image} alt='track' />
+                    <img src={image} alt='track' onClick={openTrackPage} />
                 </div>
                 <div className={styles.titleAndAuthor}>
-                    <span className={styles.author}>{author}</span>
-                    <span className={styles.title}>{title}</span>
+                    <span className={styles.author} onClick={openTrackPage} >{author}</span>
+                    <span className={styles.title} onClick={openTrackPage}>{title}</span>
                 </div>
             </div>
         </div>

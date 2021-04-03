@@ -1,34 +1,57 @@
-import React, { useEffect, } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+
 import WaveSurfer from 'wavesurfer';
 
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
 
 import styles from './waveform.module.scss';
-
 import { calculateDate } from '../Utils/getDate';
-
-import jer from './Jeremih - Birthday Sex.mp3'
 
 import { useDispatch, useSelector } from 'react-redux'
 import {
+    addSrc,
     playTrack,
     pauseTrack,
+    setCurrTime,
+    addContent,
+    addImage,
     onSeek,
-
+    setId,
 } from '../../redux/Track/track.actions'
 
-import store from '../../redux/store'
-import { logDOM } from '@testing-library/dom';
-import { useState } from 'react';
+import { DATA as InitialPageDATA } from '../../data/Initial Page/data'
+import { DATA as HomePageDATA } from '../../data/Home Page/data'
 
 let waveform = '';
-
+let onReady = false;
 
 const Waveform = () => {
     const dispatch = useDispatch();
-    const isPlaying = useSelector(state => state.track.isPlaying)
+    let history = useHistory();
+    let currId = history.location.pathname.split('/')[2].toString();
+
+    const id = useSelector(state => state.track.id)
     const songSrc = useSelector(state => state.track.src)
+
+    if (id !== currId) {
+        let track = '';
+
+        if (currId <= 12) {
+            track = InitialPageDATA.find(x => x.trackId === currId);
+        } else {
+            track = HomePageDATA.find(x => x.trackId === currId);
+        }
+
+        dispatch(setId(currId));
+        dispatch(addSrc(track.audio));
+        dispatch(addImage(track.img));
+        dispatch(addContent({ ...track, author: track.uploadedBy }));
+        dispatch(setCurrTime(0));
+    }
+
+    const isPlaying = useSelector(state => state.track.isPlaying)
     const strTime = useSelector(state => state.track.strTime);
     const currTime = useSelector(state => state.track.currTime);
     const duration = useSelector(state => state.track.duration);
@@ -63,26 +86,26 @@ const Waveform = () => {
         waveform.setMute(true)
 
         waveform.on("ready", () => {
-            waveform.skip(currTime)
+            if (!onReady) {
+                waveform.skip(currTime)
+                onReady = true;
+            }
         });
-
-        // waveform.on("pause", () => {
-        //     waveform.skip(currTime)
-        // });
 
         waveform.on('seek', () => {
             dispatch(onSeek(waveform.getCurrentTime()))
             setSeekend(true)
         });
-    }, [songSrc]);
+    }, [id]);
 
     useEffect(() => {
 
-        let timeToSkip = waveform.getCurrentTime() - currTime;
+        const wavefromCurrentTime = waveform.getCurrentTime()
+        const timeToSkip = wavefromCurrentTime - currTime;
 
         if (isPlaying && !seekend) {
 
-            if (timeToSkip < -1 || timeToSkip > 1) {
+            if ((timeToSkip < -1 || timeToSkip > 1) && wavefromCurrentTime !== 0) {
                 waveform.play(Number(currTime));
             } else {
                 waveform.play();
@@ -103,6 +126,7 @@ const Waveform = () => {
         if (seekend) {
             setSeekend(false)
         }
+
 
     }, [currTime, isPlaying])
 
@@ -133,7 +157,6 @@ const Waveform = () => {
                         <div>
                             <span className={styles.title}>{title}</span>
                         </div>
-                        <button onClick={() => { waveform.skipForward() }}>click</button>
 
                     </div>
                     <div className={styles.dateContainer}>

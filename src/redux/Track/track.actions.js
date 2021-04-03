@@ -98,6 +98,17 @@ export const addImage = (img) => {
     };
 };
 
+export const setId = (id) => {
+
+    return {
+
+        type: types.SET_ID,
+        payload: {
+            id: id,
+        }
+    };
+};
+
 const calculateTime = (secs) => {
     const minutes = Math.floor(secs / 60);
     const seconds = Math.floor(secs % 60);

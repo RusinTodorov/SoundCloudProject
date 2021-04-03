@@ -11,25 +11,32 @@ import PageNotFound from './components/Page Not Found/PageNotFound';
 import SingleTrack from './components/Single Track';
 import MyProfile from './components/My Profile/MyProfile';
 import UserProfile from './components/User Profile/UserProfile';
+import TrackBar from './components/TrackBar'
+import store from './redux/store'
 
 function App() {
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/search" component={Search} />
-        <Route path="/users/:userId" component={UserProfile} />
-        <Route path="/users" component={Users} />
-        <Route path="/tracks/:trackId" component={SingleTrack} />
-        <Route path="/myProfile" component={MyProfile} />
-        <Route path="/upload" component={Upload} />
-        <Route path="/home" component={Home} />
-        <Route path="/signIn" component={SignIn} />
-        <Route path="/createAccount" component={CreateAccount} />
-        <Route path="/" exact component={InitialPage} />
-        <Route component={PageNotFound} />
-      </Switch>
-    </Router >
+    <>
+      <Router>
+        <Switch>
+          <Route path="/search" component={Search} />
+          <Route path="/users/:userId" component={UserProfile} />
+          <Route path="/users" component={Users} />
+          <Route path="/tracks/:trackId" component={SingleTrack} />
+          <Route path="/myProfile" component={MyProfile} />
+          <Route path="/upload" component={Upload} />
+          <Route path="/home" component={Home} />
+          <Route path="/signIn" component={SignIn} />
+          <Route path="/createAccount" component={CreateAccount} />
+          <Route path="/" exact component={InitialPage} />
+          <Route component={PageNotFound} />
+        </Switch>
+        <TrackBar />
+      </Router >
+
+
+    </>
   );
 }
 
