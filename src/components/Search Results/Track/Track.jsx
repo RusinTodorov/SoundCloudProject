@@ -1,5 +1,5 @@
 import style from './style.module.css';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Track({ userId, trackId, img, audio, title, uploadedBy, likes }) {
 
@@ -18,8 +18,8 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy, 
                     Your browser does not support the audio tag.
                 </audio>
                 <div className={style.bottomDiv}>
-                <button className={style.like} onClick={like}>Like!</button>
-                <p>Likes: {likes}</p>
+                    <button className={style.like} onClick={like}>Like!</button>
+                    <p>Likes: {likes}</p>
                 </div>
             </div>
         </div>

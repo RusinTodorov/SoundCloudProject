@@ -46,6 +46,7 @@ const TrackBar = () => {
 
     const isPlay = useSelector(state => state.track.isPlaying)
     const id = useSelector(state => state.track.id)
+    const userId = useSelector(state => state.track.userId)
     const songSrc = useSelector(state => state.track.src)
     const seekTime = useSelector(state => state.track.seekTime)
     const strTime = useSelector(state => state.track.strTime);
@@ -116,20 +117,12 @@ const TrackBar = () => {
         history.push(`/tracks/${id}`)
     }
 
+    const openUserPage = () => {
+        history.push(`/users/${userId}`)
+    }
+
     return (
         <div className={styles.trackBar} >
-            {/* <div className={styles.test}>
-                <button onClick={() => dispatch(playTrack())}>Play</button>
-                <button onClick={() => dispatch(pauseTrack())}>Pause</button>
-                <button onClick={() => {
-                    dispatch(addSrc(songTwo))
-                    dispatch(addImage(sixnineImage))
-                    dispatch(addContent(trackObj))
-
-                }}>Add source</button>
-                <button onClick={() => { console.log(store.getState()) }}>Check</button>
-            </div> */}
-
 
             <ReactAudioPlayer
                 style={{ display: 'none' }}
@@ -141,6 +134,11 @@ const TrackBar = () => {
                 onLoadedMetadata={() => {
                     dispatch(setDuration(track.audioEl.current.duration))
                     setSliderMaxValue(Math.floor(track.audioEl.current.duration))
+
+                    if (track.audioEl.current.currentTime === 0) {
+                        setSliderValue(0)
+                        changeProgressPercent(0);
+                    }
                 }}
                 listenInterval={900}
                 onListen={() => {
@@ -231,8 +229,9 @@ const TrackBar = () => {
                 <div className={styles.imageContainer}>
                     <img src={image} alt='track' onClick={openTrackPage} />
                 </div>
+                {/* to={`/Users/${userId}`} */}
                 <div className={styles.titleAndAuthor}>
-                    <span className={styles.author} onClick={openTrackPage} >{author}</span>
+                    <span className={styles.author} onClick={openUserPage} >{author}</span>
                     <span className={styles.title} onClick={openTrackPage}>{title}</span>
                 </div>
             </div>

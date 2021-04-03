@@ -6,6 +6,7 @@
 import * as types from './track.types'
 
 const INITIAL_STATE = {
+    userId: '',
     id: '',
     href: '',
     src: '',
@@ -88,15 +89,25 @@ const trackReducer = (state = INITIAL_STATE, action) => {
                 image: action.payload.image,
             };
 
-        default: return state;
 
-        case types.SET_ID:
+        case types.SET_TRACK_ID:
 
             return {
 
                 ...state, id: action.payload.id,
 
             };
+
+
+        case types.SET_USER_ID:
+
+            return {
+
+                ...state, userId: action.payload.userId,
+
+            };
+
+        default: return state;
 
     }
 

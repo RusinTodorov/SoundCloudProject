@@ -18,7 +18,8 @@ import {
     addContent,
     addImage,
     onSeek,
-    setId,
+    setTrackId,
+    setUserId,
 } from '../../redux/Track/track.actions'
 
 import { DATA as InitialPageDATA } from '../../data/Initial Page/data'
@@ -31,81 +32,117 @@ const Waveform = () => {
     const dispatch = useDispatch();
     let history = useHistory();
     let currId = history.location.pathname.split('/')[2].toString();
+    let track = '';
 
-    const id = useSelector(state => state.track.id)
-    const songSrc = useSelector(state => state.track.src)
-
-    if (id !== currId) {
-        let track = '';
-
-        if (currId <= 12) {
-            track = InitialPageDATA.find(x => x.trackId === currId);
-        } else {
-            track = HomePageDATA.find(x => x.trackId === currId);
-        }
-
-        dispatch(setId(currId));
-        dispatch(addSrc(track.audio));
-        dispatch(addImage(track.img));
-        dispatch(addContent({ ...track, author: track.uploadedBy }));
-        dispatch(setCurrTime(0));
+    if (currId <= 12) {
+        track = InitialPageDATA.find(x => x.trackId === currId);
+    } else {
+        track = HomePageDATA.find(x => x.trackId === currId);
     }
 
+    const id = useSelector(state => state.track.id)
+    const userId = useSelector(state => state.track.userId)
     const isPlaying = useSelector(state => state.track.isPlaying)
-    const strTime = useSelector(state => state.track.strTime);
     const currTime = useSelector(state => state.track.currTime);
-    const duration = useSelector(state => state.track.duration);
 
-    const image = useSelector(state => state.track.image);
-    const title = useSelector(state => state.track.content.title);
-    const author = useSelector(state => state.track.content.author);
-    const date = useSelector(state => state.track.content.date);
-    const description = useSelector(state => state.track.content.description);
+    let strTime = useSelector(state => state.track.strTime);
+    let duration = useSelector(state => state.track.duration);
+    let songSrc = useSelector(state => state.track.src)
+    let image = useSelector(state => state.track.image);
+    let title = useSelector(state => state.track.content.title);
+    let author = useSelector(state => state.track.content.author);
+    let date = useSelector(state => state.track.content.date);
+    // const description = useSelector(state => state.track.content.description);
+
+    if (id !== currId) {
+        image = track.img;
+        title = track.title;
+        author = track.uploadedBy;
+        songSrc = track.audio;
+        strTime = '0:00'
+        duration = '0:00'
+    }
 
     let [seekend, setSeekend] = useState(false);
 
     useEffect(() => {
+        onReady = false;
         document.getElementById('waveform').innerHTML = '';
 
-        waveform = WaveSurfer.create({
-            barWidth: 3,
-            cursorWidth: 1,
-            container: '#waveform',
-            backend: 'WebAudio',
-            height: 180,
-            progressColor: '#f50',
-            responsive: true,
-            waveColor: '#EFEFEF',
-            cursorColor: 'transparent',
-            // skipLength: currTime,
-        });
+        if (id !== currId) {
+            waveform = WaveSurfer.create({
+                barWidth: 3,
+                cursorWidth: 1,
+                container: '#waveform',
+                backend: 'WebAudio',
+                height: 180,
+                progressColor: '#EFEFEF',
+                responsive: true,
+                waveColor: '#EFEFEF',
+                cursorColor: 'transparent',
+                // skipLength: currTime,
+            });
+        } else {
+            waveform = WaveSurfer.create({
+                barWidth: 3,
+                cursorWidth: 1,
+                container: '#waveform',
+                backend: 'WebAudio',
+                height: 180,
+                progressColor: '#f50',
+                responsive: true,
+                waveColor: '#EFEFEF',
+                cursorColor: 'transparent',
+                // skipLength: currTime,
+            });
 
+            waveform.on("ready", () => {
+
+                if (!onReady && id === currId) {
+                    const waveformCurrentTime = waveform.getCurrentTime()
+                    const timeToSkip = waveformCurrentTime - currTime;
+
+                    //1 and -1 are minimal time to skip
+                    if (timeToSkip < -1) {
+                        waveform.skip(Math.abs(timeToSkip));
+                    } else if (timeToSkip > 1) {
+                        waveform.skip(-Math.abs(timeToSkip));
+                    }
+
+                    onReady = true;
+                }
+
+
+            });
+
+            waveform.on('seek', () => {
+
+                const waveformCurrentTime = waveform.getCurrentTime()
+                const timeToSkip = waveformCurrentTime - currTime;
+
+                if ((timeToSkip < -1 || timeToSkip > 1) && waveformCurrentTime !== 0) {
+                    dispatch(onSeek(waveform.getCurrentTime()))
+                    setSeekend(true)
+                    console.log('ins');
+                }
+
+            });
+        }
 
         waveform.load(songSrc);
 
         waveform.setMute(true)
 
-        waveform.on("ready", () => {
-            if (!onReady) {
-                waveform.skip(currTime)
-                onReady = true;
-            }
-        });
-
-        waveform.on('seek', () => {
-            dispatch(onSeek(waveform.getCurrentTime()))
-            setSeekend(true)
-        });
     }, [id]);
 
     useEffect(() => {
 
-        const wavefromCurrentTime = waveform.getCurrentTime()
-        const timeToSkip = wavefromCurrentTime - currTime;
+        const waveformCurrentTime = waveform.getCurrentTime()
+        const timeToSkip = waveformCurrentTime - currTime;
 
         if (isPlaying && !seekend) {
 
-            if ((timeToSkip < -1 || timeToSkip > 1) && wavefromCurrentTime !== 0) {
+            if ((timeToSkip < -1 || timeToSkip > 1) && waveformCurrentTime !== 0) {
                 waveform.play(Number(currTime));
             } else {
                 waveform.play();
@@ -130,6 +167,17 @@ const Waveform = () => {
 
     }, [currTime, isPlaying])
 
+    const setTrackFromThisPage = () => {
+
+        dispatch(addSrc(track.audio));
+        dispatch(setUserId(track.userId));
+        dispatch(setTrackId(currId));
+        dispatch(addImage(track.img));
+        dispatch(addContent({ ...track, author: track.uploadedBy }));
+        dispatch(setCurrTime(0));
+        dispatch(pauseTrack());
+
+    }
 
     return (
         <div className={styles.trackContainer}>
@@ -138,21 +186,24 @@ const Waveform = () => {
                     <div className={styles.playContainer}>
                         <span className={styles.playBtnSpan}></span>
 
-                        {isPlaying ? <PauseCircleFilledIcon
+                        {isPlaying && id === currId ? <PauseCircleFilledIcon
                             className={styles.playBtn}
                             fontSize='large'
                             onClick={() => dispatch(pauseTrack())}
                         /> : <PlayCircleFilledIcon
                             className={styles.playBtn}
                             fontSize='large'
-                            onClick={() => dispatch(playTrack())}
+                            onClick={() => {
+                                setTrackFromThisPage()
+                                dispatch(playTrack())
+                            }}
                         />}
 
 
                     </div>
                     <div className={styles.nameContainer}>
                         <div className={styles.authorContainer}>
-                            <span className={styles.author}>{author}</span>
+                            <span className={styles.author} onClick={() => history.push(`/users/${userId}`)}>{author}</span>
                         </div>
                         <div>
                             <span className={styles.title}>{title}</span>
@@ -169,7 +220,7 @@ const Waveform = () => {
                         <span style={{ marginTop: 3 }}>
                             {strTime !== '0:00' && <span className={styles.currTime}>{strTime}</span>}
                         </span>
-                        <span className={styles.duration}>{duration}</span>
+                        {duration !== '0:00' && <span className={styles.duration}>{duration}</span>}
                     </div>
                     <div className={styles.waveformContianer}>
                         <div className={styles.wave} id="waveform">

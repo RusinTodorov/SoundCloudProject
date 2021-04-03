@@ -98,13 +98,24 @@ export const addImage = (img) => {
     };
 };
 
-export const setId = (id) => {
+export const setTrackId = (id) => {
 
     return {
 
-        type: types.SET_ID,
+        type: types.SET_TRACK_ID,
         payload: {
             id: id,
+        }
+    };
+};
+
+export const setUserId = (id) => {
+
+    return {
+
+        type: types.SET_USER_ID,
+        payload: {
+            userId: id,
         }
     };
 };

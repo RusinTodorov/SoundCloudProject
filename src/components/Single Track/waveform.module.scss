@@ -39,7 +39,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-
+            margin-left: 10px;
 
             .playBtnSpan {
                 width: 30px;
@@ -51,8 +51,8 @@
             .playBtn {
                 z-index: 1;
                 color: #f50;
-                height: 75px;
-                width: 135px;
+                height: 87px;
+                width: 90px;
 
                 &:hover {
                     cursor: pointer;
@@ -63,6 +63,7 @@
         .nameContainer {
             width: 68%;
             overflow-wrap: break-word;
+            margin-left: 15px;
            
             .author,
             .title {

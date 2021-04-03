@@ -14,4 +14,6 @@ export const ADD_IMG = 'ADD_IMG';
 
 export const ADD_CONTENT = 'ADD_CONTENT';
 
-export const SET_ID = ' SET_ID';
+export const SET_TRACK_ID = 'SET_TRACK_ID';
+
+export const SET_USER_ID = 'SET_USER_ID';

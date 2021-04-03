@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 import style from './style.module.css';
 import { Link } from 'react-router-dom';
 
@@ -10,15 +12,14 @@ import {
     setCurrTime,
     addContent,
     addImage,
-    onSeek,
-    setId,
+    setTrackId,
+    setUserId,
 } from '../../redux/Track/track.actions'
 
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { useEffect, useState } from 'react';
 
 const useStyles = makeStyles({
     btn: {
@@ -34,16 +35,8 @@ const useStyles = makeStyles({
 let previousTrackId = -1;
 
 export default function Track({ img, title, audio, uploadedBy, trackId, userId }) {
-    function like(e) {
-        e.target.innerHTML = 'Liked';
-        let btn = e.target;
-        btn.style.backgroundColor = 'LightGray';
-        btn.style.borderColor = 'LightGray';
-        btn.setAttribute('disabled', 'true');
+    let [playBtnDisplay, setPlayBtnDisplay] = useState(style.hideBtnDiv)
 
-        // to do set in local storage that song has been liked,
-        // and send a like to firebase
-    }
 
     const dispatch = useDispatch();
     const isPlaying = useSelector(state => state.track.isPlaying)
@@ -55,7 +48,8 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
 
         if (id !== trackId) {
 
-            dispatch(setId(trackId));
+            dispatch(setTrackId(userId));
+            dispatch(setTrackId(trackId));
             dispatch(addSrc(audio))
             dispatch(addImage(img));
             dispatch(addContent({ title, author: uploadedBy }));
@@ -65,67 +59,70 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
         dispatch(playTrack())
     }
 
-    let [playBtnDisplay, setPlayBtnDisplay] = useState(style.hideBtnDiv)
 
-
-    // let playBtnDisplay = ;
     if (previousTrackId === trackId && playBtnDisplay === style.showBtnDiv) {
         setPlayBtnDisplay(style.hideBtnDiv)
+        previousTrackId = -1;
     }
 
+    useEffect(() => {
+        if (id === trackId && isPlaying) {
+            setPlayBtnDisplay(style.showBtnDiv)
+        }
+    })
 
+    function like(e) {
+        e.target.innerHTML = 'Liked';
+        let btn = e.target;
+        btn.style.backgroundColor = 'LightGray';
+        btn.style.borderColor = 'LightGray';
+        btn.setAttribute('disabled', 'true');
+
+        // to do set in local storage that song has been liked,
+        // and send a like to firebase
+    }
     return (
-        <>
-
-            <div className={style.cardDiv}>
-                <div
-                    onMouseEnter={() => {
-                        setPlayBtnDisplay(style.showBtnDiv)
-                    }}
-                    onMouseLeave={() => {
-                        if (!isPlaying || id !== trackId) {
-                            setPlayBtnDisplay(style.hideBtnDiv)
-                        }
-                    }}
-                >
-                    <div className={`${style.playBtnDiv} ${playBtnDisplay}`}>
-                        <span className={style.playBtnSpan}></span>
-                        {id === trackId && isPlaying ?
-                            <PauseCircleFilledIcon
-                                className={classes.btn}
-                                fontSize='large'
-                                onClick={() => {
-                                    dispatch(pauseTrack())
+        <div className={style.cardDiv}>
+            <div
+                onMouseEnter={() => {
+                    setPlayBtnDisplay(style.showBtnDiv)
+                }}
+                onMouseLeave={() => {
+                    if (!isPlaying || id !== trackId) {
+                        setPlayBtnDisplay(style.hideBtnDiv)
+                    }
+                }}
+            >
+                <div className={`${style.playBtnDiv} ${playBtnDisplay}`}>
+                    <span className={style.playBtnSpan}></span>
+                    {id === trackId && isPlaying ?
+                        <PauseCircleFilledIcon
+                            className={classes.btn}
+                            fontSize='large'
+                            onClick={() => {
+                                dispatch(pauseTrack())
 
 
-                                }}
-                            /> : <PlayCircleFilledIcon
-                                className={classes.btn}
-                                fontSize='large'
-                                onClick={() => {
-                                    if (trackId !== id) {
-                                        previousTrackId = id;
-                                    }
+                            }}
+                        /> : <PlayCircleFilledIcon
+                            className={classes.btn}
+                            fontSize='large'
+                            onClick={() => {
+                                if (trackId !== id) {
+                                    previousTrackId = id;
+                                }
 
-                                    playCurrTrack()
-                                }}
-                            />}
-                    </div>
-                    <img className={style.img} src={img} alt="Song Cover" />
+                                playCurrTrack()
+                            }}
+                        />}
                 </div>
+                <img className={style.img} src={img} alt="Song Cover" />
+            </div>
 
-                <Link className={style.title} to={`/Tracks/${trackId}`}>{title}</Link>
-                <Link className={style.uploader} to={`/Users/${userId}`}>{uploadedBy}</Link>
+            <Link className={style.title} to={`/Tracks/${trackId}`}>{title}</Link>
+            <Link className={style.uploader} to={`/Users/${userId}`}>{uploadedBy}</Link>
 
-
-
-                {/* <audio controls className={style.audio}>
-                    <source src={audio} type="audio/mpeg" />
-                    Your browser does not support the audio tag.
-                </audio> */}
-                <button className={style.like} onClick={like}>Like!</button>
-            </div >
-
-        </>
+            <button className={style.like} onClick={like}>Like!</button>
+        </div >
     )
 }
