@@ -22,7 +22,7 @@ function App() {
     <>
       <Router>
         <Switch>
-          <Route path="/search" component={Search} />
+          <Route path="/search/:input" component={Search} />
           <Route path="/users/:userId" component={UserProfile} />
           <Route path="/users" component={Users} />
           <Route path="/tracks/:trackId" component={SingleTrack} />

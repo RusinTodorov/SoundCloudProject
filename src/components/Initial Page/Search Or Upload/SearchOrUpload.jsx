@@ -1,12 +1,18 @@
 import style from './style.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function SearchOrUpload() {
-    
-    const search = (e) => {
+    const HISTORY = useHistory();
+    const [input, setInput] = useState('');
+
+    const onInput = e => {
+        setInput(e.target.value.trim());
+    }
+
+    const search = e => {
         e.preventDefault();
-        const INPUT = e.target.querySelector('input').value;
-        window.location = `http://localhost:3000/Search/${INPUT}`;
+        HISTORY.push(`/search/${input}`);
     }
 
     return (
@@ -15,12 +21,14 @@ export default function SearchOrUpload() {
                 <span>
                     <form className={style.form} onSubmit={search}>
                         <input className={style.input}
-                         placeholder="Search for artists, bands, tracks, podcasts" 
-                         type="search" name="search" autoComplete="off" />
-                <button className={style.submit} type="submit">Search</button>
+                            placeholder="Search for artists, bands, tracks, podcasts"
+                            autoComplete="off"
+                            onInput={onInput}
+                        />
+                        <button className={style.submit} type="submit">Search</button>
                     </form>
-                </span> 
-                or 
+                </span>
+                or
                 <Link to="/upload" className={style.linkToUpload}>Upload your own</Link>
             </span>
         </div>
