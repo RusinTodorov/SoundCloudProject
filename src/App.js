@@ -12,8 +12,9 @@ import SingleTrack from './components/Single Track';
 import MyProfile from './components/My Profile/MyProfile';
 import UserProfile from './components/User Profile/UserProfile';
 import TrackBar from './components/TrackBar'
-import store from './redux/store'
 import { useSelector } from 'react-redux';
+
+
 
 function App() {
   const id = useSelector(state => state.track.id);

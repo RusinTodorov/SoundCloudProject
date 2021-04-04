@@ -6,12 +6,17 @@ import Footer from './Footer/Footer';
 import { DATA as trackData } from '../../data/Initial Page/data';
 import { DATA as userData } from '../../data/Users Page/data';
 import Track from '../Track Horizontal Card/Track';
+import { useSelector } from 'react-redux';
 
 export default function Search() {
     let location = useLocation();
     const [selectedTab, setSelectedTab] = useState('tracks');
     const INPUT = location.pathname.slice(8);
-    const FILTERED_TRACKS = trackData.filter(track => track.title.includes(INPUT));
+
+    const allTracks = useSelector(state => state.allTracks);
+
+
+    const FILTERED_TRACKS = allTracks.filter(track => track.title.includes(INPUT));
     const FILTERED_USERS = userData.filter(track => track.name.includes(INPUT));
 
     return (

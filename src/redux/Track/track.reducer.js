@@ -1,8 +1,3 @@
-// let obj = {
-//     src: '',
-//     isPlaying: '',
-// }
-
 import * as types from './track.types'
 
 const INITIAL_STATE = {

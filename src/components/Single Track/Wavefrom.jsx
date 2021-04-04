@@ -32,13 +32,16 @@ const Waveform = () => {
     const dispatch = useDispatch();
     let history = useHistory();
     let currId = history.location.pathname.split('/')[2].toString();
-    let track = '';
 
-    if (currId <= 12) {
-        track = InitialPageDATA.find(x => x.trackId === currId);
-    } else {
-        track = HomePageDATA.find(x => x.trackId === currId);
-    }
+    const allTracks = useSelector(state => state.allTracks)
+
+    let track = allTracks.find(x => x.trackId === currId)
+
+    // if (currId <= 12) {
+    //     track = InitialPageDATA.find(x => x.trackId === currId);
+    // } else {
+    //     track = HomePageDATA.find(x => x.trackId === currId);
+    // }
 
     const id = useSelector(state => state.track.id)
     const userId = useSelector(state => state.track.userId)
@@ -76,9 +79,9 @@ const Waveform = () => {
                 container: '#waveform',
                 backend: 'WebAudio',
                 height: 180,
-                progressColor: '#EFEFEF',
+                progressColor: '#ccc',
                 responsive: true,
-                waveColor: '#EFEFEF',
+                waveColor: '#ccc',
                 cursorColor: 'transparent',
                 // skipLength: currTime,
             });
@@ -133,7 +136,7 @@ const Waveform = () => {
 
         waveform.setMute(true)
 
-    }, [id]);
+    }, [id, songSrc]);
 
     useEffect(() => {
 

@@ -88,7 +88,7 @@ const DATA = [
                 audio: audio7,
                 uploadedBy: 'Lil Tjay',
                 likes: 74200,
-              }
+            }
         ],
     },
     {
