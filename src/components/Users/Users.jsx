@@ -21,7 +21,7 @@ export default function Users() {
                         Discover, stream, and share a constantly expanding mix
                         of music from emerging and major artists around the world.
                     </p>
-                    <Link to="/upload" className={style.uploadBtn}>Upload now</Link>
+                    <Link to="/home" className={style.uploadBtn}>Explore more</Link>
                 </div>
             </div>
             <div className={style.middleDiv}>

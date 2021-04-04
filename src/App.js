@@ -6,13 +6,11 @@ import Home from './components/Home/Home';
 import InitialPage from './components/Initial Page/InitialPage';
 import Users from './components/Users/Users';
 import Search from './components/Search Results/Search';
-import Upload from './components/Upload/Upload';
 import PageNotFound from './components/Page Not Found/PageNotFound';
 import SingleTrack from './components/Single Track';
 import MyProfile from './components/My Profile/MyProfile';
 import UserProfile from './components/User Profile/UserProfile';
-import TrackBar from './components/TrackBar'
-import store from './redux/store'
+import TrackBar from './components/TrackBar';
 import { useSelector } from 'react-redux';
 
 function App() {
@@ -27,7 +25,6 @@ function App() {
           <Route path="/users" component={Users} />
           <Route path="/tracks/:trackId" component={SingleTrack} />
           <Route path="/myProfile" component={MyProfile} />
-          <Route path="/upload" component={Upload} />
           <Route path="/home" component={Home} />
           <Route path="/signIn" component={SignIn} />
           <Route path="/createAccount" component={CreateAccount} />
@@ -36,8 +33,6 @@ function App() {
         </Switch>
         {id && <TrackBar />}
       </Router >
-
-
     </>
   );
 }

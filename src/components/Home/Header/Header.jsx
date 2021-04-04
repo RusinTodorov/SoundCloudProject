@@ -25,7 +25,7 @@ export default function Header() {
                 <nav>
                     <ul className={style.navUl}>
                         <li className={style.li}>
-                            <Link className={style.navLinks} to="/home">Home</Link>
+                            <Link className={style.navLinks} to="/home" style={{ color: 'white' }}>Home</Link>
                         </li>
                         <li className={style.li}>
                             <Link className={style.navLinks} to="/users">Users</Link>
@@ -47,7 +47,6 @@ export default function Header() {
                 <div className={style.headerRight}>
                     <Link to="/signIn" className={style.singIn} >Sign in</Link>
                     <Link to="/createAccount" className={style.createAccount} >Create account</Link>
-                    <Link to="/upload" className={style.upload}>Upload</Link>
                 </div>
             </div>
         </header>

@@ -47,7 +47,6 @@ export default function Header() {
                 <div className={style.headerRight}>
                     <Link to="/signIn" className={style.singIn} >Sign in</Link>
                     <Link to="/createAccount" className={style.createAccount} >Create account</Link>
-                    <Link to="/upload" className={style.upload}>Upload</Link>
                 </div>
             </div>
         </header>
