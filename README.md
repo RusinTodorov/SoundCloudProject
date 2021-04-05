@@ -47,12 +47,12 @@
 ### ScreenShots: 
 [Initial Page Top](https://i.postimg.cc/9M213M9Y/Initial-Page-Top.png)
 
-[Initial Page Middle](https://postimg.cc/CZtzw5cs)
+[Initial Page Middle](https://i.postimg.cc/Tw2mqWmF/Initial-Page-Middle.png)
 
-[Home Page](https://postimg.cc/YjQhwpYQ)
+[Home Page](https://i.postimg.cc/9XnTZ0fg/Home.png)
 
-[Player](https://postimg.cc/nXSL1Mff)
+[Player](https://i.postimg.cc/FKNJNJPz/Player.png)
 
-[Search Page](https://postimg.cc/bSPYvtkk)
+[Search Page](https://i.postimg.cc/FzdYDbKW/Search.png)
 
-[Sign In Page](https://postimg.cc/zyvz35bt)
+[Sign In Page](https://i.postimg.cc/wjc7fj6p/SignIn.png)
