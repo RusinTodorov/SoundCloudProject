@@ -14,6 +14,7 @@ import TrackBar from './components/TrackBar'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DATA from './data/Tracks/data'
+import Upload from './components/Upload/Upload'
 
 import {
   addAllTracks,
@@ -28,7 +29,8 @@ function App() {
     if (allTracks.length === 0) {
       dispatch(addAllTracks(DATA))
     }
-  })
+    // dispatch fetchUser
+  }, [])
 
   return (
     <>
@@ -43,6 +45,7 @@ function App() {
           <Route path="/signIn" component={SignIn} />
           <Route path="/createAccount" component={CreateAccount} />
           <Route path="/" exact component={InitialPage} />
+          <Route path="/upload" exact component={Upload} />
           <Route component={PageNotFound} />
         </Switch>
         {id && <TrackBar />}

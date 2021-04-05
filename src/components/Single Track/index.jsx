@@ -1,4 +1,4 @@
-import Header from '../Home/Header/Header'
+import Header from '../Search Results/Header/Header'
 import Waveform from './Wavefrom'
 
 const SingleTrack = () => {

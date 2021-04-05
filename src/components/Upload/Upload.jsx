@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Header from '../Home/Header/Header'
+import Header from '../Search Results/Header/Header'
 import styles from './styles.module.scss';
 
 import store from '../../redux/store'
