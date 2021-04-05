@@ -15,6 +15,7 @@ const store = createStore(
 store.subscribe(() => {
     saveState({
         allTracks: store.getState().allTracks,
+        allUsers: store.getState().allUsers,
     });
 });
 

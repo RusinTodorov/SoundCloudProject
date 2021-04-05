@@ -1,5 +1,9 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Header from './components/Header/';
 import SignIn from './components/Sign In/SignIn';
 import CreateAccount from './components/Create Account/CreateAccount';
 import Home from './components/Home/Home';
@@ -11,34 +15,48 @@ import SingleTrack from './components/Single Track';
 import MyProfile from './components/My Profile/MyProfile';
 import UserProfile from './components/User Profile/UserProfile';
 import TrackBar from './components/TrackBar'
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import DATA from './data/Tracks/data'
 import Upload from './components/Upload/Upload'
+
+import { DATA as TRACKS_DATA } from './data/Tracks/data';
+import { DATA as USERS_DATA } from './data/Users Page/data'
 
 import {
   addAllTracks,
 } from './redux/AllTracks/allTracks.action'
-import Header from './components/Header/';
+
+import {
+  addAllUsers,
+} from './redux/AllUsers/allUsers.actions'
+
 
 function App() {
-  const page = useSelector(state => state.path)
+  const location = useLocation();
+
+  console.log(location);
+
+  let page = location.pathname;
 
   const id = useSelector(state => state.track.id);
-  const allTracks = useSelector(state => state.allTracks)
+  const allTracks = useSelector(state => state.allTracks);
+  const allUsers = useSelector(state => state.allUsers);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (allTracks.length === 0) {
-      dispatch(addAllTracks(DATA))
+      dispatch(addAllTracks(TRACKS_DATA))
     }
+
+    if (allUsers.length === 0) {
+      dispatch(addAllUsers(USERS_DATA))
+    }
+
     // dispatch fetchUser
   }, [])
 
 
   return (
     <>
-      {page && <Header />}
+      {page !== '/' && <Header />}
       <Switch>
         <Route path="/search/:input" component={Search} />
         <Route path="/users/:userId" component={UserProfile} />

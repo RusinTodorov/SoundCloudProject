@@ -467,4 +467,4 @@ const DATA = [
     }
 ];
 
-export default DATA;
+export { DATA };

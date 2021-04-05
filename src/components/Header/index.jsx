@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addPath } from '../../redux/Current Path/currentPath.reducer'
+import { addPath } from '../../redux/CurrentPath/currentPath.reducer'
 
 export default function Header() {
     const HISTORY = useHistory();

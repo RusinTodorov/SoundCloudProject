@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { addPath } from '../../redux/Current Path/currentPath.reducer'
+import { addPath } from '../../redux/CurrentPath/currentPath.reducer'
 
 import {
     addSrc,

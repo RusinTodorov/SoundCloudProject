@@ -2,7 +2,7 @@ import style from './style.module.css';
 import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { addPath } from '../../../redux/Current Path/currentPath.reducer'
+import { addPath } from '../../../redux/CurrentPath/currentPath.reducer'
 
 export default function Teaser() {
     const dispatch = useDispatch();
