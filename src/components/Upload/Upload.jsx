@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Header from '../Search Results/Header/Header'
 import styles from './styles.module.scss';
 
 import store from '../../redux/store'
@@ -38,7 +37,6 @@ export default function Upload() {
 
     return (
         <>
-            <Header />
             <div className={styles.container}>
                 <div className={styles.uploadTrack}>
 
@@ -73,7 +71,7 @@ export default function Upload() {
                                 <div className={styles.infoContainer}>
                                     <label htmlFor='title'>Title</label>
                                     <input type="text" id='title'
-                                        onChange={(ev) => setTitle(ev.target.value)} value={title}
+                                        onChange={(ev) => setTitle(ev.target.value.trim())} value={title}
                                     ></input>
 
                                     <label htmlFor='descr'>Description</label>

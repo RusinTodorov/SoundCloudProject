@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
 import SignIn from './components/Sign In/SignIn';
 import CreateAccount from './components/Create Account/CreateAccount';
 import Home from './components/Home/Home';
@@ -19,8 +19,11 @@ import Upload from './components/Upload/Upload'
 import {
   addAllTracks,
 } from './redux/AllTracks/allTracks.action'
+import Header from './components/Header/';
 
 function App() {
+  const page = useSelector(state => state.path)
+
   const id = useSelector(state => state.track.id);
   const allTracks = useSelector(state => state.allTracks)
   const dispatch = useDispatch();
@@ -32,24 +35,24 @@ function App() {
     // dispatch fetchUser
   }, [])
 
+
   return (
     <>
-      <Router>
-        <Switch>
-          <Route path="/search/:input" component={Search} />
-          <Route path="/users/:userId" component={UserProfile} />
-          <Route path="/users" component={Users} />
-          <Route path="/tracks/:trackId" component={SingleTrack} />
-          <Route path="/myProfile" component={MyProfile} />
-          <Route path="/home" component={Home} />
-          <Route path="/signIn" component={SignIn} />
-          <Route path="/createAccount" component={CreateAccount} />
-          <Route path="/" exact component={InitialPage} />
-          <Route path="/upload" exact component={Upload} />
-          <Route component={PageNotFound} />
-        </Switch>
-        {id && <TrackBar />}
-      </Router >
+      {page && <Header />}
+      <Switch>
+        <Route path="/search/:input" component={Search} />
+        <Route path="/users/:userId" component={UserProfile} />
+        <Route path="/users" component={Users} />
+        <Route path="/tracks/:trackId" component={SingleTrack} />
+        <Route path="/myProfile" component={MyProfile} />
+        <Route path="/home" component={Home} />
+        <Route path="/signIn" component={SignIn} />
+        <Route path="/createAccount" component={CreateAccount} />
+        <Route path="/" exact component={InitialPage} />
+        <Route path="/upload" exact component={Upload} />
+        <Route component={PageNotFound} />
+      </Switch>
+      {id && <TrackBar />}
     </>
   );
 }

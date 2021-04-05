@@ -1,5 +1,4 @@
 import style from './style.module.css';
-import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import firebase from '../../services/firebase';
 import { useState } from 'react';
@@ -82,7 +81,6 @@ export default function SingIn() {
 
     return (
         <>
-            <Header />
             <div className={style.divWraper}>
                 <div className={style.providerButtons}>
                     <h4 className={style.title}>Sign in with:</h4>

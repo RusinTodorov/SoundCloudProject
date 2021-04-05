@@ -1,5 +1,4 @@
 import style from './style.module.css';
-import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import EmptyImg from './EmptyImg.png';
 import { Link } from 'react-router-dom';
@@ -8,7 +7,7 @@ import { DATA } from '../../data/Users Page/data';
 
 export default function MyProfile() {
     let currenUserId = localStorage.getItem('userId');
-    let userInfo = DATA.filter(({userId}) => userId === currenUserId);
+    let userInfo = DATA.filter(({ userId }) => userId === currenUserId);
     let uploadsArr = [];
 
     if (userInfo.length) {
@@ -17,7 +16,6 @@ export default function MyProfile() {
 
     return (
         <>
-            <Header />
             <main className={style.mainWrap}>
                 <div className={style.headerImage}>
                     <div className={style.profileImage}>
@@ -59,7 +57,7 @@ export default function MyProfile() {
                     <div className={uploadsArr.length !== 0 ? style.uploadsDiv : style.hidden}>
                         <ul style={{ listStyle: 'none' }}>
                             {uploadsArr.map(trackInfo => {
-                                
+
                                 return (
                                     <li key={trackInfo.trackId}>
                                         <Track {...trackInfo} />

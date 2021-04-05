@@ -1,6 +1,5 @@
 import style from './style.module.css';
 import { DATA } from '../../data/Users Page/data';
-import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import TopBackground from './TopBackground.jpg';
 import { Link } from 'react-router-dom';
@@ -9,7 +8,6 @@ import { Link } from 'react-router-dom';
 export default function Users() {
 
     return (<>
-        <Header />
         <main>
             <div className={style.topDiv}>
                 <img src={TopBackground} alt="Background" />

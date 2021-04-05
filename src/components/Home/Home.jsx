@@ -1,16 +1,13 @@
 import style from './style.module.css';
-import Header from './Header/Header';
 import Categories from './Categories/Categories';
 import { useSelector } from 'react-redux';
 
 export default function Home() {
 
     const allTracks = useSelector(state => state.allTracks)
-    console.log(allTracks);
 
     return (
         <>
-            <Header />
             <div className={style.body}>
                 <Categories
                     title="Party"

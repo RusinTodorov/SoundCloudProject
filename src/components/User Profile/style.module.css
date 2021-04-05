@@ -1,10 +1,10 @@
 .mainWrap {
+    padding-top: 46px;
     width: 1240px;
     margin-left: 53px;
 }
 
 .headerImage {
-    margin-top: 46px;
     background-image: linear-gradient( 315deg, rgb(112, 146, 156) 0%, rgb(230, 132, 110) 100%);
     height: 260px;
 }
@@ -97,7 +97,7 @@
 .uploadsDiv {
     display: flex;
     flex-direction: column;
-    margin-top: 100px;
+    margin-top: 15px;
     margin-left: 200px;
     margin-bottom: 50px;
 }

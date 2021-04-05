@@ -1,7 +1,6 @@
 import style from './style.module.css';
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import { DATA as userData } from '../../data/Users Page/data';
 import Track from '../Track Horizontal Card/Track';
@@ -19,7 +18,6 @@ export default function Search() {
 
     return (
         <>
-            <Header />
             <div className={style.main}>
                 <h4>
                     Search results for "{INPUT}"

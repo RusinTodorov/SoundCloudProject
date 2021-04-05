@@ -11,7 +11,7 @@ export default function Categories({ title, details, data }) {
             </div>
             <div className={style.gridDiv}>
                 <ul className={style.ul}>
-                    {data.map(track => <Track {...track} />)}
+                    {data.map(track => <Track key={track.trackId} {...track} />)}
                 </ul>
             </div>
         </div>

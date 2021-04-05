@@ -35,10 +35,10 @@ const Waveform = () => {
     let track = allTracks.find(x => x.trackId === currId)
 
     const id = useSelector(state => state.track.id)
-    const userId = useSelector(state => state.track.userId)
     const isPlaying = useSelector(state => state.track.isPlaying)
     const currTime = useSelector(state => state.track.currTime);
 
+    let userId = useSelector(state => state.track.userId)
     let strTime = useSelector(state => state.track.strTime);
     let duration = useSelector(state => state.track.duration);
     let songSrc = useSelector(state => state.track.src)
@@ -49,6 +49,7 @@ const Waveform = () => {
     // const description = useSelector(state => state.track.content.description);
 
     if (id !== currId) {
+        userId = track.userId;
         image = track.img;
         title = track.title;
         author = track.uploadedBy;
@@ -197,7 +198,10 @@ const Waveform = () => {
                     </div>
                     <div className={styles.nameContainer}>
                         <div className={styles.authorContainer}>
-                            <span className={styles.author} onClick={() => history.push(`/users/${userId}`)}>{author}</span>
+                            <span className={styles.author} onClick={() => {
+                                history.push(`/users/${track.userId}`)
+
+                            }}>{author}</span>
                         </div>
                         <div>
                             <span className={styles.title}>{title}</span>

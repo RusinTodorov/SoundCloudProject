@@ -2,7 +2,12 @@ import style from './style.module.css';
 import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 
+import { useDispatch } from 'react-redux';
+import { addPath } from '../../../redux/Current Path/currentPath.reducer'
+
 export default function Search() {
+    const dispatch = useDispatch();
+
     const HISTORY = useHistory();
     const [input, setInput] = useState('');
 
@@ -12,6 +17,7 @@ export default function Search() {
 
     const search = e => {
         e.preventDefault();
+        dispatch(addPath('/search'))
         HISTORY.push(`/search/${input}`);
     }
 
@@ -29,7 +35,7 @@ export default function Search() {
                     </form>
                 </span>
                 or
-                <Link to="/home" className={style.linkToUpload}>Explore more</Link>
+                <Link to="/upload" className={style.linkToUpload} onClick={() => { dispatch(addPath('/upload')) }}>Upload your own</Link>
             </span>
         </div>
     );

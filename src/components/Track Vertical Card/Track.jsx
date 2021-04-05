@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux'
 
+import { addPath } from '../../redux/Current Path/currentPath.reducer'
+
 import {
     addSrc,
     playTrack,
@@ -48,7 +50,7 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
 
         if (id !== trackId) {
 
-            dispatch(setTrackId(userId));
+            dispatch(setUserId(userId));
             dispatch(setTrackId(trackId));
             dispatch(addSrc(audio))
             dispatch(addImage(img));
@@ -119,8 +121,8 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
                 <img className={style.img} src={img} alt="Song Cover" />
             </div>
 
-            <Link className={style.title} to={`/Tracks/${trackId}`}>{title}</Link>
-            <Link className={style.uploader} to={`/Users/${userId}`}>{uploadedBy}</Link>
+            <Link className={style.title} to={`/tracks/${trackId}`} onClick={() => { dispatch(addPath('/tracks')) }}>{title}</Link>
+            <Link className={style.uploader} to={`/users/${userId}`} onClick={() => { dispatch(addPath('/users')) }}>{uploadedBy}</Link>
 
             <button className={style.like} onClick={like}>Like!</button>
         </div >

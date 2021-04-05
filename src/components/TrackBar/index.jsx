@@ -13,22 +13,15 @@ import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import styles from './trackBar.module.scss'
 
 import { useDispatch, useSelector } from 'react-redux'
+
+import { addPath } from '../../redux/Current Path/currentPath.reducer'
+
 import {
     playTrack,
     pauseTrack,
     setCurrTime,
     setDuration,
 } from '../../redux/Track/track.actions'
-
-// let trackObj = {
-//     title: 'Street Runner',
-//     author: 'Rod Wave',
-//     song: song,
-//     image: sixnineImage,
-//     date: "March, 28, 2021 16:25:00",
-//     description: 'this is my new song',
-// }
-
 
 const TrackBar = () => {
     const dispatch = useDispatch();
@@ -114,10 +107,13 @@ const TrackBar = () => {
     }
 
     const openTrackPage = () => {
+        dispatch(addPath('/tracks'))
         history.push(`/tracks/${id}`)
     }
 
     const openUserPage = () => {
+        dispatch(addPath('/users'))
+        console.log(track);
         history.push(`/users/${userId}`)
     }
 

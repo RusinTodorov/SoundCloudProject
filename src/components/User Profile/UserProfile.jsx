@@ -1,5 +1,4 @@
 import style from './style.module.css';
-import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import EmptyImg from './EmptyImg.png';
 import { useLocation } from 'react-router-dom';
@@ -20,7 +19,6 @@ export default function UserProfile() {
 
     return (
         <>
-            <Header />
             <main className={style.mainWrap}>
                 <div className={style.headerImage}>
                     {profileBackground ? <img src={profileBackground} alt="Background" /> : <></>}
