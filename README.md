@@ -41,18 +41,18 @@
     "wavesurfer": "^1.3.4"
 
 ### Contributors: 
-[https://github.com/HristoDzhambazki](https://github.com/HristoDzhambazki) & 
+[Hristo Dzhambazki](https://github.com/HristoDzhambazki) & 
 
-[https://github.com/RusinTodorov](https://github.com/RusinTodorov)
+[Rusin Todorov](https://github.com/RusinTodorov)
 ### ScreenShots: 
-[https://postimg.cc/FfP03hDY](https://postimg.cc/FfP03hDY)
+[Initial Page Top](https://i.postimg.cc/9M213M9Y/Initial-Page-Top.png)
 
-[https://postimg.cc/CZtzw5cs](https://postimg.cc/CZtzw5cs)
+[Initial Page Middle](https://postimg.cc/CZtzw5cs)
 
-[https://postimg.cc/YjQhwpYQ](https://postimg.cc/YjQhwpYQ)
+[Home Page](https://postimg.cc/YjQhwpYQ)
 
-[https://postimg.cc/nXSL1Mff](https://postimg.cc/nXSL1Mff)
+[Player](https://postimg.cc/nXSL1Mff)
 
-[https://postimg.cc/bSPYvtkk](https://postimg.cc/bSPYvtkk)
+[Search Page](https://postimg.cc/bSPYvtkk)
 
-[https://postimg.cc/zyvz35bt](https://postimg.cc/zyvz35bt)
+[Sign In Page](https://postimg.cc/zyvz35bt)
