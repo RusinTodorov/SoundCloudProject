@@ -19,6 +19,8 @@ import profileImg10 from './Profile Imgs/Lil Baby Avatar.jpg';
 import backgroundImg10 from './Profile Imgs/Lil Baby Background.jpg';
 import profileImg11 from './Profile Imgs/Polo G Avatar.jpg';
 import backgroundImg11 from './Profile Imgs/Polo G Background.jpg';
+import initalAvatar from './Profile Imgs/Initial Avatar.jpg';
+import initalBackground from './Profile Imgs/Initial Background.jpg';
 
 const DATA = [
     {
@@ -101,8 +103,8 @@ const DATA = [
     {
         id: '12',
         name: 'Rusin',
-        profileImg: undefined,
-        backgroundImg: undefined,
+        profileImg: initalAvatar,
+        backgroundImg: initalBackground,
         uploads: ['13', '14', '15', '16', '17', '18', '19', '20',
             '21', '22', '23', '24', '25', '26', '27', '28', '29', '30',
             '31', '32', '33', '34', '35', '36', '37', '38', '39', '40',

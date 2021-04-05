@@ -1,11 +1,13 @@
 import style from './style.module.css';
-import { DATA } from '../../data/Users Page/data';
 import Footer from './Footer/Footer';
 import TopBackground from './TopBackground.jpg';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 export default function Users() {
+
+    const allUsers = useSelector(state => state.allUsers)
 
     return (
         <>
@@ -27,10 +29,12 @@ export default function Users() {
                     <h5 style={{ color: '#f50' }}>Users:</h5>
                     <hr />
                     <ol className={style.ol}>
-                        {DATA.map(({ userId, name, profileImg }) => {
+                        {allUsers.map(({ id, name, profileImg }) => {
+                            console.log(profileImg);
+
                             return (
-                                <li key={userId}>
-                                    <Link to={`/users/${userId}`} className={style.userLink}>
+                                <li key={id}>
+                                    <Link to={`/users/${id}`} className={style.userLink}>
                                         <img src={profileImg} className={style.avatar} alt="Avatar" />
                                         {name}
                                     </Link>

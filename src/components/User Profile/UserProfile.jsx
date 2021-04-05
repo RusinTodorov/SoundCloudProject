@@ -1,31 +1,38 @@
+import { useLocation } from 'react-router-dom';
+
 import style from './style.module.css';
 import Footer from './Footer/Footer';
 import EmptyImg from './EmptyImg.png';
-import { useLocation } from 'react-router-dom';
-import { DATA } from '../../data/Users Page/data';
 import PageNotFound from '../Page Not Found/PageNotFound';
 import Track from '../Track Horizontal Card/Track';
+import { useSelector } from 'react-redux';
 
 export default function UserProfile() {
     let location = useLocation();
     let userId = location.pathname.slice(7);
-    let profileInfo = DATA.filter(profile => profile.userId === userId);
 
-    if (profileInfo.length === 0) {
+    const allUsers = useSelector(state => state.allUsers);
+    const allTracks = useSelector(state => state.allTracks);
+
+    let profileInfo = allUsers.find((user) => user.id === userId)
+
+    if (!profileInfo) {
         return <PageNotFound />;
     }
 
-    let { name, profileBackground, profileImg, uploads } = profileInfo[0];
+    let { name, backgroundImg, profileImg, uploads } = profileInfo;
+
+    let userTracks = allTracks.filter((track) => uploads.includes(track.trackId))
 
     return (
         <>
             <main className={style.mainWrap}>
                 <div className={style.headerImage}>
-                    {profileBackground ? <img src={profileBackground} alt="Background" /> : <></>}
+                    {backgroundImg ? <img src={backgroundImg} alt="Background" /> : <></>}
                     <div className={style.profileImage}
                         style={{
                             position: 'relative',
-                            top: (profileBackground ? '-230px' : '31px')
+                            top: (backgroundImg ? '-230px' : '31px')
                         }}
                     >
                         {profileImg ? <img src={profileImg} alt="Avatar" /> : <></>}
@@ -34,7 +41,7 @@ export default function UserProfile() {
                         <div className={style.name}
                             style={{
                                 position: 'relative',
-                                top: (profileBackground ? '-260px' : '7px')
+                                top: (backgroundImg ? '-260px' : '7px')
                             }}
                         >
                             {name}
@@ -52,11 +59,11 @@ export default function UserProfile() {
                     </div>
                     <div className={uploads.length !== 0 ? style.uploadsDiv : style.hidden}>
                         <ul style={{ listStyle: 'none' }}>
-                            {uploads.map(trackInfo => {
+                            {userTracks.map(track => {
 
                                 return (
-                                    <li key={trackInfo.trackId}>
-                                        <Track {...trackInfo} />
+                                    <li key={track.trackId}>
+                                        <Track {...track} />
                                     </li>
                                 );
                             })}
