@@ -2,27 +2,38 @@ import { useState } from 'react';
 import Header from '../Home/Header/Header'
 import styles from './styles.module.scss';
 
-localStorage.setItem('tracks', JSON.stringify([]));
+import store from '../../redux/store'
+import { addTrack } from '../../redux/AllTracks/allTracks.action'
+import { useDispatch } from 'react-redux';
 
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+
+import initialImage from './initialImage.JPG'
 
 export default function Upload() {
+    const dispatch = useDispatch();
 
     let [track, setTrack] = useState();
-    let [title, setTitle] = useState();
+    let [image, setImage] = useState(initialImage);
+    let [title, setTitle] = useState('');
     let [description, setDescription] = useState();
-    let [image, setImage] = useState();
+    let [warning, setWarning] = useState(false)
+    let [uploaded, setUploaded] = useState(false)
     // let [user, setUser] = useState();
 
     const generateTrackObject = () => {
-        let tracks = JSON.parse(localStorage.getItem('tracks'));
+        let currTrack = {
+            trackId: `${store.getState().allTracks.length + 1}`,
+            title,
+            imageSrc: image,
+            songSrc: track,
+            date: Date.now(),
+            uploadedBy: 'Rusin',
+            userId: '12',
+        }
 
-        tracks.push({
-
-        })
-
-
-
-        localStorage.setItem('tracks', JSON.stringify(tracks));
+        dispatch(addTrack(currTrack))
     }
 
     return (
@@ -30,38 +41,79 @@ export default function Upload() {
             <Header />
             <div className={styles.container}>
                 <div className={styles.uploadTrack}>
-                    <h4>Upload your track</h4>
-                    <input type="file" accept="audio/*" disabled={!!track}
-                        onChange={(ev) => {
-                            console.log(ev.target.files[0]);
 
-                            // dispatch { type; SONG_UPLOADED, payload: objectUrl
+                    {uploaded ? <h3 className={styles.successUpload}>
+                        <CheckCircleOutlineIcon fontSize='large' className={styles.checkBtn} />
+                        You have successfully uploaded your track.</h3> :
+                        <>
+                            <h4>Upload your track</h4>
+                            <div className={styles.trackInfo}>
+                                <div className={styles.imgContainer}>
+                                    <img src={image} alt='profile' />
+                                    <label htmlFor='uplImage'> <PhotoCameraIcon fontSize='small' /> Upload image</label>
+                                    <input type="file" accept="image/*" id='uplImage'
+                                        onChange={(ev) => {
 
-                            let file = ev.target.files[0];
+                                            let file = ev.target.files[0];
 
-                            let objectURL = URL.createObjectURL(file);
+                                            const reader = new FileReader();
 
-                            console.log(objectURL);
+                                            reader.onload = function () {
+                                                // convert image file to base64 string
 
-                            setTrack(objectURL)
+                                                setImage(reader.result)
+                                            };
+
+                                            if (file) {
+                                                reader.readAsDataURL(file);
+                                            }
+                                        }}
+                                    ></input>
+                                </div>
+                                <div className={styles.infoContainer}>
+                                    <label htmlFor='title'>Title</label>
+                                    <input type="text" id='title'
+                                        onChange={(ev) => setTitle(ev.target.value)} value={title}
+                                    ></input>
+
+                                    <label htmlFor='descr'>Description</label>
+                                    <textarea id='descr' style={{ height: '73px' }}
+                                        onChange={(ev) => setDescription(ev.target.value)} value={description}
+                                    ></textarea>
+
+                                    <label htmlFor='uplAudio'>Upload audio file:</label>
+                                    <input type="file" accept="audio/*" id='uplAudio'
+                                        onChange={(ev) => {
 
 
+                                            let file = ev.target.files[0];
 
-                            // URL.revokeObjectURL(objectURL)
-                        }}
-                    ></input>
-                    <button onClick={() => {
+                                            let objectURL = URL.createObjectURL(file);
 
-                        let tracks = JSON.parse(localStorage.getItem('tracks'))
-                        let currTrack = tracks[tracks.length - 1]
+                                            setTrack(objectURL)
 
-                    }}>Get Song</button>
-                    <button onClick={() => generateTrackObject}>Upload</button>
-                    <audio controls src={track}></audio>
+                                            // URL.revokeObjectURL(objectURL)
+                                        }}
+                                    ></input>
+                                </div>
+                            </div>
+                            <div className={styles.uplBtnDiv}>
+                                {warning && <p>*Please upload audio file and add title</p>}
+                                <button onClick={() => {
+                                    if (title.length < 1 || !track) {
+                                        setWarning(true)
+                                    } else {
+                                        setWarning(false)
+                                        generateTrackObject();
+                                        setUploaded(true);
+                                    }
+
+                                }}> Upload</button>
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
-
-
         </>
     );
 }

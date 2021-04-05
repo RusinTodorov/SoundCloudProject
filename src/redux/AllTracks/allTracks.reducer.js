@@ -1,7 +1,6 @@
 import * as types from './allTracks.types'
-import DATA from '../../data/Tracks/data'
 
-const INITIAL_STATE = [...DATA];
+const INITIAL_STATE = [];
 
 const allTracksReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -10,6 +9,13 @@ const allTracksReducer = (state = INITIAL_STATE, action) => {
 
             return [
                 ...action.payload.tracksArray
+            ]
+
+        case types.ADD_TRACK:
+
+            return [
+                ...state,
+                action.payload.track
             ]
 
 

@@ -109,7 +109,7 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy, 
                             }}
                         />}
                 </div>
-                <img src={img} alt="Cover" />
+                <img src={img} alt="Cover" className={style.img} />
             </div>
             <div className={style.info}>
                 <Link className={style.uploader} to={`/users/${userId}`}>{uploadedBy}</Link>

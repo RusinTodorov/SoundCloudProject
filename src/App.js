@@ -12,12 +12,24 @@ import SingleTrack from './components/Single Track';
 import MyProfile from './components/My Profile/MyProfile';
 import UserProfile from './components/User Profile/UserProfile';
 import TrackBar from './components/TrackBar'
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import DATA from './data/Tracks/data'
 
-
+import {
+  addAllTracks,
+} from './redux/AllTracks/allTracks.action'
 
 function App() {
   const id = useSelector(state => state.track.id);
+  const allTracks = useSelector(state => state.allTracks)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (allTracks.length === 0) {
+      dispatch(addAllTracks(DATA))
+    }
+  })
 
   return (
     <>

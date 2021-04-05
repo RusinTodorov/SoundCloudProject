@@ -8,5 +8,23 @@ export const addAllTracks = (tracksArray) => {
             tracksArray,
         }
     };
+};
 
+export const addTrack = ({ trackId, userId, title, uploadedBy, songSrc, imageSrc, date }) => {
+    return {
+
+        type: types.ADD_TRACK,
+        payload: {
+            track: {
+                trackId,
+                userId,
+                title,
+                uploadedBy,
+                audio: songSrc,
+                img: imageSrc,
+                date,
+                likes: 0,
+            }
+        }
+    };
 };

@@ -8,7 +8,6 @@ import trackReducer from './Track/track.reducer';
 const rootReducer = combineReducers({
     allTracks: allTracksReducer,
     track: trackReducer,
-
 });
 
 export default rootReducer;

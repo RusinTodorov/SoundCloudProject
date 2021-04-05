@@ -3,6 +3,12 @@
     flex-direction: row;
     margin: 30px auto;
     position: relative;
+    
+}
+
+.img {
+    max-width: 200px;
+    max-height: 200px;
 }
 
 .info {

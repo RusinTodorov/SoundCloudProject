@@ -22,9 +22,6 @@ import {
     setUserId,
 } from '../../redux/Track/track.actions'
 
-import { DATA as InitialPageDATA } from '../../data/Initial Page/data'
-import { DATA as HomePageDATA } from '../../data/Home Page/data'
-
 let waveform = '';
 let onReady = false;
 
@@ -36,12 +33,6 @@ const Waveform = () => {
     const allTracks = useSelector(state => state.allTracks)
 
     let track = allTracks.find(x => x.trackId === currId)
-
-    // if (currId <= 12) {
-    //     track = InitialPageDATA.find(x => x.trackId === currId);
-    // } else {
-    //     track = HomePageDATA.find(x => x.trackId === currId);
-    // }
 
     const id = useSelector(state => state.track.id)
     const userId = useSelector(state => state.track.userId)

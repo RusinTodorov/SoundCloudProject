@@ -8,9 +8,10 @@
 }
 .img {
     position: relative;
-    height: 60%;
     background-size: cover;
     background-position: 50% 50%;
+    max-width: 200px;
+    max-height: 200px;
 }
 
 .like {
