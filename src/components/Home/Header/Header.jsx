@@ -1,15 +1,19 @@
 import style from './style.module.css';
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Header() {
-    const history = useHistory();
+    const HISTORY = useHistory();
+    const [input, setInput] = useState('');
 
-    const search = (e) => {
+    const onInput = e => {
+        setInput(e.target.value.trim());
+    };
+
+    const search = e => {
         e.preventDefault();
-        const INPUT = e.target.querySelector('input').value;
-        history.push(`/search/${INPUT}`);
-    }
+        HISTORY.push(`/search/${input}`);
+    };
 
     return (
         <header className={style.header}>
@@ -21,7 +25,7 @@ export default function Header() {
                 <nav>
                     <ul className={style.navUl}>
                         <li className={style.li}>
-                            <Link className={style.navLinks} to="/home">Home</Link>
+                            <Link className={style.navLinks} to="/home" style={{ color: 'white' }}>Home</Link>
                         </li>
                         <li className={style.li}>
                             <Link className={style.navLinks} to="/users">Users</Link>
@@ -34,14 +38,15 @@ export default function Header() {
                 <div>
                     <form className={style.form} onSubmit={search}>
                         <input className={style.input}
-                            placeholder="Search for artists, bands, tracks, podcasts" autoComplete="off" />
+                            placeholder="Search for artists, bands, tracks, podcasts"
+                            autoComplete="off"
+                            onInput={onInput} />
                         <button className={style.submit} type="submit">Search</button>
                     </form>
                 </div>
                 <div className={style.headerRight}>
                     <Link to="/signIn" className={style.singIn} >Sign in</Link>
                     <Link to="/createAccount" className={style.createAccount} >Create account</Link>
-                    <Link to="/upload" className={style.upload}>Upload</Link>
                 </div>
             </div>
         </header>

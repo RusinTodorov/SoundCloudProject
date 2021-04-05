@@ -1,7 +1,6 @@
 import style from './style.module.css';
 import Header from './Header/Header';
 import Categories from './Categories/Categories';
-import { DATA } from '../../data/Home Page/data';
 import { useSelector } from 'react-redux';
 
 export default function Home() {

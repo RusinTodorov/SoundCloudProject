@@ -1,20 +1,18 @@
 import style from './style.module.css';
 import { useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
-import { DATA as trackData } from '../../data/Initial Page/data';
 import { DATA as userData } from '../../data/Users Page/data';
 import Track from '../Track Horizontal Card/Track';
 import { useSelector } from 'react-redux';
 
 export default function Search() {
-    let location = useLocation();
     const [selectedTab, setSelectedTab] = useState('tracks');
-    const INPUT = location.pathname.slice(8);
+    const PARAMS = useParams();
+    const INPUT = PARAMS.input;
 
     const allTracks = useSelector(state => state.allTracks);
-
 
     const FILTERED_TRACKS = allTracks.filter(track => track.title.includes(INPUT));
     const FILTERED_USERS = userData.filter(track => track.name.includes(INPUT));

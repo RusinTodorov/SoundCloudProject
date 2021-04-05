@@ -51,11 +51,8 @@ export default function MyProfile() {
                             <p style={{ margin: '10px' }}>
                                 Seems a little quite over here
                             </p>
-                            <Link to="/Upload" className={style.link}>
-                                Upload a track to share it with others.
-                            </Link>
-                            <Link to="/Upload" className={style.bottomBtn}>
-                                Upload now
+                            <Link to="/home" className={style.bottomBtn}>
+                                Explore more
                             </Link>
                         </div>
                     </div>

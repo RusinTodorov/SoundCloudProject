@@ -1,6 +1,6 @@
 import style from './style.module.css';
 import HomeTop from './Home Top/HomeTop';
-import SearchOrUpload from './Search Or Upload/SearchOrUpload';
+import Search from './Search/Search';
 import TrendingTrakcs from './Trending Tracks/TrendingTracks';
 import NeverStopListening from './Never Stop Listening/NeverStopListening';
 import CreatorsTeaser from './Creators Teaser/Teaser';
@@ -12,7 +12,7 @@ export default function Home() {
     return (
         <div className={style.body}>
             <HomeTop />
-            <SearchOrUpload />
+            <Search />
             <TrendingTrakcs />
             <NeverStopListening />
             <CreatorsTeaser />

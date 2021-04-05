@@ -6,7 +6,6 @@ import Home from './components/Home/Home';
 import InitialPage from './components/Initial Page/InitialPage';
 import Users from './components/Users/Users';
 import Search from './components/Search Results/Search';
-import Upload from './components/Upload/Upload';
 import PageNotFound from './components/Page Not Found/PageNotFound';
 import SingleTrack from './components/Single Track';
 import MyProfile from './components/My Profile/MyProfile';
@@ -35,12 +34,11 @@ function App() {
     <>
       <Router>
         <Switch>
-          <Route path="/search" component={Search} />
+          <Route path="/search/:input" component={Search} />
           <Route path="/users/:userId" component={UserProfile} />
           <Route path="/users" component={Users} />
           <Route path="/tracks/:trackId" component={SingleTrack} />
           <Route path="/myProfile" component={MyProfile} />
-          <Route path="/upload" component={Upload} />
           <Route path="/home" component={Home} />
           <Route path="/signIn" component={SignIn} />
           <Route path="/createAccount" component={CreateAccount} />
@@ -49,8 +47,6 @@ function App() {
         </Switch>
         {id && <TrackBar />}
       </Router >
-
-
     </>
   );
 }
