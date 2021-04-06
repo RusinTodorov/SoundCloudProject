@@ -3,7 +3,6 @@ import { Route, Switch, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import firebase from './services/firebase';
-
 import Header from './components/Header/';
 import SignIn from './components/Sign In/SignIn';
 import CreateAccount from './components/Create Account/CreateAccount';
@@ -19,16 +18,9 @@ import TrackBar from './components/TrackBar';
 import Upload from './components/Upload/Upload';
 import { DATA as TRACKS_DATA } from './data/Tracks/data';
 import { DATA as USERS_DATA } from './data/Users/data';
-import {
-  addAllTracks,
-} from './redux/AllTracks/allTracks.action'
-import {
-  addAllUsers,
-  addUser,
-} from './redux/AllUsers/allUsers.actions'
-import {
-  loginUser,
-} from './redux/CurrentUser/currentUser.actions'
+import { addAllTracks } from './redux/AllTracks/allTracks.action';
+import { addAllUsers, addUser } from './redux/AllUsers/allUsers.actions';
+import { loginUser } from './redux/CurrentUser/currentUser.actions';
 import store from './redux/store';
 
 function App() {
@@ -53,8 +45,6 @@ function App() {
     firebase.auth().onAuthStateChanged(function (currUser) {
       let users = store.getState().allUsers;
 
-      console.log(currUser);
-
       if (currUser) {
         // User is signed in.
         let userObj = {
@@ -63,14 +53,12 @@ function App() {
           uploads: [],
           likes: [],
         }
-        console.log(currUser);
+        
         if (!users.some(user => user.id === currUser.uid)) {
           dispatch(addUser(userObj))
         }
 
         dispatch(loginUser(userObj))
-      } else {
-        // No user is signed in.
       }
 
     });

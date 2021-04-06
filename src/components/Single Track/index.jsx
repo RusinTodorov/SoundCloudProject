@@ -31,8 +31,6 @@ const SingleTrack = () => {
     let history = useHistory();
     let trackId = history.location.pathname.split('/')[2].toString();
 
-    console.log(trackId);
-
     const allTracks = useSelector(state => state.allTracks);
     const allUsers = useSelector(state => state.allUsers);
     let uploader = allUsers.find(user => user.uploads.includes(trackId));
@@ -70,8 +68,6 @@ const SingleTrack = () => {
                                     )
                                 })}
                         </ul>
-
-                        {/*  */}
                     </div>
                 }
                 <div className={styles.uploaderCard}>
@@ -98,19 +94,13 @@ const SingleTrack = () => {
                                     :
                                     <FavoriteBorderIcon fontSize='large' className={styles.favBorderBtn} onClick={() => history.push('/signIn')} />
                                 }
-
-
                             </div>
                             <div>
                                 <h4 onClick={() => setCloseLikesPopUp(false)}>{track.likes} likes</h4>
                             </div>
-
-
                         </div>
                         <div className={styles.commentsContainer}>
-
                         </div>
-
                     </div>
                     <div className={styles.uploaderInfoContainer}>
                         <div className={styles.userImgContainer}>
@@ -122,10 +112,8 @@ const SingleTrack = () => {
                         </div>
                     </div>
                     <div className={styles.descriptionContainer}>
-
                     </div>
                 </div>
-
             </div>
         </>
     );
