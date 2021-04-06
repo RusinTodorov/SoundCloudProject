@@ -1,8 +1,9 @@
 import style from './style.module.css';
 import Footer from './Footer/Footer';
-import firebase from '../../services/firebase';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { emailInput, passwordInput } from '../../services/inputValidations';
+import { emailAndPasswordLogin, facebookLogin, googleLogin } from '../../services/firebaseAuth';
 
 export default function SingIn() {
     const [email, setEmail] = useState('');
@@ -12,69 +13,11 @@ export default function SingIn() {
     const [error, setError] = useState('');
     const HISTORY = useHistory();
 
-    const facebookLogin = () => {
-        let provider = new firebase.auth.FacebookAuthProvider();
-        firebase
-            .auth()
-            .signInWithPopup(provider)
-            .then(result => {
-                HISTORY.push(`/home`);
-            })
-            .catch((error) => {
-                setError(error.message);
-            });
-    };
-
-    const googleLogin = () => {
-        let provider = new firebase.auth.GoogleAuthProvider();
-        firebase
-            .auth()
-            .signInWithPopup(provider)
-            .then(result => {
-                HISTORY.push(`/home`);
-            })
-            .catch((error) => {
-                setError(error.message);
-            });
-    };
-
     function submit(e) {
         e.preventDefault();
 
         if (email && password) {
-            firebase.auth().signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    HISTORY.push(`/home`);
-                })
-                .catch((err) => {
-                    setError(err.message);
-                });
-        }
-
-    };
-
-    const emailInput = e => {
-        const email = e.target.value.trim();
-        const REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-        if (REGEX.test(email)) {
-            setEmail(email);
-            setWrongEmail('');
-        } else {
-            setWrongEmail('Wrong email address!');
-        }
-    };
-
-    const passwordInput = e => {
-        const password = e.target.value.trim();
-
-        if (password.includes(' ')) {
-            setWrongPassword('Your password should not includes spaces!');
-        } else if (password.length < 6) {
-            setWrongPassword('Your password should be at least 6 character long!');
-        } else {
-            setWrongPassword('');
-            setPassword(password);
+            emailAndPasswordLogin(HISTORY, setError, email, password);
         }
 
     };
@@ -84,10 +27,10 @@ export default function SingIn() {
             <div className={style.divWraper}>
                 <div className={style.providerButtons}>
                     <h4 className={style.title}>Sign in with:</h4>
-                    <button className={style.facebookBtn} onClick={facebookLogin}>
+                    <button className={style.facebookBtn} onClick={e => facebookLogin(HISTORY, setError)}>
                         Continue with Facebook
                     </button>
-                    <button className={style.googleBtn} onClick={googleLogin}>
+                    <button className={style.googleBtn} onClick={e => googleLogin(HISTORY, setError)}>
                         Continue with Google
                     </button>
                 </div>
@@ -99,13 +42,13 @@ export default function SingIn() {
                         className={style.input}
                         type="email"
                         placeholder="Your email address"
-                        onInput={emailInput} />
+                        onInput={e => emailInput(e, setEmail, setWrongEmail)} />
                     {wrongEmail ? <span style={{ color: 'red' }}>{wrongEmail}</span> : null}
                     <input
                         className={style.input}
                         type="password"
                         placeholder="Password"
-                        onInput={passwordInput} />
+                        onInput={e => passwordInput(e, setPassword, setWrongPassword)} />
                     {wrongPassword ? <span style={{ color: 'red' }}>{wrongPassword}</span> : null}
                     <button
                         className={style.formSubmit}
