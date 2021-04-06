@@ -55,18 +55,6 @@ function App() {
       dispatch(addAllUsers(USERS_DATA))
     }
 
-    if (allTracks.length > 0 && allUsers.length > 0) {
-      let newArr = allTracks.map(track => {
-        let count = allUsers.filter(user => user.likes.includes(track.trackId)).length;
-        return {
-          ...track,
-          likes: count
-        }
-      })
-
-      console.log(newArr);
-    }
-
     firebase.auth().onAuthStateChanged(function (currUser) {
       let users = store.getState().allUsers;
 
@@ -93,8 +81,6 @@ function App() {
 
     // dispatch fetchUser
   }, [])
-
-
 
   return (
     <>

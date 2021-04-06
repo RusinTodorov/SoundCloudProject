@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import store from '../../redux/store';
 
@@ -22,6 +23,9 @@ import {
     updateTrackLikes
 } from '../../redux/AllTracks/allTracks.action'
 
+import avatar from '../../data/Users/Profile Imgs/Initial Avatar.jpg'
+import { useState } from 'react';
+
 const SingleTrack = () => {
     const dispatch = useDispatch();
     let history = useHistory();
@@ -35,12 +39,41 @@ const SingleTrack = () => {
     let track = allTracks.find(track => track.trackId === trackId)
 
     let currentUser = useSelector(state => state.currentUser);
-    let likes = useSelector(state => state.currentUser.likes)
+    let likes = useSelector(state => state.currentUser.likes);
+
+    let [closeLikesPopUp, setCloseLikesPopUp] = useState(true);
 
     return (
         <>
             <div style={{ paddingTop: 46 }}>
                 <Waveform />
+                {!closeLikesPopUp &&
+                    <div className={styles.likedUserProfiles}>
+                        <div className={styles.closeBtnContainer}>
+                            <CancelIcon fontSize='large' onClick={() => setCloseLikesPopUp(true)} />
+                        </div>
+                        <ul className={styles.userLikesList}>
+                            {allUsers
+                                .filter(user => user.likes.includes(trackId))
+                                .map(({ id, name, profileImg }) => {
+
+                                    let profImg = profileImg;
+                                    if (!profImg) {
+                                        profImg = avatar;
+                                    }
+
+                                    return (
+                                        <li className={styles.userLikeCard}>
+                                            <img src={profImg} alt='avatar' onClick={() => history.push(`/users/${id}`)} />
+                                            <h5 onClick={() => history.push(`/users/${id}`)}>{name}</h5>
+                                        </li>
+                                    )
+                                })}
+                        </ul>
+
+                        {/*  */}
+                    </div>
+                }
                 <div className={styles.uploaderCard}>
                     <div className={styles.likeAndCommentBtnsContainer}>
                         <div className={styles.likesContainer}>
@@ -69,11 +102,9 @@ const SingleTrack = () => {
 
                             </div>
                             <div>
-                                <h4>{track.likes} likes</h4>
-                                <div className={styles.likedUserProfiles}>
-                                    {allUsers.filter(user => user.likes.includes(trackId)).map(user => <p>{user.name}</p>)}
-                                </div>
+                                <h4 onClick={() => setCloseLikesPopUp(false)}>{track.likes} likes</h4>
                             </div>
+
 
                         </div>
                         <div className={styles.commentsContainer}>
