@@ -4,5 +4,5 @@ export const ADD_USER = 'ADD_USER';
 
 export const UPDATE_USER = 'UPDATE_USER';
 
-export const UPDATE_LIKES = 'UPDATE_LIKES';
+export const UPDATE_USER_LIKES = 'UPDATE_USER_LIKES';
 

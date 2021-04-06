@@ -94,7 +94,7 @@ const DATA = [
         img: img1,
         audio: audio1,
         uploadedBy: 'Lil Tjay',
-        likes: 377000,
+        likes: 2,
         date: "March, 28, 2021 17:25:00"
     },
     {
@@ -104,7 +104,7 @@ const DATA = [
         img: img2,
         audio: audio2,
         uploadedBy: 'Pooh Shiesty',
-        likes: 377000,
+        likes: 7,
         date: "March, 28, 2021 17:25:00"
     },
     {
@@ -114,7 +114,7 @@ const DATA = [
         img: img3,
         audio: audio3,
         uploadedBy: 'Moustafa Hagag',
-        likes: 747000,
+        likes: 2,
         date: "March, 28, 2020 17:25:00"
     },
     {
@@ -124,7 +124,7 @@ const DATA = [
         img: img4,
         audio: audio4,
         uploadedBy: 'Rod Wave',
-        likes: 123000,
+        likes: 2,
         date: "March, 28, 2020 17:25:00"
     },
     {
@@ -134,7 +134,7 @@ const DATA = [
         img: img5,
         audio: audio5,
         uploadedBy: 'Mooski',
-        likes: 126000,
+        likes: 2,
         date: "March, 28, 2020 17:25:00"
     },
     {
@@ -144,7 +144,7 @@ const DATA = [
         img: img6,
         audio: audio6,
         uploadedBy: 'Ahmed Kamel',
-        likes: 203000,
+        likes: 1,
         date: "March, 1, 2020 17:25:00"
     },
     {
@@ -154,7 +154,7 @@ const DATA = [
         img: img7,
         audio: audio7,
         uploadedBy: 'Lil Tjay',
-        likes: 74200,
+        likes: 1,
         date: "March, 1, 2020 17:25:00"
     },
     {
@@ -164,7 +164,7 @@ const DATA = [
         img: img8,
         audio: audio8,
         uploadedBy: 'Kevin Gates',
-        likes: 258000,
+        likes: 1,
         date: "April, 3, 2021 17:25:00"
     },
     {
@@ -174,7 +174,7 @@ const DATA = [
         img: img9,
         audio: audio9,
         uploadedBy: '6IX9INE',
-        likes: 160000,
+        likes: 1,
         date: "March, 1, 2020 17:25:00"
     },
     {
@@ -184,7 +184,7 @@ const DATA = [
         img: img10,
         audio: audio10,
         uploadedBy: 'Lil Baby',
-        likes: 296000,
+        likes: 1,
         date: "June, 1, 2020 17:25:00"
     },
     {
@@ -194,7 +194,7 @@ const DATA = [
         img: img11,
         audio: audio11,
         uploadedBy: 'Polo G',
-        likes: 504000,
+        likes: 4,
         date: "June, 1, 2020 17:25:00"
     },
     {
@@ -204,7 +204,7 @@ const DATA = [
         img: img12,
         audio: audio12,
         uploadedBy: 'Giveon',
-        likes: 2231,
+        likes: 10,
         date: "April, 3, 2021 17:25:00"
     },
     {
@@ -214,7 +214,7 @@ const DATA = [
         audio: audio13,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 2,
         date: "June, 1, 2020 17:25:00"
     },
     {
@@ -224,7 +224,7 @@ const DATA = [
         audio: audio14,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 3,
         date: "April, 22, 2020 17:25:00"
     },
     {
@@ -234,7 +234,7 @@ const DATA = [
         audio: audio15,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 2,
         date: "April, 22, 2020 17:25:00"
     },
     {
@@ -244,7 +244,7 @@ const DATA = [
         audio: audio16,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "April, 22, 2020 17:25:00"
     },
     {
@@ -254,7 +254,7 @@ const DATA = [
         audio: audio17,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "April, 22, 2020 17:25:00"
     },
     {
@@ -264,7 +264,7 @@ const DATA = [
         audio: audio18,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 3,
         date: "April, 22, 2020 17:25:00"
     },
     {
@@ -274,7 +274,7 @@ const DATA = [
         audio: audio19,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "April, 22, 2020 17:25:00"
     },
     {
@@ -284,7 +284,7 @@ const DATA = [
         audio: audio20,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "April, 22, 2020 17:25:00"
     },
     {
@@ -294,7 +294,7 @@ const DATA = [
         audio: audio21,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 6,
         date: "January, 14, 2021 17:25:00"
     },
     {
@@ -304,7 +304,7 @@ const DATA = [
         audio: audio22,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 9,
         date: "January, 14, 2021 17:25:00"
     },
     {
@@ -314,7 +314,7 @@ const DATA = [
         audio: audio23,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 3,
         date: "January, 14, 2021 17:25:00"
     },
     {
@@ -324,7 +324,7 @@ const DATA = [
         audio: audio24,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 2,
         date: "January, 14, 2021 17:25:00"
     },
     {
@@ -334,7 +334,7 @@ const DATA = [
         audio: audio25,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 2,
         date: "January, 14, 2021 17:25:00"
     },
     {
@@ -344,7 +344,7 @@ const DATA = [
         audio: audio26,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 2,
         date: "January, 14, 2021 17:25:00"
     },
     {
@@ -354,7 +354,7 @@ const DATA = [
         audio: audio27,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "January, 14, 2021 17:25:00"
     },
     {
@@ -364,7 +364,7 @@ const DATA = [
         audio: audio28,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "January, 14, 2021 17:25:00"
     },
     {
@@ -374,7 +374,7 @@ const DATA = [
         audio: audio29,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "March, 28, 2021 17:25:00"
     },
     {
@@ -384,7 +384,7 @@ const DATA = [
         audio: audio30,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "March, 28, 2021 17:25:00"
     },
     {
@@ -394,7 +394,7 @@ const DATA = [
         audio: audio31,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "March, 28, 2021 17:25:00"
     },
     {
@@ -404,7 +404,7 @@ const DATA = [
         audio: audio32,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 9,
         date: "March, 28, 2021 17:25:00"
     },
     {
@@ -414,7 +414,7 @@ const DATA = [
         audio: audio33,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 4,
         date: "March, 28, 2021 17:25:00"
     },
     {
@@ -424,7 +424,7 @@ const DATA = [
         audio: audio34,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "March, 28, 2021 17:25:00"
     },
     {
@@ -434,7 +434,7 @@ const DATA = [
         audio: audio35,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "March, 28, 2021 17:25:00"
     },
     {
@@ -444,7 +444,7 @@ const DATA = [
         audio: audio36,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 2,
         date: "March, 28, 2021 17:25:00"
     },
     {
@@ -454,7 +454,7 @@ const DATA = [
         audio: audio37,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "March, 28, 2021 17:25:00"
     },
     {
@@ -464,7 +464,7 @@ const DATA = [
         audio: audio38,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 4,
         date: "March, 28, 2021 17:25:00"
     },
     {
@@ -474,7 +474,7 @@ const DATA = [
         audio: audio39,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "March, 28, 2021 17:25:00"
 
     },
@@ -485,7 +485,7 @@ const DATA = [
         audio: audio40,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 6,
         date: "April, 3, 2021 17:25:00"
     },
     {
@@ -495,7 +495,7 @@ const DATA = [
         audio: audio41,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "April, 3, 2021 17:25:00"
     },
     {
@@ -505,7 +505,7 @@ const DATA = [
         audio: audio42,
         uploadedBy: 'Rusin',
         userId: '12',
-        likes: 0,
+        likes: 1,
         date: "April, 3, 2021 17:25:00"
     }
 ];

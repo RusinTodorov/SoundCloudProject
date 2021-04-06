@@ -17,7 +17,7 @@ const allUsersReducer = (state = INITIAL_STATE, action) => {
                 { ...action.payload.user }
             ]
 
-        case types.UPDATE_LIKES:
+        case types.UPDATE_USER_LIKES:
             let currId = action.payload.id;
             let currLikesArr = action.payload.likesArr;
 

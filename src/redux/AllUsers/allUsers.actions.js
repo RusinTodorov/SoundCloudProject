@@ -37,11 +37,11 @@ export const updateUser = (user) => {
     };
 };
 
-export const updateLikes = ({ id, likes }) => {
+export const updateUserLikes = ({ id, likes }) => {
 
     return {
 
-        type: types.UPDATE_LIKES,
+        type: types.UPDATE_USER_LIKES,
         payload: {
             id,
             likesArr: likes,

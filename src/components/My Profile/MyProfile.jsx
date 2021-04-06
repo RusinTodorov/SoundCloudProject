@@ -14,7 +14,6 @@ export default function MyProfile() {
         userTracks = allTracks.filter(track => user.uploads.includes(track.trackId))
     }
 
-
     return (
         <>
             <main className={style.mainWrap}>
@@ -35,7 +34,6 @@ export default function MyProfile() {
 
                                     reader.onload = function () {
                                         // convert image file to base64 string
-
                                     };
 
                                     if (file) {

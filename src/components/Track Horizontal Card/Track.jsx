@@ -31,11 +31,10 @@ import {
 } from '../../redux/CurrentUser/currentUser.actions'
 
 import {
-    updateLikes
+    updateUserLikes
 } from '../../redux/AllUsers/allUsers.actions'
 
 import store from '../../redux/store';
-
 
 
 const useStyles = makeStyles({
@@ -90,10 +89,6 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy }
         }
     })
 
-    const like = (e) => {
-        // to do Like
-    };
-
     return (
         <div className={style.card}>
             <div
@@ -139,17 +134,19 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy }
                         (currentUser.isLoggedIn && likes)
                         &&
                         <div className={style.favBtns}>
-                            {likes.includes(trackId) ? <FavoriteIcon fontSize='large' className={style.favFilledBtn}
-                                onClick={() => {
-                                    dispatch(removeFavTrack(trackId));
-                                    dispatch(updateLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
-                                }}
-                            /> : <FavoriteBorderIcon fontSize='large' className={style.favBorderBtn}
-                                onClick={() => {
-                                    dispatch(addFavTrack(trackId));
-                                    dispatch(updateLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
-                                }}
-                            />}
+                            {likes.includes(trackId) ?
+                                <FavoriteIcon fontSize='large' className={style.favFilledBtn}
+                                    onClick={() => {
+                                        dispatch(removeFavTrack(trackId));
+                                        dispatch(updateUserLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
+                                    }}
+                                /> :
+                                <FavoriteBorderIcon fontSize='large' className={style.favBorderBtn}
+                                    onClick={() => {
+                                        dispatch(addFavTrack(trackId));
+                                        dispatch(updateUserLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
+                                    }}
+                                />}
                         </div>
                     }
                 </div>

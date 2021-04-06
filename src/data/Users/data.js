@@ -29,6 +29,7 @@ const DATA = [
         profileImg: profileImg1,
         backgroundImg: backgroundImg1,
         uploads: ['4'],
+        likes: ['12', '32', '2', '40', '21', '22']
     },
     {
         id: '2',
@@ -36,6 +37,7 @@ const DATA = [
         profileImg: profileImg2,
         backgroundImg: backgroundImg2,
         uploads: ['1', '7'],
+        likes: ['12', '32', '2', '40', '21', '22']
     },
     {
         id: '3',
@@ -43,6 +45,7 @@ const DATA = [
         profileImg: profileImg3,
         backgroundImg: backgroundImg3,
         uploads: ['12'],
+        likes: ['12', '32', '2', '40', '21', '22']
     },
     {
         id: '4',
@@ -50,6 +53,7 @@ const DATA = [
         profileImg: profileImg4,
         backgroundImg: backgroundImg4,
         uploads: ['2'],
+        likes: ['12', '32', '2', '40', '21', '22']
     },
     {
         id: '5',
@@ -57,6 +61,7 @@ const DATA = [
         profileImg: profileImg5,
         backgroundImg: backgroundImg5,
         uploads: ['3'],
+        likes: ['12', '32', '2', '40', '21', '22']
     },
     {
         id: '6',
@@ -64,6 +69,7 @@ const DATA = [
         profileImg: profileImg6,
         backgroundImg: backgroundImg6,
         uploads: ['5'],
+        likes: ['32', '33', '12', '38', '11', '22']
     },
     {
         id: '7',
@@ -71,6 +77,7 @@ const DATA = [
         profileImg: profileImg7,
         backgroundImg: undefined,
         uploads: ['6'],
+        likes: ['32', '33', '12', '38', '11', '22']
     },
     {
         id: '8',
@@ -78,6 +85,7 @@ const DATA = [
         profileImg: profileImg8,
         backgroundImg: backgroundImg8,
         uploads: ['8'],
+        likes: ['32', '33', '12', '38', '11', '22']
     },
     {
         id: '9',
@@ -85,6 +93,7 @@ const DATA = [
         profileImg: profileImg9,
         backgroundImg: backgroundImg9,
         uploads: ['9'],
+        likes: ['14', '23', '24', '25', '26', '36']
     },
     {
         id: '10',
@@ -92,6 +101,7 @@ const DATA = [
         profileImg: profileImg10,
         backgroundImg: backgroundImg10,
         uploads: ['10'],
+        likes: ['18', '1', '2', '3', '4', '5']
     },
     {
         id: '11',
@@ -99,6 +109,7 @@ const DATA = [
         profileImg: profileImg11,
         backgroundImg: backgroundImg11,
         uploads: ['11'],
+        likes: ['18', '12', '23', '13', '14', '15']
     },
     {
         id: '12',
@@ -108,8 +119,12 @@ const DATA = [
         uploads: ['13', '14', '15', '16', '17', '18', '19', '20',
             '21', '22', '23', '24', '25', '26', '27', '28', '29', '30',
             '31', '32', '33', '34', '35', '36', '37', '38', '39', '40',
-            '41', '42',
-        ],
+            '41', '42'],
+        likes: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+            '12', '13', '14', '15', '16', '17', '18', '19', '20',
+            '21', '22', '23', '24', '25', '26', '27', '28', '29', '30',
+            '31', '32', '33', '34', '35', '36', '37', '38', '39', '40',
+            '41', '42']
     }
 ];
 

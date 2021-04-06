@@ -60,8 +60,6 @@ const Waveform = () => {
         date = track.date;
     }
 
-    console.log(track);
-
     let [seekend, setSeekend] = useState(false);
 
     useEffect(() => {

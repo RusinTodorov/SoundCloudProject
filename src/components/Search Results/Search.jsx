@@ -7,16 +7,18 @@ import { useSelector } from 'react-redux';
 
 import Track from '../Track Horizontal Card/Track';
 
+import avatar from '../../data/Users/Profile Imgs/Initial Avatar.jpg'
+
 export default function Search() {
     const [selectedTab, setSelectedTab] = useState('tracks');
     const PARAMS = useParams();
     const INPUT = PARAMS.input;
 
     const allTracks = useSelector(state => state.allTracks);
-    const allUsers = useSelector(state => state.allUsers)
+    const allUsers = useSelector(state => state.allUsers);
 
-    const FILTERED_TRACKS = allTracks.filter(track => track.title.includes(INPUT));
-    const FILTERED_USERS = allUsers.filter(track => track.name.includes(INPUT));
+    const FILTERED_TRACKS = allTracks.filter(track => track.title.toLowerCase().includes(INPUT.toLowerCase()));
+    const FILTERED_USERS = allUsers.filter(user => user.name.toLowerCase().includes(INPUT.toLowerCase()));
 
     return (
         <>
@@ -56,12 +58,17 @@ export default function Search() {
                         Found {FILTERED_USERS.length === 1 ? '1 user' : FILTERED_USERS.length + ' users'}
                     </p>
                     <ul className={style.list}>
-                        {FILTERED_USERS.map(({ userId, name, profileImg }) => {
+                        {FILTERED_USERS.map(({ id, name, profileImg }) => {
+
+                            let profImg = profileImg;
+                            if (!profImg) {
+                                profImg = avatar;
+                            }
 
                             return (
-                                <li key={userId}>
-                                    <Link to={`/users/${userId}`} className={style.userLink}>
-                                        <img src={profileImg} className={style.avatar} alt="Avatar" />
+                                <li key={id}>
+                                    <Link to={`/users/${id}`} className={style.userLink}>
+                                        <img src={profImg} className={style.avatar} alt="Avatar" />
                                         {name}
                                     </Link>
                                 </li>

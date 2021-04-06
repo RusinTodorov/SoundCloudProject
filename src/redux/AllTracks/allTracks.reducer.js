@@ -18,6 +18,25 @@ const allTracksReducer = (state = INITIAL_STATE, action) => {
                 action.payload.track
             ]
 
+        case types.UPDATE_TRACK_LIKES:
+            let id = action.payload.trackId;
+            let count = action.payload.countOfLikes;
+
+            if (count < 0) {
+                count = 0;
+            }
+
+            let track = state.find(track => track.trackId === id);
+            let newState = state.filter(track => track.trackId !== id);
+
+            return [
+                ...newState,
+                {
+                    ...track,
+                    likes: count,
+                }
+            ]
+
 
         default: return state;
 

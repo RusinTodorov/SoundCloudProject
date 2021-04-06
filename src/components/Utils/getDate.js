@@ -53,8 +53,6 @@ export function calculateDate(dateString) {
     let inMonths = DateDiff.inMonths(d1, d2);
     let inYears = DateDiff.inYears(d1, d2);
 
-    console.log('date', dateString);
-
     if (inMinutes < 60) {
         return inMinutes + (inMinutes === 1 ? ' minute ago' : ' minutes ago')
     } else if (inHours < 24) {

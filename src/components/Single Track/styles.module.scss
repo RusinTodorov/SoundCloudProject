@@ -6,40 +6,109 @@
     height: 167px;
 
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 
-    .userImgContainer {
-        width: 12%;
+    .likeAndCommentBtnsContainer,
+    .uploaderInfoContainer, 
+    .descriptionContainer {
+        width: 33%;
         height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        img {
-            max-width: 122px;
-            max-height: 122px;
-            border-radius: 110px;
-
-            &:hover {
-                cursor: pointer;
-            }
-        }
     }
 
-    .userInfoContainer{
+    .likeAndCommentBtnsContainer {
+        border: 2px solid green;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        
+        .likesContainer,
+        .commentsContainer {
+            width: 100%;
+            height: 50%;
+        }
 
-        .title {
-            text-decoration: none;
-            font-size: 28px;
-            color: #6d6b6b;
+        .likesContainer {
+            border: 2px solid palevioletred;
+            display: flex;
 
-            &:hover {
+            .favBtns {
+              width: 40px;
+              display: flex;
+              flex-direction: column;
+              margin-left: 20px;
+            }
+
+            .favBorderBtn,
+            .favFilledBtn {
+                cursor: pointer;
+            }
+            
+            .favBorderBtn {
                 color: black;
+            }
+            
+            .favFilledBtn {
+                color: red;
+            }
+
+            h4 {
+                margin-left: 3px;
+            }
+            
+        }
+
+        .commentsContainer {
+            border: 2px solid lawngreen;
+        }
+    }
+
+    .uploaderInfoContainer{
+        border: 2px solid red;
+        display: flex;
+        justify-content: space-evenly;
+
+        .userImgContainer {
+            width: 12%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    
+            img {
+                max-width: 122px;
+                max-height: 122px;
+                border-radius: 110px;
+    
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .userInfoContainer{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+    
+            .title {
+                text-decoration: none;
+                font-size: 28px;
+                color: #6d6b6b;
+    
+                &:hover {
+                    color: black;
+                }
             }
         }
     }
+
+    .descriptionContainer {
+        border: 2px solid blue;
+    }
+
+   
+
+  
+
+    
 }

@@ -28,3 +28,14 @@ export const addTrack = ({ trackId, userId, title, uploadedBy, songSrc, imageSrc
         }
     };
 };
+
+export const updateTrackLikes = (trackId, countOfLikes) => {
+    return {
+
+        type: types.UPDATE_TRACK_LIKES,
+        payload: {
+            trackId,
+            countOfLikes
+        }
+    };
+};

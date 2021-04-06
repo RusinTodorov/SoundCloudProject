@@ -19,7 +19,7 @@ import TrackBar from './components/TrackBar'
 import Upload from './components/Upload/Upload'
 
 import { DATA as TRACKS_DATA } from './data/Tracks/data';
-import { DATA as USERS_DATA } from './data/Users Page/data'
+import { DATA as USERS_DATA } from './data/Users/data'
 
 import {
   addAllTracks,
@@ -32,7 +32,6 @@ import {
 
 import {
   loginUser,
-  logoutUser
 } from './redux/CurrentUser/currentUser.actions'
 import store from './redux/store';
 
@@ -56,9 +55,20 @@ function App() {
       dispatch(addAllUsers(USERS_DATA))
     }
 
+    if (allTracks.length > 0 && allUsers.length > 0) {
+      let newArr = allTracks.map(track => {
+        let count = allUsers.filter(user => user.likes.includes(track.trackId)).length;
+        return {
+          ...track,
+          likes: count
+        }
+      })
+
+      console.log(newArr);
+    }
+
     firebase.auth().onAuthStateChanged(function (currUser) {
       let users = store.getState().allUsers;
-      console.log(currUser);
 
       if (currUser) {
         // User is signed in.

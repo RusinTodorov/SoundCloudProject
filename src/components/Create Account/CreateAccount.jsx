@@ -137,7 +137,7 @@ export default function CreateAccount() {
                         type="submit"
                         onClick={submit}
                     >
-                        Continue
+                        Create account
                     </button>
                     {error ? <span style={{ color: 'red' }}>{error}</span> : null}
                 </form>
