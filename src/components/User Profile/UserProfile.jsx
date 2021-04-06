@@ -7,8 +7,8 @@ import PageNotFound from '../Page Not Found/PageNotFound';
 import Track from '../Track Horizontal Card/Track';
 import { useSelector } from 'react-redux';
 
-import bgImage from '../../data/Users Page/Profile Imgs/Initial Background.jpg'
-import avatar from '../../data/Users Page/Profile Imgs/Initial Avatar.jpg'
+import bgImage from '../../data/Users/Profile Imgs/Initial Background.jpg'
+import avatar from '../../data/Users/Profile Imgs/Initial Avatar.jpg'
 
 
 export default function UserProfile() {

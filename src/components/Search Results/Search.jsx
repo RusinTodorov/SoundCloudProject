@@ -1,10 +1,11 @@
+import Footer from './Footer/Footer';
 import style from './style.module.css';
+
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import Footer from './Footer/Footer';
-import { DATA as userData } from '../../data/Users Page/data';
-import Track from '../Track Horizontal Card/Track';
 import { useSelector } from 'react-redux';
+
+import Track from '../Track Horizontal Card/Track';
 
 export default function Search() {
     const [selectedTab, setSelectedTab] = useState('tracks');
@@ -12,9 +13,10 @@ export default function Search() {
     const INPUT = PARAMS.input;
 
     const allTracks = useSelector(state => state.allTracks);
+    const allUsers = useSelector(state => state.allUsers)
 
     const FILTERED_TRACKS = allTracks.filter(track => track.title.includes(INPUT));
-    const FILTERED_USERS = userData.filter(track => track.name.includes(INPUT));
+    const FILTERED_USERS = allUsers.filter(track => track.name.includes(INPUT));
 
     return (
         <>

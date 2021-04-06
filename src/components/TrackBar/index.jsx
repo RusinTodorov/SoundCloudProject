@@ -14,8 +14,6 @@ import styles from './trackBar.module.scss'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { addPath } from '../../redux/CurrentPath/currentPath.reducer'
-
 import {
     playTrack,
     pauseTrack,
@@ -107,13 +105,10 @@ const TrackBar = () => {
     }
 
     const openTrackPage = () => {
-        dispatch(addPath('/tracks'))
         history.push(`/tracks/${id}`)
     }
 
     const openUserPage = () => {
-        dispatch(addPath('/users'))
-        console.log(track);
         history.push(`/users/${userId}`)
     }
 

@@ -13,9 +13,6 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-
-import { addPath } from '../../redux/CurrentPath/currentPath.reducer'
-
 import {
     addSrc,
     playTrack,
@@ -33,10 +30,9 @@ import {
 } from '../../redux/CurrentUser/currentUser.actions'
 
 import {
-    updateUser
+    updateLikes
 } from '../../redux/AllUsers/allUsers.actions'
 import store from '../../redux/store';
-import currentUserReducer from '../../redux/CurrentUser/currentUser.reducer';
 
 
 const useStyles = makeStyles({
@@ -139,8 +135,8 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
                 <img className={style.img} src={img} alt="Song Cover" />
             </div>
 
-            <Link className={style.title} to={`/tracks/${trackId}`} onClick={() => { dispatch(addPath('/tracks')) }}>{title}</Link>
-            <Link className={style.uploader} to={`/users/${userId}`} onClick={() => { dispatch(addPath('/users')) }}>{uploadedBy}</Link>
+            <Link className={style.title} to={`/tracks/${trackId}`}>{title}</Link>
+            <Link className={style.uploader} to={`/users/${userId}`}>{uploadedBy}</Link>
 
             {
                 (currentUser.isLoggedIn && likes)
@@ -149,14 +145,12 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
                     {likes.includes(trackId) ? <FavoriteIcon fontSize='large' className={style.favFilledBtn}
                         onClick={() => {
                             dispatch(removeFavTrack(trackId));
-                            console.log('rem', currentUser.likes);
-                            dispatch(updateUser({ id: currentUser.id, likes: currentUser.likes }));
+                            dispatch(updateLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
                         }}
                     /> : <FavoriteBorderIcon fontSize='large' className={style.favBorderBtn}
                         onClick={() => {
                             dispatch(addFavTrack(trackId));
-                            console.log('curr', currentUser.likes);
-                            dispatch(updateUser({ id: currentUser.id, likes: currentUser.likes }));
+                            dispatch(updateLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
                         }}
                     />}
 

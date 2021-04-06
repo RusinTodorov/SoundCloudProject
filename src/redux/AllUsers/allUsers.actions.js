@@ -36,3 +36,15 @@ export const updateUser = (user) => {
         }
     };
 };
+
+export const updateLikes = ({ id, likes }) => {
+
+    return {
+
+        type: types.UPDATE_LIKES,
+        payload: {
+            id,
+            likesArr: likes,
+        }
+    };
+};

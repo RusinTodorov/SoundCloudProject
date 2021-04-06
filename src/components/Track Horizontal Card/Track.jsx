@@ -31,8 +31,9 @@ import {
 } from '../../redux/CurrentUser/currentUser.actions'
 
 import {
-    updateUser
+    updateLikes
 } from '../../redux/AllUsers/allUsers.actions'
+
 import store from '../../redux/store';
 
 
@@ -141,12 +142,12 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy }
                             {likes.includes(trackId) ? <FavoriteIcon fontSize='large' className={style.favFilledBtn}
                                 onClick={() => {
                                     dispatch(removeFavTrack(trackId));
-                                    dispatch(updateUser({ id: currentUser.id, likes }));
+                                    dispatch(updateLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
                                 }}
                             /> : <FavoriteBorderIcon fontSize='large' className={style.favBorderBtn}
                                 onClick={() => {
                                     dispatch(addFavTrack(trackId));
-                                    dispatch(updateUser({ id: currentUser.id, likes: [trackId] }));
+                                    dispatch(updateLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
                                 }}
                             />}
                         </div>

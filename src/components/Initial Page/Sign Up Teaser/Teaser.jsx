@@ -1,8 +1,7 @@
 import style from './style.module.css';
 import { Link } from 'react-router-dom';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { addPath } from '../../../redux/CurrentPath/currentPath.reducer'
+import { useSelector } from 'react-redux';
 
 export default function Teaser() {
     const currentUser = useSelector(state => state.currentUser)

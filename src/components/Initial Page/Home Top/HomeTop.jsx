@@ -20,22 +20,26 @@ export default function HomeTop() {
                                 className={style.creatorsLink}
                                 rel="noreferrer">
                                 For Creators
-                    </a>
-                        </div>
-
-                        <div className={style.topDivCenter}>
-                            <h2 className={style.topDivCenterTitle}>Connect on SoundCloud</h2>
-                            <p className={style.topDivCenterDescription}>
-                                Discover, stream, and share a constantly
-                                expanding mix of music from emerging and
-                                major artists around the world.
-                    </p>
-                            <div className={style.topDivCenterBottomDiv}>
-                                <Link to="/createAccount" className={style.topDivCenterBottomLink} >Sign up for free</Link>
-                            </div>
+                            </a>
                         </div>
                     </>
                 }
+                <>
+                    <div className={style.topDivCenter}>
+                        <h2 className={style.topDivCenterTitle}>Connect on SoundCloud</h2>
+                        <p className={style.topDivCenterDescription}>
+                            Discover, stream, and share a constantly
+                            expanding mix of music from emerging and
+                            major artists around the world.
+                    </p>
+                        <div className={style.topDivCenterBottomDiv}>
+                            {currentUser.isLoggedIn ?
+                                <Link to="/home" className={style.topDivCenterBottomLink} >Explore more</Link> :
+                                <Link to="/createAccount" className={style.topDivCenterBottomLink} >Sign up for free</Link>
+                            }
+                        </div>
+                    </div>
+                </>
             </div>
         </>
     );

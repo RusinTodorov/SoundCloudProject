@@ -4,7 +4,7 @@ import TopBackground from './TopBackground.jpg';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import avatar from '../../data/Users Page/Profile Imgs/Initial Avatar.jpg'
+import avatar from '../../data/Users/Profile Imgs/Initial Avatar.jpg'
 
 
 export default function Users() {
