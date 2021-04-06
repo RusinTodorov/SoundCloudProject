@@ -1,17 +1,12 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-
 import style from './style.module.css';
 import { Link } from 'react-router-dom';
-
-import { useDispatch, useSelector } from 'react-redux'
-
+import { useDispatch, useSelector } from 'react-redux';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
-
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
@@ -23,19 +18,18 @@ import {
     addImage,
     setTrackId,
     setUserId,
-} from '../../redux/Track/track.actions'
+} from '../../redux/Track/track.actions';
 
 import {
     addFavTrack,
     removeFavTrack,
-} from '../../redux/CurrentUser/currentUser.actions'
+} from '../../redux/CurrentUser/currentUser.actions';
 
 import {
     updateUserLikes
-} from '../../redux/AllUsers/allUsers.actions'
+} from '../../redux/AllUsers/allUsers.actions';
 
 import store from '../../redux/store';
-
 
 const useStyles = makeStyles({
     btn: {
@@ -52,52 +46,50 @@ let previousTrackId = -1;
 
 export default function Track({ userId, trackId, img, audio, title, uploadedBy }) {
     let currentUser = useSelector(state => state.currentUser);
-    let likes = useSelector(state => state.currentUser.likes)
+    let likes = useSelector(state => state.currentUser.likes);
 
-    let [playBtnDisplay, setPlayBtnDisplay] = useState(style.hideBtnDiv)
+    let [playBtnDisplay, setPlayBtnDisplay] = useState(style.hideBtnDiv);
 
     const dispatch = useDispatch();
-    const isPlaying = useSelector(state => state.track.isPlaying)
-    const id = useSelector(state => state.track.id)
+    const isPlaying = useSelector(state => state.track.isPlaying);
+    const id = useSelector(state => state.track.id);
 
     const classes = useStyles();
 
     const playCurrTrack = () => {
 
         if (id !== trackId) {
-
             dispatch(setUserId(userId));
             dispatch(setTrackId(trackId));
-            dispatch(addSrc(audio))
+            dispatch(addSrc(audio));
             dispatch(addImage(img));
             dispatch(addContent({ title, author: uploadedBy }));
             dispatch(setCurrTime(0));
         }
 
-        dispatch(playTrack())
+        dispatch(playTrack());
     }
 
     if (previousTrackId === trackId && playBtnDisplay === style.showBtnDiv) {
-        console.log('ins');
-        setPlayBtnDisplay(style.hideBtnDiv)
+        setPlayBtnDisplay(style.hideBtnDiv);
         previousTrackId = -1;
     }
 
     useEffect(() => {
         if (id === trackId && isPlaying) {
-            setPlayBtnDisplay(style.showBtnDiv)
+            setPlayBtnDisplay(style.showBtnDiv);
         }
-    })
+    });
 
     return (
         <div className={style.card}>
             <div
                 onMouseEnter={() => {
-                    setPlayBtnDisplay(style.showBtnDiv)
+                    setPlayBtnDisplay(style.showBtnDiv);
                 }}
                 onMouseLeave={() => {
                     if (!isPlaying || id !== trackId) {
-                        setPlayBtnDisplay(style.hideBtnDiv)
+                        setPlayBtnDisplay(style.hideBtnDiv);
                     }
                 }}
             >
@@ -108,7 +100,7 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy }
                             className={classes.btn}
                             fontSize='large'
                             onClick={() => {
-                                dispatch(pauseTrack())
+                                dispatch(pauseTrack());
                             }}
                         /> : <PlayCircleFilledIcon
                             className={classes.btn}
@@ -119,7 +111,7 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy }
                                     previousTrackId = id;
                                 }
 
-                                playCurrTrack()
+                                playCurrTrack();
                             }}
                         />}
                 </div>
@@ -128,7 +120,6 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy }
             <div className={style.info}>
                 <Link className={style.uploader} to={`/users/${userId}`}>{uploadedBy}</Link>
                 <Link className={style.title} to={`/tracks/${trackId}`}>{title}</Link>
-
                 <div className={style.bottomDiv}>
                     {
                         (currentUser.isLoggedIn && likes)

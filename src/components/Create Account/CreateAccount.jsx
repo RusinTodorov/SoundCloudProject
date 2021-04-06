@@ -1,6 +1,5 @@
 import style from './style.module.css';
 import Footer from './Footer/Footer';
-import firebase from '../../services/firebase';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { emailInput, passwordInput, nameInput } from '../../services/inputValidations';
