@@ -1,12 +1,9 @@
 import Footer from './Footer/Footer';
 import style from './style.module.css';
-
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
 import Track from '../Track Horizontal Card/Track';
-
 import avatar from '../../data/Users/Profile Imgs/Initial Avatar.jpg'
 
 export default function Search() {
@@ -18,7 +15,15 @@ export default function Search() {
     const allUsers = useSelector(state => state.allUsers);
 
     const FILTERED_TRACKS = allTracks.filter(track => track.title.toLowerCase().includes(INPUT.toLowerCase()));
-    const FILTERED_USERS = allUsers.filter(user => user.name.toLowerCase().includes(INPUT.toLowerCase()));
+    const FILTERED_USERS = allUsers.filter(user => {
+        if(user.name) {
+            return user.name.toLowerCase().includes(INPUT.toLowerCase());
+        } else {
+
+            return false;
+        }
+        
+    });
 
     return (
         <>

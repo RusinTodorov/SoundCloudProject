@@ -79,7 +79,7 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy }
         if (id === trackId && isPlaying) {
             setPlayBtnDisplay(style.showBtnDiv);
         }
-    });
+    }, [id, trackId, isPlaying]);
 
     return (
         <div className={style.card}>

@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-
 import WaveSurfer from 'wavesurfer';
-
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
-
 import styles from './waveform.module.scss';
 import { calculateDate } from '../Utils/getDate';
-
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
     addSrc,
@@ -21,7 +17,7 @@ import {
     onSeek,
     setTrackId,
     setUserId,
-} from '../../redux/Track/track.actions'
+} from '../../redux/Track/track.actions';
 
 let waveform = '';
 let onReady = false;
@@ -31,32 +27,27 @@ const Waveform = () => {
     let history = useHistory();
     let currId = history.location.pathname.split('/')[2].toString();
 
-    const allTracks = useSelector(state => state.allTracks)
+    const allTracks = useSelector(state => state.allTracks);
 
-    let track = allTracks.find(x => x.trackId === currId)
+    let track = allTracks.find(x => x.trackId === currId);
 
-    const id = useSelector(state => state.track.id)
-    const isPlaying = useSelector(state => state.track.isPlaying)
+    const id = useSelector(state => state.track.id);
+    const isPlaying = useSelector(state => state.track.isPlaying);
     const currTime = useSelector(state => state.track.currTime);
 
-    let userId = useSelector(state => state.track.userId)
     let strTime = useSelector(state => state.track.strTime);
     let duration = useSelector(state => state.track.duration);
-    let songSrc = useSelector(state => state.track.src)
+    let songSrc = useSelector(state => state.track.src);
     let image = useSelector(state => state.track.image);
     let title = useSelector(state => state.track.content.title);
-    let author = useSelector(state => state.track.content.author);
     let date = useSelector(state => state.track.content.date);
-    // const description = useSelector(state => state.track.content.description);
 
     if (id !== currId) {
-        userId = track.userId;
         image = track.img;
         title = track.title;
-        author = track.uploadedBy;
         songSrc = track.audio;
-        strTime = '0:00'
-        duration = '0:00'
+        strTime = '0:00';
+        duration = '0:00';
         date = track.date;
     }
 
@@ -77,7 +68,6 @@ const Waveform = () => {
                 responsive: true,
                 waveColor: '#ccc',
                 cursorColor: 'transparent',
-                // skipLength: currTime,
             });
         } else {
             waveform = WaveSurfer.create({
@@ -90,7 +80,6 @@ const Waveform = () => {
                 responsive: true,
                 waveColor: '#EFEFEF',
                 cursorColor: 'transparent',
-                // skipLength: currTime,
             });
 
             waveform.on("ready", () => {
@@ -98,17 +87,17 @@ const Waveform = () => {
                 if (!onReady && id === currId) {
                     const waveformCurrentTime = waveform.getCurrentTime()
                     const timeToSkip = waveformCurrentTime - currTime;
+                    const NEGATIVE_MINIMAL_TIME = -1;
+                    const POSITIVE_MINIMAL_TIME = 1;
 
-                    //1 and -1 are minimal time to skip
-                    if (timeToSkip < -1) {
+                    if (timeToSkip < NEGATIVE_MINIMAL_TIME) {
                         waveform.skip(Math.abs(timeToSkip));
-                    } else if (timeToSkip > 1) {
+                    } else if (timeToSkip > POSITIVE_MINIMAL_TIME) {
                         waveform.skip(-Math.abs(timeToSkip));
                     }
 
                     onReady = true;
                 }
-
 
             });
 
@@ -118,9 +107,8 @@ const Waveform = () => {
                 const timeToSkip = waveformCurrentTime - currTime;
 
                 if ((timeToSkip < -1 || timeToSkip > 1) && waveformCurrentTime !== 0) {
-                    dispatch(onSeek(waveform.getCurrentTime()))
-                    setSeekend(true)
-                    console.log('ins');
+                    dispatch(onSeek(waveform.getCurrentTime()));
+                    setSeekend(true);
                 }
 
             });
@@ -128,9 +116,9 @@ const Waveform = () => {
 
         waveform.load(songSrc);
 
-        waveform.setMute(true)
+        waveform.setMute(true);
 
-    }, [id, songSrc]);
+    }, [id, songSrc, currId, currTime, dispatch]);
 
     useEffect(() => {
 
@@ -148,21 +136,21 @@ const Waveform = () => {
 
         } else if (!isPlaying) {
             waveform.pause();
-
-            //1 and -1 are minimal time to skip
-            if (timeToSkip < -1) {
+            const NEGATIVEMINIMAL_TIME = -1;
+            const POSITIVE_MINIMAL_TIME = 1;
+            
+            if (timeToSkip < NEGATIVEMINIMAL_TIME) {
                 waveform.skip(Math.abs(timeToSkip));
-            } else if (timeToSkip > 1) {
+            } else if (timeToSkip > POSITIVE_MINIMAL_TIME) {
                 waveform.skip(-Math.abs(timeToSkip));
             }
         }
 
         if (seekend) {
-            setSeekend(false)
+            setSeekend(false);
         }
 
-
-    }, [currTime, isPlaying])
+    }, [currTime, isPlaying, seekend]);
 
     const setTrackFromThisPage = () => {
 
@@ -173,7 +161,6 @@ const Waveform = () => {
         dispatch(addContent({ ...track, author: track.uploadedBy }));
         dispatch(setCurrTime(0));
         dispatch(pauseTrack());
-
     }
 
     return (
@@ -191,12 +178,10 @@ const Waveform = () => {
                             className={styles.playBtn}
                             fontSize='large'
                             onClick={() => {
-                                setTrackFromThisPage()
-                                dispatch(playTrack())
+                                setTrackFromThisPage();
+                                dispatch(playTrack());
                             }}
                         />}
-
-
                     </div>
                     <div className={styles.nameContainer}>
                         <div className={styles.authorContainer}>
@@ -208,13 +193,11 @@ const Waveform = () => {
                         <div>
                             <span className={styles.title}>{title}</span>
                         </div>
-
                     </div>
                     <div className={styles.dateContainer}>
                         <p>{calculateDate(date)}</p>
                     </div>
                 </div>
-
                 <div className={styles.audioWavePlayer}>
                     <div className={styles.timeSpansContainer}>
                         <span style={{ marginTop: 3 }}>
@@ -224,7 +207,6 @@ const Waveform = () => {
                     </div>
                     <div className={styles.waveformContianer}>
                         <div className={styles.wave} id="waveform">
-
                         </div>
                     </div >
                 </div>

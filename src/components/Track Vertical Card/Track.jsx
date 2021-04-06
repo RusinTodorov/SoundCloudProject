@@ -75,18 +75,8 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
         if (id === trackId && isPlaying) {
             setPlayBtnDisplay(style.showBtnDiv);
         }
-    })
 
-    function like(e) {
-        e.target.innerHTML = 'Likes';
-        let btn = e.target;
-        btn.style.backgroundColor = 'LightGray';
-        btn.style.borderColor = 'LightGray';
-        btn.setAttribute('disabled', 'true');
-
-        // to do set in local storage that song has been likes,
-        // and send a like to firebase
-    }
+    }, [id, trackId, isPlaying]);
 
     return (
         <div className={style.cardDiv}>
@@ -124,10 +114,8 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
                 </div>
                 <img className={style.img} src={img} alt="Song Cover" />
             </div>
-
             <Link className={style.title} to={`/tracks/${trackId}`}>{title}</Link>
             <Link className={style.uploader} to={`/users/${userId}`}>{uploadedBy}</Link>
-
             {
                 (currentUser.isLoggedIn && likes)
                 &&

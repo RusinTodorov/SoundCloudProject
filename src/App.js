@@ -35,11 +35,11 @@ function App() {
 
   useEffect(() => {
     if (allTracks.length === 0) {
-      dispatch(addAllTracks(TRACKS_DATA))
+      dispatch(addAllTracks(TRACKS_DATA));
     }
 
     if (allUsers.length === 0) {
-      dispatch(addAllUsers(USERS_DATA))
+      dispatch(addAllUsers(USERS_DATA));
     }
 
     firebase.auth().onAuthStateChanged(function (currUser) {
@@ -55,14 +55,14 @@ function App() {
         }
         
         if (!users.some(user => user.id === currUser.uid)) {
-          dispatch(addUser(userObj))
+          dispatch(addUser(userObj));
         }
 
-        dispatch(loginUser(userObj))
+        dispatch(loginUser(userObj));
       }
 
     });
-  }, []);
+  }, [allTracks.length, allUsers.length, dispatch]);
 
   return (
     <>
