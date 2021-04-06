@@ -58,6 +58,8 @@ function App() {
     firebase.auth().onAuthStateChanged(function (currUser) {
       let users = store.getState().allUsers;
 
+      console.log(currUser);
+
       if (currUser) {
         // User is signed in.
         let userObj = {
@@ -71,8 +73,7 @@ function App() {
           dispatch(addUser(userObj))
         }
 
-
-        dispatch(loginUser(currUser.uid))
+        dispatch(loginUser(userObj))
       } else {
         // No user is signed in.
       }
