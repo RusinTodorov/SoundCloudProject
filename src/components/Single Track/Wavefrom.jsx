@@ -56,7 +56,10 @@ const Waveform = () => {
         songSrc = track.audio;
         strTime = '0:00'
         duration = '0:00'
+        date = track.date;
     }
+
+    console.log(track);
 
     let [seekend, setSeekend] = useState(false);
 
@@ -198,10 +201,10 @@ const Waveform = () => {
                     </div>
                     <div className={styles.nameContainer}>
                         <div className={styles.authorContainer}>
-                            <span className={styles.author} onClick={() => {
+                            {/* <span className={styles.author} onClick={() => {
                                 history.push(`/users/${track.userId}`)
 
-                            }}>{author}</span>
+                            }}>{author}</span> */}
                         </div>
                         <div>
                             <span className={styles.title}>{title}</span>

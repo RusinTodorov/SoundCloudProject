@@ -2,16 +2,21 @@ import { useState } from 'react';
 import styles from './styles.module.scss';
 
 import store from '../../redux/store'
-import { addTrack } from '../../redux/AllTracks/allTracks.action'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+
+import { addTrack } from '../../redux/AllTracks/allTracks.action'
+import { addIdToUserUploads } from '../../redux/CurrentUser/currentUser.actions'
+import { updateUser } from '../../redux/AllUsers/allUsers.actions'
 
 import initialImage from './initialImage.JPG'
 
 export default function Upload() {
     const dispatch = useDispatch();
+
+    let currentUser = useSelector(state => state.currentUser)
 
     let [track, setTrack] = useState();
     let [image, setImage] = useState(initialImage);
@@ -19,20 +24,23 @@ export default function Upload() {
     let [description, setDescription] = useState();
     let [warning, setWarning] = useState(false)
     let [uploaded, setUploaded] = useState(false)
-    // let [user, setUser] = useState();
 
     const generateTrackObject = () => {
+        let currDate = new Date();
+
         let currTrack = {
             trackId: `${store.getState().allTracks.length + 1}`,
             title,
             imageSrc: image,
             songSrc: track,
-            date: Date.now(),
-            uploadedBy: 'Rusin',
-            userId: '12',
+            date: currDate.getTime(),
+            uploadedBy: currentUser.name,
+            userId: currentUser.id,
         }
 
+        dispatch(addIdToUserUploads(`${store.getState().allTracks.length + 1}`))
         dispatch(addTrack(currTrack))
+        dispatch(updateUser(currentUser))
     }
 
     return (
@@ -71,7 +79,7 @@ export default function Upload() {
                                 <div className={styles.infoContainer}>
                                     <label htmlFor='title'>Title</label>
                                     <input type="text" id='title'
-                                        onChange={(ev) => setTitle(ev.target.value.trim())} value={title}
+                                        onChange={(ev) => setTitle(ev.target.value)} value={title}
                                     ></input>
 
                                     <label htmlFor='descr'>Description</label>
@@ -98,7 +106,7 @@ export default function Upload() {
                             <div className={styles.uplBtnDiv}>
                                 {warning && <p>*Please upload audio file and add title</p>}
                                 <button onClick={() => {
-                                    if (title.length < 1 || !track) {
+                                    if (title.trim().length < 1 || !track) {
                                         setWarning(true)
                                     } else {
                                         setWarning(false)

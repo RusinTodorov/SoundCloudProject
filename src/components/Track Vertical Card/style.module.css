@@ -1,6 +1,6 @@
 .cardDiv {
     width: 100%;
-    padding-bottom: 35px;
+    padding-bottom: 45px;
     position: relative;
     display: block;
     font: 12px/1.4 Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
@@ -76,5 +76,21 @@
     background-color: white;
     position: absolute;
     z-index: -1;
+}
+
+.favBtns {
+    position: relative;
+    left: 154px;
+    bottom: 77px;
+    cursor: pointer;
+    width: 38px;
+}
+
+.favBorderBtn {
+    color: white;
+}
+
+.favFilledBtn {
+    color: red;
 }
 

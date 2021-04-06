@@ -98,3 +98,19 @@
     position: absolute;
     z-index: -1;
 }
+
+.favBtns {
+    position: relative;
+    right: 65px;
+    bottom: -19px;
+    cursor: pointer;
+    width: 38px;
+}
+
+.favBorderBtn {
+    color: white;
+}
+
+.favFilledBtn {
+    color: red;
+}

@@ -42,18 +42,6 @@ let DateDiff = {
     }
 }
 
-// var dString = "March, 28, 2021 17:25:00";
-
-// var d1 = new Date(dString);
-// var d2 = new Date();
-
-// console.log("Number of minutes since " + dString + ": " + DateDiff.inMinutes(d1, d2));
-// console.log("Number of hours since " + dString + ": " + DateDiff.inHours(d1, d2));
-// console.log("Number of days since " + dString + ": " + DateDiff.inDays(d1, d2));
-// console.log("Number of weeks since " + dString + ": " + DateDiff.inWeeks(d1, d2));
-// console.log("Number of months since " + dString + ": " + DateDiff.inMonths(d1, d2));
-// console.log("Number of years since " + dString + ": " + DateDiff.inYears(d1, d2));
-
 export function calculateDate(dateString) {
     var d1 = new Date(dateString);
     var d2 = new Date();
@@ -65,6 +53,8 @@ export function calculateDate(dateString) {
     let inMonths = DateDiff.inMonths(d1, d2);
     let inYears = DateDiff.inYears(d1, d2);
 
+    console.log('date', dateString);
+
     if (inMinutes < 60) {
         return inMinutes + (inMinutes === 1 ? ' minute ago' : ' minutes ago')
     } else if (inHours < 24) {
@@ -73,11 +63,23 @@ export function calculateDate(dateString) {
         return inDays + (inDays === 1 ? ' day ago' : ' days ago')
     } else if (inWeeks < 5) {
         return inWeeks + (inWeeks === 1 ? ' week ago' : ' weeks ago')
-    } else if (inMonths < 13) {
+    } else if (inMonths < 12) {
         return inMonths + (inMonths === 1 ? ' month ago' : ' months ago')
-    } else if (inMonths > 12) {
+    } else if (inMonths >= 12) {
         return inYears + (inYears === 1 ? ' year ago' : ' years ago')
     } else {
         return ''
     }
 }
+
+// var dString = "March, 28, 2021 17:25:00";
+
+// var d1 = new Date(dString);
+// var d2 = new Date();
+
+// console.log("Number of minutes since " + dString + ": " + DateDiff.inMinutes(d1, d2));
+// console.log("Number of hours since " + dString + ": " + DateDiff.inHours(d1, d2));
+// console.log("Number of days since " + dString + ": " + DateDiff.inDays(d1, d2));
+// console.log("Number of weeks since " + dString + ": " + DateDiff.inWeeks(d1, d2));
+// console.log("Number of months since " + dString + ": " + DateDiff.inMonths(d1, d2));
+// console.log("Number of years since " + dString + ": " + DateDiff.inYears(d1, d2));

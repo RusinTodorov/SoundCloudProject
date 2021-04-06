@@ -4,6 +4,8 @@ import TopBackground from './TopBackground.jpg';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import avatar from '../../data/Users Page/Profile Imgs/Initial Avatar.jpg'
+
 
 export default function Users() {
 
@@ -30,12 +32,16 @@ export default function Users() {
                     <hr />
                     <ol className={style.ol}>
                         {allUsers.map(({ id, name, profileImg }) => {
-                            console.log(profileImg);
+
+                            let profImg = profileImg;
+                            if (!profImg) {
+                                profImg = avatar;
+                            }
 
                             return (
                                 <li key={id}>
                                     <Link to={`/users/${id}`} className={style.userLink}>
-                                        <img src={profileImg} className={style.avatar} alt="Avatar" />
+                                        <img src={profImg} className={style.avatar} alt="Avatar" />
                                         {name}
                                     </Link>
                                 </li>

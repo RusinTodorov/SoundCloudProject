@@ -1,8 +1,18 @@
 import { useState } from 'react';
+import { useEffect } from 'react';
+
 import style from './style.module.css';
 import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux'
+
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
+import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
+
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+
+import { makeStyles } from '@material-ui/core/styles';
 
 import {
     addSrc,
@@ -15,12 +25,17 @@ import {
     setUserId,
 } from '../../redux/Track/track.actions'
 
+import {
+    addFavTrack,
+    removeFavTrack,
+} from '../../redux/CurrentUser/currentUser.actions'
 
-import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
-import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
+import {
+    updateUser
+} from '../../redux/AllUsers/allUsers.actions'
+import store from '../../redux/store';
 
-import { makeStyles } from '@material-ui/core/styles';
-import { useEffect } from 'react';
+
 
 const useStyles = makeStyles({
     btn: {
@@ -35,7 +50,10 @@ const useStyles = makeStyles({
 
 let previousTrackId = -1;
 
-export default function Track({ userId, trackId, img, audio, title, uploadedBy, likes }) {
+export default function Track({ userId, trackId, img, audio, title, uploadedBy }) {
+    let currentUser = useSelector(state => state.currentUser);
+    let likes = useSelector(state => state.currentUser.likes)
+
     let [playBtnDisplay, setPlayBtnDisplay] = useState(style.hideBtnDiv)
 
     const dispatch = useDispatch();
@@ -115,13 +133,24 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy, 
                 <Link className={style.uploader} to={`/users/${userId}`}>{uploadedBy}</Link>
                 <Link className={style.title} to={`/tracks/${trackId}`}>{title}</Link>
 
-                {/* <audio controls className={style.audio}>
-                    <source src={audio} type="audio/mpeg" />
-                    Your browser does not support the audio tag.
-                </audio> */}
                 <div className={style.bottomDiv}>
-                    <button className={style.like} onClick={() => { console.log(trackId) }}>Like!</button>
-                    <p>Likes: {likes}</p>
+                    {
+                        (currentUser.isLoggedIn && likes)
+                        &&
+                        <div className={style.favBtns}>
+                            {likes.includes(trackId) ? <FavoriteIcon fontSize='large' className={style.favFilledBtn}
+                                onClick={() => {
+                                    dispatch(removeFavTrack(trackId));
+                                    dispatch(updateUser({ id: currentUser.id, likes }));
+                                }}
+                            /> : <FavoriteBorderIcon fontSize='large' className={style.favBorderBtn}
+                                onClick={() => {
+                                    dispatch(addFavTrack(trackId));
+                                    dispatch(updateUser({ id: currentUser.id, likes: [trackId] }));
+                                }}
+                            />}
+                        </div>
+                    }
                 </div>
             </div>
         </div>

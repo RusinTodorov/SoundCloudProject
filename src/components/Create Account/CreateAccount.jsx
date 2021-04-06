@@ -47,6 +47,13 @@ export default function CreateAccount() {
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(userCredential => {
                     HISTORY.push(`/home`);
+
+                    return userCredential.user
+                })
+                .then(user => {
+                    user.updateProfile({
+                        displayName: name
+                    })
                 })
                 .catch((err) => {
                     setError(err.message);

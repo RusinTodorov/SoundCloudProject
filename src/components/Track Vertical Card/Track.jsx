@@ -5,6 +5,15 @@ import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux'
 
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
+import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
+
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+
+import { makeStyles } from '@material-ui/core/styles';
+
+
 import { addPath } from '../../redux/CurrentPath/currentPath.reducer'
 
 import {
@@ -18,10 +27,17 @@ import {
     setUserId,
 } from '../../redux/Track/track.actions'
 
-import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
-import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
+import {
+    addFavTrack,
+    removeFavTrack,
+} from '../../redux/CurrentUser/currentUser.actions'
 
-import { makeStyles } from '@material-ui/core/styles';
+import {
+    updateUser
+} from '../../redux/AllUsers/allUsers.actions'
+import store from '../../redux/store';
+import currentUserReducer from '../../redux/CurrentUser/currentUser.reducer';
+
 
 const useStyles = makeStyles({
     btn: {
@@ -37,8 +53,10 @@ const useStyles = makeStyles({
 let previousTrackId = -1;
 
 export default function Track({ img, title, audio, uploadedBy, trackId, userId }) {
-    let [playBtnDisplay, setPlayBtnDisplay] = useState(style.hideBtnDiv)
+    let currentUser = useSelector(state => state.currentUser);
+    let likes = useSelector(state => state.currentUser.likes)
 
+    let [playBtnDisplay, setPlayBtnDisplay] = useState(style.hideBtnDiv)
 
     const dispatch = useDispatch();
     const isPlaying = useSelector(state => state.track.isPlaying)
@@ -74,13 +92,13 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
     })
 
     function like(e) {
-        e.target.innerHTML = 'Liked';
+        e.target.innerHTML = 'Likes';
         let btn = e.target;
         btn.style.backgroundColor = 'LightGray';
         btn.style.borderColor = 'LightGray';
         btn.setAttribute('disabled', 'true');
 
-        // to do set in local storage that song has been liked,
+        // to do set in local storage that song has been likes,
         // and send a like to firebase
     }
     return (
@@ -124,7 +142,26 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
             <Link className={style.title} to={`/tracks/${trackId}`} onClick={() => { dispatch(addPath('/tracks')) }}>{title}</Link>
             <Link className={style.uploader} to={`/users/${userId}`} onClick={() => { dispatch(addPath('/users')) }}>{uploadedBy}</Link>
 
-            <button className={style.like} onClick={like}>Like!</button>
+            {
+                (currentUser.isLoggedIn && likes)
+                &&
+                <div className={style.favBtns}>
+                    {likes.includes(trackId) ? <FavoriteIcon fontSize='large' className={style.favFilledBtn}
+                        onClick={() => {
+                            dispatch(removeFavTrack(trackId));
+                            console.log('rem', currentUser.likes);
+                            dispatch(updateUser({ id: currentUser.id, likes: currentUser.likes }));
+                        }}
+                    /> : <FavoriteBorderIcon fontSize='large' className={style.favBorderBtn}
+                        onClick={() => {
+                            dispatch(addFavTrack(trackId));
+                            console.log('curr', currentUser.likes);
+                            dispatch(updateUser({ id: currentUser.id, likes: currentUser.likes }));
+                        }}
+                    />}
+
+                </div>
+            }
         </div >
     )
 }

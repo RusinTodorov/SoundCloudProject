@@ -124,7 +124,7 @@
 
 .bottomBtn {
     margin-top: 10px;
-    margin-left: 55px;
+    margin-left: 16px;
     text-decoration: none;
     background-color: #f50;
     border-color: #f50;
@@ -134,7 +134,7 @@
     line-height: 18px;
     padding-top: 8px;
     height: 40px;
-    width: 120px;
+    width: 200px;
     display: inline-block;
     position: relative;
     text-align: center;

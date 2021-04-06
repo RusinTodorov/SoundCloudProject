@@ -2,6 +2,7 @@ import './App.css';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import firebase from './services/firebase';
 
 import Header from './components/Header/';
 import SignIn from './components/Sign In/SignIn';
@@ -26,13 +27,18 @@ import {
 
 import {
   addAllUsers,
+  addUser,
 } from './redux/AllUsers/allUsers.actions'
+
+import {
+  loginUser,
+  logoutUser
+} from './redux/CurrentUser/currentUser.actions'
+import store from './redux/store';
 
 
 function App() {
   const location = useLocation();
-
-  console.log(location);
 
   let page = location.pathname;
 
@@ -50,8 +56,34 @@ function App() {
       dispatch(addAllUsers(USERS_DATA))
     }
 
+    firebase.auth().onAuthStateChanged(function (currUser) {
+      let users = store.getState().allUsers;
+      console.log(currUser);
+
+      if (currUser) {
+        // User is signed in.
+        let userObj = {
+          id: currUser.uid,
+          name: currUser.displayName,
+          uploads: [],
+          likes: [],
+        }
+
+        if (!users.some(user => user.id === currUser.uid)) {
+          dispatch(addUser(userObj))
+        }
+
+
+        dispatch(loginUser(currUser.uid))
+      } else {
+        // No user is signed in.
+      }
+    });
+
+
     // dispatch fetchUser
   }, [])
+
 
 
   return (

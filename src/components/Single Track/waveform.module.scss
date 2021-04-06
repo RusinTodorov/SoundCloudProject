@@ -64,6 +64,8 @@
             width: 68%;
             overflow-wrap: break-word;
             margin-left: 15px;
+            display: flex;
+            align-items: center;
            
             .author,
             .title {

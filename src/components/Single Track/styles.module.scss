@@ -1,0 +1,45 @@
+.uploaderCard {
+    background-color: white;
+    margin: 0 auto;
+    margin-right: 128px;
+    width: 1240px;
+    height: 167px;
+
+    display: flex;
+    justify-content: center;
+
+    .userImgContainer {
+        width: 12%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            max-width: 122px;
+            max-height: 122px;
+            border-radius: 110px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .userInfoContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .title {
+            text-decoration: none;
+            font-size: 28px;
+            color: #6d6b6b;
+
+            &:hover {
+                color: black;
+            }
+        }
+    }
+}

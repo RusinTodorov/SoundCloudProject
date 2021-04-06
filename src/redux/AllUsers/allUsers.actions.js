@@ -26,3 +26,13 @@ export const addUser = ({ id, name, profileImg, backgroundImg }) => {
         }
     };
 };
+
+export const updateUser = (user) => {
+    return {
+
+        type: types.UPDATE_USER,
+        payload: {
+            user,
+        }
+    };
+};
