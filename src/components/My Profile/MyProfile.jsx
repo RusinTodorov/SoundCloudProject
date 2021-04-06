@@ -7,53 +7,21 @@ import { useSelector } from 'react-redux';
 
 export default function MyProfile() {
 
-    let user = useSelector(state => state.currentUser)
+    let user = useSelector(state => state.currentUser);
     let allTracks = useSelector(state => state.allTracks);
     let userTracks = [];
     if (user.isLoggedIn) {
-        userTracks = allTracks.filter(track => user.uploads.includes(track.trackId))
+        userTracks = allTracks.filter(track => user.uploads.includes(track.trackId));
     }
-
+    console.log(user)
     return (
         <>
             <main className={style.mainWrap}>
                 <div className={style.headerImage}>
                     <div className={style.profileImage}>
-                        <form action="" className={style.editImageForm}>
-                            <label htmlFor="imageProfile" className={style.imageChooser}>Upload image</label>
-                            <input
-                                id="imageProfile"
-                                className={style.imageFileInput}
-                                type="file"
-                                accept="image/jpeg,image/pjpeg,image/gif,image/png"
-                                onChange={(ev) => {
-
-                                    let file = ev.target.files[0];
-
-                                    const reader = new FileReader();
-
-                                    reader.onload = function () {
-                                        // convert image file to base64 string
-                                    };
-
-                                    if (file) {
-                                        reader.readAsDataURL(file);
-                                    }
-                                }}
-
-                            />
-                        </form>
                     </div>
                     <div className={style.middleWrap}>
                         <div className={style.name}>{user.name}</div>
-                        <form action="">
-                            <label htmlFor="imageBackground" className={style.imageChooser}>Upload header image</label>
-                            <input
-                                id="imageBackground"
-                                className={style.imageFileInput}
-                                type="file"
-                                accept="image/jpeg,image/pjpeg,image/gif,image/png" />
-                        </form>
                     </div>
                 </div>
                 <div className={style.mainDiv} >

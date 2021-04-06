@@ -15,26 +15,21 @@ import PageNotFound from './components/Page Not Found/PageNotFound';
 import SingleTrack from './components/Single Track';
 import MyProfile from './components/My Profile/MyProfile';
 import UserProfile from './components/User Profile/UserProfile';
-import TrackBar from './components/TrackBar'
-import Upload from './components/Upload/Upload'
-
+import TrackBar from './components/TrackBar';
+import Upload from './components/Upload/Upload';
 import { DATA as TRACKS_DATA } from './data/Tracks/data';
-import { DATA as USERS_DATA } from './data/Users/data'
-
+import { DATA as USERS_DATA } from './data/Users/data';
 import {
   addAllTracks,
 } from './redux/AllTracks/allTracks.action'
-
 import {
   addAllUsers,
   addUser,
 } from './redux/AllUsers/allUsers.actions'
-
 import {
   loginUser,
 } from './redux/CurrentUser/currentUser.actions'
 import store from './redux/store';
-
 
 function App() {
   const location = useLocation();
@@ -66,21 +61,16 @@ function App() {
           uploads: [],
           likes: [],
         }
-
+        console.log(currUser);
         if (!users.some(user => user.id === currUser.uid)) {
           dispatch(addUser(userObj))
         }
 
-
         dispatch(loginUser(currUser.uid))
-      } else {
-        // No user is signed in.
       }
+
     });
-
-
-    // dispatch fetchUser
-  }, [])
+  }, []);
 
   return (
     <>
