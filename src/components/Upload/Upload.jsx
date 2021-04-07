@@ -100,11 +100,14 @@ export default function Upload() {
 
                                             let file = ev.target.files[0];
 
-                                            let objectURL = URL.createObjectURL(file);
+                                            if (file) {
+                                                let objectURL = URL.createObjectURL(file);
 
-                                            setTrack(objectURL)
+                                                setTrack(objectURL)
 
-                                            // URL.revokeObjectURL(objectURL)
+                                                // URL.revokeObjectURL(objectURL)
+                                            }
+
                                         }}
                                     ></input>
                                 </div>

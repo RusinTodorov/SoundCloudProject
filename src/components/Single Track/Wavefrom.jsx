@@ -30,7 +30,6 @@ const Waveform = () => {
     const dispatch = useDispatch();
     let history = useHistory();
     let currId = history.location.pathname.split('/')[2].toString();
-
     const allTracks = useSelector(state => state.allTracks)
 
     let track = allTracks.find(x => x.trackId === currId)
@@ -63,6 +62,7 @@ const Waveform = () => {
         document.getElementById('waveform').innerHTML = '';
 
         if (id !== currId) {
+
             waveform = WaveSurfer.create({
                 barWidth: 3,
                 cursorWidth: 1,
@@ -73,8 +73,8 @@ const Waveform = () => {
                 responsive: true,
                 waveColor: '#ccc',
                 cursorColor: 'transparent',
-                // skipLength: currTime,
             });
+
         } else {
             waveform = WaveSurfer.create({
                 barWidth: 3,
@@ -86,7 +86,6 @@ const Waveform = () => {
                 responsive: true,
                 waveColor: '#EFEFEF',
                 cursorColor: 'transparent',
-                // skipLength: currTime,
             });
 
             waveform.on("ready", () => {
@@ -116,7 +115,6 @@ const Waveform = () => {
                 if ((timeToSkip < -1 || timeToSkip > 1) && waveformCurrentTime !== 0) {
                     dispatch(onSeek(waveform.getCurrentTime()))
                     setSeekend(true)
-                    console.log('ins');
                 }
 
             });
