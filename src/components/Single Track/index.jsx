@@ -34,7 +34,7 @@ const SingleTrack = () => {
     let track = allTracks.find(track => track.trackId === trackId);
 
     let currentUser = useSelector(state => state.currentUser);
-    let likes = useSelector(state => state.currentUser.likes);
+    let likes = currentUser.likes;
 
     let [closeLikesPopUp, setCloseLikesPopUp] = useState(true);
 
@@ -92,7 +92,10 @@ const SingleTrack = () => {
                                 }
                             </div>
                             <div>
-                                <h4 onClick={() => setCloseLikesPopUp(false)}>{track.likes} likes</h4>
+                                <h4 onClick={() => {
+                                    setCloseLikesPopUp(false)
+                                    console.log(track)
+                                }}>{track.likes} likes</h4>
                             </div>
                         </div>
                         <div className={styles.commentsContainer}>
@@ -100,7 +103,7 @@ const SingleTrack = () => {
                     </div>
                     <div className={styles.uploaderInfoContainer}>
                         <div className={styles.userImgContainer}>
-                            <img src={uploader.profileImg} alt='profile img' onClick={() => history.push(`/users/${uploader.id}`)} />
+                            <img src={avatar} alt='profile img' onClick={() => history.push(`/users/${uploader.id}`)} />
                         </div>
                         <div className={styles.userInfoContainer}>
                             <h6>Uploaded by:</h6>

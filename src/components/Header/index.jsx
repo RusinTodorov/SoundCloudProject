@@ -8,6 +8,8 @@ import {
     logoutUser
 } from '../../redux/CurrentUser/currentUser.actions'
 
+import avatar from '../../data/Users/Profile Imgs/Initial Avatar.jpg'
+
 export default function Header() {
     const HISTORY = useHistory();
     const dispatch = useDispatch();
@@ -48,13 +50,6 @@ export default function Header() {
 
                             >Users</Link>
                         </li>
-                        {currentUser.isLoggedIn &&
-                            <li className={styles.li}>
-                                <Link className={styles.navLinks} to="/myProfile"
-                                    style={{ color: (page === '/myProfile' ? 'white' : '#999') }}
-                                >My Profile</Link>
-                            </li>
-                        }
                     </ul>
                 </nav>
                 <div>
@@ -66,7 +61,7 @@ export default function Header() {
                             autoComplete="off"
                             onInput={(ev) => setInput(ev.target.value.trim())}
                             value={input}
-                            style={{ width: `${!currentUser.isLoggedIn ? '505px' : '400px'}` }}
+                            style={{ width: '505px' }}
                         />
                         <button className={styles.submit} type="submit">Search</button>
                     </form>
@@ -75,14 +70,22 @@ export default function Header() {
                     {!currentUser.isLoggedIn ?
                         <>
                             <Link to="/signIn" className={styles.singIn}
+                                style={{ color: (page === '/signIn' ? 'white' : '#999') }}
                             >Sign in</Link>
-                            <Link to="/createAccount" className={styles.createAccount}
-                            >Create account</Link>
-                            <Link to="/upload" className={styles.upload}
-                            >Upload</Link>
+                            <Link to="/createAccount" className={styles.createAccount}>Create account</Link>
+                            <Link to="/signIn" className={styles.upload}>Upload</Link>
                         </>
                         :
                         <>
+                            <Link to="/upload" className={styles.upload}
+                                style={{ color: (page === '/upload' ? 'white' : '#999') }}
+                            >Upload</Link>
+                            <div className={styles.profile}>
+                                <img src={avatar} alt='avatar' onClick={() => HISTORY.push("/myProfile")} />
+                                <Link to="/myProfile" className={styles.upload}
+                                    style={{ color: (page === '/myProfile' ? 'white' : '#999') }}
+                                >{currentUser.name} </Link>
+                            </div>
                             <Link className={styles.singIn}
                                 onClick={() => {
                                     firebase.auth().signOut().then(() => {
@@ -90,16 +93,12 @@ export default function Header() {
                                         console.log('signed out');
                                         dispatch(logoutUser())
 
-                                    }).catch((error) => {
-                                        // An error happened.
-                                    });
+                                    }).catch((error) => { });
 
                                     HISTORY.push('/home')
-
                                 }}
                             >Sign out</Link>
-                            <Link to="/upload" className={styles.upload}
-                            >Upload</Link>
+
                         </>
                     }
                 </div>

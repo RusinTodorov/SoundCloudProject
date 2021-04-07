@@ -13,7 +13,7 @@ export default function MyProfile() {
     if (user.isLoggedIn) {
         userTracks = allTracks.filter(track => user.uploads.includes(track.trackId));
     }
-    console.log(user)
+
     return (
         <>
             <main className={style.mainWrap}>
@@ -41,7 +41,6 @@ export default function MyProfile() {
                     <div className={userTracks.length !== 0 ? style.uploadsDiv : style.hidden}>
                         <ul style={{ listStyle: 'none' }}>
                             {userTracks.map(track => {
-                                console.log(track);
                                 return (
                                     <li key={track.id}>
                                         <Track {...track} />

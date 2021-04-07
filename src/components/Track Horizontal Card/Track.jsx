@@ -31,6 +31,10 @@ import {
 
 import store from '../../redux/store';
 
+import {
+    updateTrackLikes
+} from '../../redux/AllTracks/allTracks.action';
+
 const useStyles = makeStyles({
     btn: {
         fontSize: '7.5rem',
@@ -130,12 +134,18 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy }
                                     onClick={() => {
                                         dispatch(removeFavTrack(trackId));
                                         dispatch(updateUserLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
+
+                                        let currTrack = store.getState().allTracks.find(track => track.trackId === trackId);
+                                        dispatch(updateTrackLikes(trackId, currTrack.likes - 1));
                                     }}
                                 /> :
                                 <FavoriteBorderIcon fontSize='large' className={style.favBorderBtn}
                                     onClick={() => {
                                         dispatch(addFavTrack(trackId));
                                         dispatch(updateUserLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
+
+                                        let currTrack = store.getState().allTracks.find(track => track.trackId === trackId);
+                                        dispatch(updateTrackLikes(trackId, currTrack.likes + 1));
                                     }}
                                 />}
                         </div>

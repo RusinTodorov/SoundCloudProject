@@ -1,6 +1,5 @@
 import { createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension';
-// import persistState from 'redux-localstorage'
 import rootReducer from './rootReducer'
 import { loadState, saveState } from './localStorage'
 
@@ -19,16 +18,5 @@ store.subscribe(() => {
         currentUser: store.getState().currentUser,
     });
 });
-
-
-// const store = createStore(
-//     rootReducer,
-//     enhancer
-// );
-
-// const enhancer = compose(
-//     persistedState,
-//     composeWithDevTools(),
-// )
 
 export default store;

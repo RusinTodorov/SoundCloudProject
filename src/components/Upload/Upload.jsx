@@ -9,7 +9,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 import { addTrack } from '../../redux/AllTracks/allTracks.action'
 import { addIdToUserUploads } from '../../redux/CurrentUser/currentUser.actions'
-import { updateUser } from '../../redux/AllUsers/allUsers.actions'
+import { updateUserUploads } from '../../redux/AllUsers/allUsers.actions'
 
 import initialImage from './initialImage.JPG'
 
@@ -28,19 +28,25 @@ export default function Upload() {
     const generateTrackObject = () => {
         let currDate = new Date();
 
+        let trackTitle = title.trim();
+        let trackDesc = description ? description.trim() : '';
+
+        let trackId = store.getState().allTracks.length.toString();
+
         let currTrack = {
-            trackId: `${store.getState().allTracks.length + 1}`,
-            title,
+            trackId,
+            title: trackTitle,
             imageSrc: image,
             songSrc: track,
             date: currDate.getTime(),
             uploadedBy: currentUser.name,
             userId: currentUser.id,
+            description: trackDesc,
         }
 
-        dispatch(addIdToUserUploads(`${store.getState().allTracks.length + 1}`))
+        dispatch(addIdToUserUploads(trackId))
         dispatch(addTrack(currTrack))
-        dispatch(updateUser(currentUser))
+        dispatch(updateUserUploads(currentUser.id, trackId))
     }
 
     return (

@@ -25,6 +25,9 @@ import {
     updateUserLikes
 } from '../../redux/AllUsers/allUsers.actions';
 import store from '../../redux/store';
+import {
+    updateTrackLikes
+} from '../../redux/AllTracks/allTracks.action';
 
 const useStyles = makeStyles({
     btn: {
@@ -72,11 +75,18 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
     }
 
     useEffect(() => {
+
         if (id === trackId && isPlaying) {
             setPlayBtnDisplay(style.showBtnDiv);
         }
 
-    }, [id, trackId, isPlaying]);
+    });
+
+    useEffect(() => {
+        if (!isPlaying) {
+            setPlayBtnDisplay(style.hideBtnDiv);
+        }
+    }, [isPlaying])
 
     return (
         <div className={style.cardDiv}>
@@ -124,11 +134,17 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
                         onClick={() => {
                             dispatch(removeFavTrack(trackId));
                             dispatch(updateUserLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
+
+                            let currTrack = store.getState().allTracks.find(track => track.trackId === trackId);
+                            dispatch(updateTrackLikes(trackId, currTrack.likes - 1));
                         }}
                     /> : <FavoriteBorderIcon fontSize='large' className={style.favBorderBtn}
                         onClick={() => {
                             dispatch(addFavTrack(trackId));
                             dispatch(updateUserLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
+
+                            let currTrack = store.getState().allTracks.find(track => track.trackId === trackId);
+                            dispatch(updateTrackLikes(trackId, currTrack.likes + 1));
                         }}
                     />}
                 </div>

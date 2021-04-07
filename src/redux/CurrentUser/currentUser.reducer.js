@@ -11,7 +11,6 @@ const currentUserReducer = (state = INITIAL_STATE, action) => {
 
         case types.LOGIN_USER:
             return {
-                ...state,
                 isLoggedIn: true,
                 ...action.payload.user
             };
@@ -23,14 +22,13 @@ const currentUserReducer = (state = INITIAL_STATE, action) => {
             };
 
         case types.ADD_TRACK_ID_TO_UPLOADS:
+            let uploads = [...state.uploads];
+            uploads.push(action.payload.trackId);
+            let newState = { ...state, uploads }
 
-            return {
-                ...state,
-                uploads: [...state.uploads, action.payload.trackId]
-            };
+            return newState;
 
         case types.ADD_FAV_TRACK:
-
             return {
                 ...state,
                 likes: [...state.likes, action.payload.trackId]

@@ -53,16 +53,18 @@ function App() {
           uploads: [],
           likes: [],
         }
-        
+
         if (!users.some(user => user.id === currUser.uid)) {
           dispatch(addUser(userObj));
         }
 
-        dispatch(loginUser(userObj));
+        if (!store.getState().currentUser.isLoggedIn) {
+          dispatch(loginUser(currUser.uid));
+        }
       }
 
     });
-  }, [allTracks.length, allUsers.length, dispatch]);
+  }, []);
 
   return (
     <>

@@ -10,7 +10,7 @@ export const addAllUsers = (usersArray) => {
     };
 };
 
-export const addUser = ({ id, name, profileImg, backgroundImg }) => {
+export const addUser = ({ id, name, profileImg = '', backgroundImg = '' }) => {
     return {
 
         type: types.ADD_USER,
@@ -27,12 +27,13 @@ export const addUser = ({ id, name, profileImg, backgroundImg }) => {
     };
 };
 
-export const updateUser = (user) => {
+export const updateUserUploads = (id, trackId) => {
     return {
 
-        type: types.UPDATE_USER,
+        type: types.UPDATE_USER_UPLOADS,
         payload: {
-            user,
+            id,
+            trackId,
         }
     };
 };

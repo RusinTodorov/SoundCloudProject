@@ -17,21 +17,34 @@ const allUsersReducer = (state = INITIAL_STATE, action) => {
                 { ...action.payload.user }
             ]
 
-        case types.UPDATE_USER_LIKES:
+        case types.UPDATE_USER_LIKES: {
+
             let currId = action.payload.id;
             let currLikesArr = action.payload.likesArr;
 
-            let currUser = state.find(user => user.id === currId)
-            let newState = state.filter(user => user.id !== currId)
+            let index = state.findIndex(user => user.id === currId);
+            let user = state[index];
+            let newState = [...state];
+            newState.splice(index, 1, { ...user, likes: currLikesArr })
 
-            return [
-                ...newState,
-                {
-                    ...currUser,
-                    likes: currLikesArr
-                }
-            ]
+            return [...newState]
+        }
 
+        case types.UPDATE_USER_UPLOADS: {
+
+            let currId = action.payload.id;
+            let trackId = action.payload.trackId;
+
+            let index = state.findIndex(user => user.id === currId);
+
+            let user = state[index];
+            user.uploads.push(trackId)
+
+            let newState = [...state];
+            newState.splice(index, 1, { ...user })
+
+            return [...newState]
+        }
 
         default: return state;
 

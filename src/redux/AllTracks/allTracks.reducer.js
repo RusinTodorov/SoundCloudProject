@@ -26,16 +26,12 @@ const allTracksReducer = (state = INITIAL_STATE, action) => {
                 count = 0;
             }
 
-            let track = state.find(track => track.trackId === id);
-            let newState = state.filter(track => track.trackId !== id);
+            let index = state.findIndex(track => track.trackId === id);
+            let track = state[index]
+            let newState = [...state];
+            newState.splice(index, 1, { ...track, likes: count })
 
-            return [
-                ...newState,
-                {
-                    ...track,
-                    likes: count,
-                }
-            ]
+            return [...newState]
 
 
         default: return state;

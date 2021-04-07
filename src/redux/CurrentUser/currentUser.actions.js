@@ -1,14 +1,13 @@
 import * as types from './currentUser.types'
-
 import store from '../store'
 
-export const loginUser = (userObj) => {
+export const loginUser = (id) => {
 
     return {
 
         type: types.LOGIN_USER,
         payload: {
-            user: userObj,
+            user: store.getState().allUsers.find(user => user.id === id),
         }
     };
 

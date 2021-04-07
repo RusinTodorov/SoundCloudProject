@@ -128,6 +128,21 @@
 .headerRight {
     display: flex;
     flex-direction: row;
+
+    .profile{
+        display: flex;
+        align-items: center;
+
+        img {
+            max-width: 30px;
+            max-height: 30px;
+            border-radius: 23px;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
 }
 
 .singIn {
