@@ -120,6 +120,15 @@ export const setUserId = (id) => {
     };
 };
 
+export const setPrevTrackId = (id) => {
+
+    return {
+
+        type: types.SET_PREV_TRACK_ID,
+        payload: { id }
+    };
+};
+
 const calculateTime = (secs) => {
     const minutes = Math.floor(secs / 60);
     const seconds = Math.floor(secs % 60);

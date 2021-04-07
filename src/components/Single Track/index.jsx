@@ -95,7 +95,7 @@ const SingleTrack = () => {
                                 <h4 onClick={() => {
                                     setCloseLikesPopUp(false)
                                     console.log(track)
-                                }}>{track.likes} likes</h4>
+                                }}>{track.likes} {track.likes === 1 ? 'like' : 'likes'}</h4>
                             </div>
                         </div>
                         <div className={styles.commentsContainer}>
@@ -111,6 +111,8 @@ const SingleTrack = () => {
                         </div>
                     </div>
                     <div className={styles.descriptionContainer}>
+                        <h6>Description: </h6>
+                        <p>{track.description}</p>
                     </div>
                 </div>
             </div>

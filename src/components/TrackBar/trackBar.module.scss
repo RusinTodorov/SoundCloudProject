@@ -1,28 +1,26 @@
-.test {
-    background-color: lightblue;
-    display: flex;
-    width: 40px;
-    position: relative;
-    top: -56px;
-}
-
 .trackBar {
     z-index: 10;
     position: fixed;
     bottom: 0;
     background-color: #f2f2f2;
-    border: 2px solid springgreen;
+    // border: 2px solid springgreen;
     width: 100%;
     height: 50px;
     display: flex;
     align-items: center;
     padding: 0 20px;
+    border-top: 1px solid #61636c;
 
     .audioBtns {
-        margin-left: 25px;
+        margin-left: 47px;
         width: 90px;
         display: flex;
         justify-content: space-between;
+
+        svg {
+            cursor: pointer;
+        }
+
     }
 
     .time,
@@ -64,12 +62,12 @@
     }
 
     .time {
-        margin-left: 75px;
+        margin-left: 45px;
         width: 576px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-
+       
         .currTime{
             color:  #f50;
         }
@@ -101,7 +99,7 @@
     }
 
     .imgAndTitle{
-        margin-left: 20px;
+        margin-left: 10px;
         display: flex;
         align-items: center;
         
@@ -140,6 +138,41 @@
             .title{
                 color: #6d6b6b;
             }
+        }
+    }
+
+    .closeBar{
+        margin-left: auto;
+        margin-right: 10px;
+
+        svg {
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    
+    .favBtns {
+        margin-left: 43px;
+
+        svg {
+            width: 30px;
+            height: 28px;
+        }
+
+        .favBorderBtn,
+        .favFilledBtn {
+            cursor: pointer;
+        }
+        
+        .favBorderBtn {
+            color: black;
+        }
+        
+        .favFilledBtn {
+            color: red;
         }
     }
 }

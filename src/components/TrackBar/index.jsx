@@ -3,27 +3,50 @@ import { useHistory } from 'react-router';
 
 import ReactAudioPlayer from 'react-audio-player';
 
+import styles from './trackBar.module.scss'
+
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
-
-import styles from './trackBar.module.scss'
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import { useDispatch, useSelector } from 'react-redux'
-
 import {
+    addSrc,
     playTrack,
     pauseTrack,
     setCurrTime,
+    addContent,
+    addImage,
+    setTrackId,
+    setUserId,
     setDuration,
+    setPrevTrackId,
 } from '../../redux/Track/track.actions'
+import {
+    addFavTrack,
+    removeFavTrack,
+} from '../../redux/CurrentUser/currentUser.actions';
+
+import {
+    updateUserLikes
+} from '../../redux/AllUsers/allUsers.actions';
+import {
+    updateTrackLikes
+} from '../../redux/AllTracks/allTracks.action';
+
+import store from '../../redux/store';
 
 const TrackBar = () => {
     const dispatch = useDispatch();
     let history = useHistory()
+
+    let currentUser = useSelector(state => state.currentUser);
 
     let [track, setTrack] = useState(null);
     let [sliderMaxValue, setSliderMaxValue] = useState(100);
@@ -35,7 +58,7 @@ const TrackBar = () => {
     let [volumeRange, setVolumeRange] = useState(null);
     let [previousVolume, setPreviousVolume] = useState(100);
 
-    const isPlay = useSelector(state => state.track.isPlaying)
+    const isPlaying = useSelector(state => state.track.isPlaying)
     const id = useSelector(state => state.track.id)
     const userId = useSelector(state => state.track.userId)
     const songSrc = useSelector(state => state.track.src)
@@ -49,7 +72,7 @@ const TrackBar = () => {
 
     if (track) {
 
-        if (isPlay) {
+        if (isPlaying) {
             track.audioEl.current.play();
         } else {
             track.audioEl.current.pause();
@@ -112,6 +135,23 @@ const TrackBar = () => {
         history.push(`/users/${userId}`)
     }
 
+    const playNewTrack = (track) => {
+
+        dispatch(setPrevTrackId(id))
+        dispatch(addSrc(track.audio));
+        dispatch(setUserId(track.userId));
+        dispatch(setTrackId(track.trackId));
+        dispatch(addImage(track.img));
+        dispatch(addContent({ ...track, author: track.uploadedBy }));
+        dispatch(setCurrTime(0));
+
+        if (isPlaying) {
+            dispatch(playTrack());
+        } else {
+            dispatch(pauseTrack());
+        }
+    }
+
     return (
         <div className={styles.trackBar} >
 
@@ -143,23 +183,70 @@ const TrackBar = () => {
                 }}
                 volume={volume / 100}
             />
-            <div className={styles.audioBtns}>
-                <SkipPreviousIcon />
+            <div className={styles.favBtns}>
+                {currentUser.isLoggedIn ?
+                    <>
+                        {currentUser.likes.includes(id) ?
+                            <FavoriteIcon className={styles.favFilledBtn}
+                                onClick={() => {
+                                    dispatch(removeFavTrack(id));
+                                    dispatch(updateUserLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
 
-                {isPlay ?
+                                    let currTrack = store.getState().allTracks.find(track => track.trackId === id);
+                                    dispatch(updateTrackLikes(id, currTrack.likes - 1));
+                                }}
+                            /> :
+                            <FavoriteBorderIcon className={styles.favBorderBtn}
+                                onClick={() => {
+                                    dispatch(addFavTrack(id));
+                                    dispatch(updateUserLikes({ id: currentUser.id, likes: store.getState().currentUser.likes }));
+
+                                    let currTrack = store.getState().allTracks.find(track => track.trackId === id);
+                                    dispatch(updateTrackLikes(id, currTrack.likes + 1));
+                                }}
+                            />
+                        }
+                    </> :
+                    <FavoriteBorderIcon className={styles.favBorderBtn} />
+                }
+
+            </div>
+            <div className={styles.audioBtns}>
+                <SkipPreviousIcon
+                    onClick={() => {
+                        let allTracks = store.getState().allTracks;
+                        let index = allTracks.findIndex(track => track.trackId === id);
+
+                        if (index - 1 >= 0) {
+                            let track = allTracks[index - 1];
+
+                            playNewTrack(track)
+                        }
+                    }}
+                />
+
+                {isPlaying ?
 
                     <PauseIcon
-                        style={{ cursor: 'pointer' }}
                         onClick={() => dispatch(pauseTrack())}
 
                     /> :
                     <PlayArrowIcon
-                        style={{ cursor: 'pointer' }}
                         onClick={() => dispatch(playTrack())}
 
                     />}
+                <SkipNextIcon
+                    onClick={() => {
+                        let allTracks = store.getState().allTracks;
+                        let index = allTracks.findIndex(track => track.trackId === id);
 
-                <SkipNextIcon />
+                        if (index + 1 < allTracks.length) {
+                            let track = allTracks[index + 1];
+
+                            playNewTrack(track)
+                        }
+                    }}
+                />
             </div>
             <div className={styles.time}>
 
@@ -225,6 +312,12 @@ const TrackBar = () => {
                     <span className={styles.author} onClick={openUserPage} >{author}</span>
                     <span className={styles.title} onClick={openTrackPage}>{title}</span>
                 </div>
+            </div>
+            <div className={styles.closeBar}>
+                <HighlightOffIcon onClick={() => {
+                    dispatch(pauseTrack())
+                    dispatch(setTrackId(''))
+                }} />
             </div>
         </div>
     );

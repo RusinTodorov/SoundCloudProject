@@ -17,3 +17,5 @@ export const ADD_CONTENT = 'ADD_CONTENT';
 export const SET_TRACK_ID = 'SET_TRACK_ID';
 
 export const SET_USER_ID = 'SET_USER_ID';
+
+export const SET_PREV_TRACK_ID = 'SET_PREV_TRACK_ID';

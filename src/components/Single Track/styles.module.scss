@@ -166,4 +166,15 @@
             }
         }
     }
+
+    
+}
+
+.descriptionContainer {
+    padding: 15px 10px;
+    overflow-y: auto;
+
+    p {
+        overflow-wrap: break-word;
+    }
 }

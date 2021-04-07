@@ -18,6 +18,7 @@ import {
     addImage,
     setTrackId,
     setUserId,
+    setPrevTrackId,
 } from '../../redux/Track/track.actions';
 
 import {
@@ -46,8 +47,6 @@ const useStyles = makeStyles({
     }
 });
 
-let previousTrackId = -1;
-
 export default function Track({ userId, trackId, img, audio, title, uploadedBy }) {
     let currentUser = useSelector(state => state.currentUser);
     let likes = useSelector(state => state.currentUser.likes);
@@ -57,6 +56,7 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy }
     const dispatch = useDispatch();
     const isPlaying = useSelector(state => state.track.isPlaying);
     const id = useSelector(state => state.track.id);
+    const prevId = useSelector(state => state.track.prevId)
 
     const classes = useStyles();
 
@@ -74,9 +74,8 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy }
         dispatch(playTrack());
     }
 
-    if (previousTrackId === trackId && playBtnDisplay === style.showBtnDiv) {
+    if (prevId === trackId && playBtnDisplay === style.showBtnDiv) {
         setPlayBtnDisplay(style.hideBtnDiv);
-        previousTrackId = -1;
     }
 
     useEffect(() => {
@@ -85,13 +84,24 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy }
         }
     }, [id, trackId, isPlaying]);
 
+    let [isMouseInside, setIsMouseInside] = useState(false)
+
+    useEffect(() => {
+        if (!isPlaying && !isMouseInside) {
+            setPlayBtnDisplay(style.hideBtnDiv);
+        }
+    }, [isPlaying])
+
     return (
         <div className={style.card}>
             <div
                 onMouseEnter={() => {
                     setPlayBtnDisplay(style.showBtnDiv);
+                    setIsMouseInside(true)
                 }}
                 onMouseLeave={() => {
+                    setIsMouseInside(false)
+
                     if (!isPlaying || id !== trackId) {
                         setPlayBtnDisplay(style.hideBtnDiv);
                     }
@@ -112,7 +122,7 @@ export default function Track({ userId, trackId, img, audio, title, uploadedBy }
                             onClick={() => {
 
                                 if (trackId !== id) {
-                                    previousTrackId = id;
+                                    dispatch(setPrevTrackId(id))
                                 }
 
                                 playCurrTrack();

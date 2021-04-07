@@ -16,7 +16,8 @@ const INITIAL_STATE = {
         author: '',
         description: '',
         date: '',
-    }
+    },
+    prevId: -1,
 };
 
 const trackReducer = (state = INITIAL_STATE, action) => {
@@ -99,6 +100,15 @@ const trackReducer = (state = INITIAL_STATE, action) => {
             return {
 
                 ...state, userId: action.payload.userId,
+
+            };
+
+
+        case types.SET_PREV_TRACK_ID:
+
+            return {
+
+                ...state, prevId: action.payload.id,
 
             };
 

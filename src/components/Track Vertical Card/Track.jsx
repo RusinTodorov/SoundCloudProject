@@ -16,6 +16,7 @@ import {
     addImage,
     setTrackId,
     setUserId,
+    setPrevTrackId,
 } from '../../redux/Track/track.actions';
 import {
     addFavTrack,
@@ -40,8 +41,6 @@ const useStyles = makeStyles({
     }
 });
 
-let previousTrackId = -1;
-
 export default function Track({ img, title, audio, uploadedBy, trackId, userId }) {
     let currentUser = useSelector(state => state.currentUser);
     let likes = useSelector(state => state.currentUser.likes);
@@ -51,8 +50,29 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
     const dispatch = useDispatch();
     const isPlaying = useSelector(state => state.track.isPlaying);
     const id = useSelector(state => state.track.id);
+    const prevId = useSelector(state => state.track.prevId)
 
     const classes = useStyles();
+
+    if (prevId === trackId && playBtnDisplay === style.showBtnDiv) {
+        setPlayBtnDisplay(style.hideBtnDiv);
+    }
+
+    useEffect(() => {
+
+        if (id === trackId && isPlaying) {
+            setPlayBtnDisplay(style.showBtnDiv);
+        }
+
+    });
+
+    let [isMouseInside, setIsMouseInside] = useState(false)
+
+    useEffect(() => {
+        if (!isPlaying && !isMouseInside) {
+            setPlayBtnDisplay(style.hideBtnDiv);
+        }
+    }, [isPlaying])
 
     const playCurrTrack = () => {
 
@@ -69,36 +89,18 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
     }
 
 
-    if (previousTrackId === trackId && playBtnDisplay === style.showBtnDiv) {
-        setPlayBtnDisplay(style.hideBtnDiv);
-        previousTrackId = -1;
-    }
-
-    useEffect(() => {
-
-        if (id === trackId && isPlaying) {
-            setPlayBtnDisplay(style.showBtnDiv);
-        }
-
-    });
-
-    useEffect(() => {
-        if (!isPlaying) {
-            setPlayBtnDisplay(style.hideBtnDiv);
-        }
-    }, [isPlaying])
-
     return (
         <div className={style.cardDiv}>
             <div
                 onMouseEnter={() => {
                     setPlayBtnDisplay(style.showBtnDiv);
+                    setIsMouseInside(true)
                 }}
                 onMouseLeave={() => {
+                    setIsMouseInside(false);
                     if (!isPlaying || id !== trackId) {
                         setPlayBtnDisplay(style.hideBtnDiv);
                     }
-
                 }}
             >
                 <div className={`${style.playBtnDiv} ${playBtnDisplay}`}>
@@ -115,7 +117,7 @@ export default function Track({ img, title, audio, uploadedBy, trackId, userId }
                             fontSize='large'
                             onClick={() => {
                                 if (trackId !== id) {
-                                    previousTrackId = id;
+                                    dispatch(setPrevTrackId(id))
                                 }
 
                                 playCurrTrack();
