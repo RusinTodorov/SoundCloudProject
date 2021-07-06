@@ -35,8 +35,8 @@
 
 ![Home Page](https://i.postimg.cc/9XnTZ0fg/Home.png)
 
-![Player](https://i.postimg.cc/vDKKCTdX/player.jpg)
+![Player](https://postimg.cc/vDKKCTdX)
 
-![Search Page](https://i.postimg.cc/0MQtBRWL/search.jpg)
+![Search Page](https://postimg.cc/0MQtBRWL)
 
-![Sign In Page](https://i.postimg.cc/7GWBvsjb/singin.jpg)
+![Sign In Page](https://postimg.cc/7GWBvsjb)
